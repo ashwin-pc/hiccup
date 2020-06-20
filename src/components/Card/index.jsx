@@ -7,8 +7,8 @@ const Card = ({ tag = '', link, background, children, className = '' }) => {
     
     return (
         <a href={link}>
-            <li className={[styles.card, className].join(' ')} style={{
-                backgroundImage: `url(${background})`,
+            <li className={[styles.card, className, tag].join(' ')} style={{
+                backgroundImage: background && `url(${background})`,
                 border: highlight && `2px solid var(--theme-highlight-1)`
             }}>
                 { children }

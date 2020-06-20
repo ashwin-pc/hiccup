@@ -10,8 +10,9 @@
         "name": "One more",
         "link": "http://google.com"
     }, {
-        "name": "Oh no!",
-        "link": "http://google.com"
+        "name": "Oh no!!!",
+        "link": "http://google.com",
+        "tags": "space separated tags"
     }],
     "categories": [{
         "title": "Category 1",
@@ -35,7 +36,8 @@
         "title": "Category 3",
         "links": [{
             "name": "Link 1",
-            "link": "http://google.com"
+            "link": "http://google.com",
+            "tags": "more searchable tags"
         }]
     }, {
         "title": "Category 4",

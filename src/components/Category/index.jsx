@@ -6,8 +6,8 @@ const Category = ({ title, links }) => (
     <div className={styles.category}>
         <h1 className={styles.title}>{title}</h1>
         <ul>
-            {links.map(({ name, link }, index) => (
-                <CategoryCard key={index} name={name} link={link} />
+            {links.map(({ name, link, tags }, index) => (
+                <CategoryCard key={index} name={name} link={link} tags={tags} />
             ))}
         </ul>
     </div>

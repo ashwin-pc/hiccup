@@ -5,7 +5,8 @@ const config = {
         link: 'http://google.com'
     }, {
         name: 'Another Feaured link',
-        link: 'http://google.com'
+        link: 'http://google.com',
+        tags: 'space separated tags'
     }],
     categories: [{
         title: 'Category 1',
@@ -20,7 +21,8 @@ const config = {
         title: 'Category 2',
         links: [{
             name: 'Link 1',
-            link: 'http://google.com'
+            link: 'http://google.com',
+            tags: 'more searchable tags'
         }, {
             name: 'Link 2',
             link: 'http://google.com'
