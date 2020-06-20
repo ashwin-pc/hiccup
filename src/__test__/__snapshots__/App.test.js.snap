@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test hiccup should render page correctly 1`] = `
+<div>
+  <div
+    class="section featured"
+  >
+    <a
+      href="http://google.com"
+    >
+      <li
+        class="card container"
+        style="background-image: url(/assets/logo.png);"
+      >
+        Featured Link
+      </li>
+    </a>
+    <a
+      href="http://google.com"
+    >
+      <li
+        class="card container"
+        style="background-image: url(/assets/logo.png);"
+      >
+        Another Feaured link
+      </li>
+    </a>
+  </div>
+  <div
+    class="section categories"
+  >
+    <div
+      class="category"
+    >
+      <h1
+        class="title"
+      >
+        Category 1
+      </h1>
+      <ul>
+        <a
+          href="http://google.com"
+        >
+          <li
+            class="card container"
+            style="background-image: url(undefined);"
+          >
+            <span
+              class="name"
+            >
+              Link 1
+            </span>
+            <span
+              class="link"
+            >
+              http://google.com
+            </span>
+          </li>
+        </a>
+        <a
+          href="http://google.com"
+        >
+          <li
+            class="card container"
+            style="background-image: url(undefined);"
+          >
+            <span
+              class="name"
+            >
+              Test Link 2
+            </span>
+            <span
+              class="link"
+            >
+              http://google.com
+            </span>
+          </li>
+        </a>
+      </ul>
+    </div>
+    <div
+      class="category"
+    >
+      <h1
+        class="title"
+      >
+        Category 2
+      </h1>
+      <ul>
+        <a
+          href="http://google.com"
+        >
+          <li
+            class="card container"
+            style="background-image: url(undefined);"
+          >
+            <span
+              class="name"
+            >
+              Link 1
+            </span>
+            <span
+              class="link"
+            >
+              http://google.com
+            </span>
+          </li>
+        </a>
+        <a
+          href="http://google.com"
+        >
+          <li
+            class="card container"
+            style="background-image: url(undefined);"
+          >
+            <span
+              class="name"
+            >
+              Link 2
+            </span>
+            <span
+              class="link"
+            >
+              http://google.com
+            </span>
+          </li>
+        </a>
+      </ul>
+    </div>
+  </div>
+</div>
+`;

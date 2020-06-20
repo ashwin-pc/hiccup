@@ -1,0 +1,13 @@
+.container {
+    min-height: 300px;
+    justify-content: flex-end;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: bold;
+    text-shadow: 1px 1px 10px #0000006b;
+    opacity: 0.8;
+    color: white;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 0.1s ease-in-out;
+}

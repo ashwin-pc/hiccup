@@ -1,0 +1,22 @@
+.container {
+    padding: 0.5rem 1rem;
+}
+
+.name {
+    transform: translateY(6px);
+    transition: all .2s ease;
+}
+
+.link {
+    opacity: 0;
+    font-size: 0.7em;
+    transition: all .2s ease;
+}
+
+.container:hover > .link {
+    opacity: .3;
+}
+
+.container:hover > .name {
+    transform: translateY(0px);
+}

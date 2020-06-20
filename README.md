@@ -1,4 +1,14 @@
+# Hiccup
+
+A static start page to get to your links fast.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## How to use it
+
+### Config
+
+Since this is a static website, the only way to permanently update the links is to modify the `config.json` file. If using the pre built version, just update the `config.json` file. During development, update the config in the `assets` folder since the build will override any other config file.
 
 ## Available Scripts
 

@@ -1,0 +1,9 @@
+.section {
+    display: grid;
+    grid-gap: 1rem;
+    padding: 1rem;
+    max-width: 1024px;
+    width: 100%;
+    margin: 0 auto;
+    font-family: var(--font-sans);
+}

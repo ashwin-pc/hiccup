@@ -1,0 +1,11 @@
+@media (min-width: 600px) {
+    .categories {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 800px) {
+    .categories {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
