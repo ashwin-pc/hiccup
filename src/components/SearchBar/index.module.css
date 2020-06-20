@@ -1,0 +1,20 @@
+.search {
+    position: fixed;
+    width: 80%;
+    max-width: 1000px;
+    padding: 10px 20px;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 1;
+    color: var( --theme-color-1);
+    background-color: #19191938;
+    border-radius: 2px;
+    backdrop-filter: blur(2px);
+    border: 1px solid var(--theme-bg-2);
+    pointer-events: none;
+}
+
+.placeholder {
+    color: var(--theme-color-disabled);
+}

@@ -2,6 +2,8 @@
   --theme-bg-1: black;
   --theme-bg-2: #151515;
   --theme-color-1: #abaaaa;
+  --theme-color-disabled: #555;
+  --theme-highlight-1: gold;
 }
 
 * {

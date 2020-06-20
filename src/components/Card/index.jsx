@@ -1,15 +1,21 @@
 import React from 'react'
+import { useSearchContext } from '../SearchContext'
 import styles from './index.module.css'
 
-const Card = ({ link, background, children, className = '' }) => (
-    <a href={link}>
-        <li className={[styles.card, className].join(' ')} style={{
-            backgroundImage: `url(${background})`
-        }}>
-            { children }
-        </li>
-    </a>
-)
+const Card = ({ tag = '', link, background, children, className = '' }) => {
+    const { highlight } = useSearchContext(tag, link)
+    
+    return (
+        <a href={link}>
+            <li className={[styles.card, className].join(' ')} style={{
+                backgroundImage: `url(${background})`,
+                border: highlight && `2px solid var(--theme-highlight-1)`
+            }}>
+                { children }
+            </li>
+        </a>
+    )
+}
 
 export {
     Card,

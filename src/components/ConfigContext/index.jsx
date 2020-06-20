@@ -3,15 +3,21 @@ import process from 'process'
 
 const ConfigContext = createContext()
 
-const ConfigProvider = ({ children }) => {
+const ConfigProvider = ({ config: overridingConfig, children }) => {
     const [config, setConfig] = useState({})
     const url = (process.env.PUBLIC_URL || '') + '/config.json'
 
     const getConfig = useCallback(async () => {
+        if (overridingConfig) {
+            setConfig(overridingConfig)
+
+            return 
+        }
+        
         const result = await fetch(url).then(response => response.json())
 
         setConfig(result)
-    }, [url])
+    }, [overridingConfig, url])
 
     useEffect(() => {
         getConfig()
