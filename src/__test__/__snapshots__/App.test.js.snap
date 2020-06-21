@@ -9,7 +9,7 @@ exports[`Test hiccup should render page correctly 1`] = `
       href="http://google.com"
     >
       <li
-        class="card container"
+        class="card container "
         style="background-image: url(/assets/logo.png);"
       >
         Featured Link
@@ -19,8 +19,8 @@ exports[`Test hiccup should render page correctly 1`] = `
       href="http://google.com"
     >
       <li
-        class="card container"
-        style="background-image: url(/assets/logo.png);"
+        class="card container "
+        style="background-image: url(/assets/card.png);"
       >
         Another Feaured link
       </li>
@@ -42,8 +42,7 @@ exports[`Test hiccup should render page correctly 1`] = `
           href="http://google.com"
         >
           <li
-            class="card container"
-            style="background-image: url(undefined);"
+            class="card container "
           >
             <span
               class="name"
@@ -61,8 +60,7 @@ exports[`Test hiccup should render page correctly 1`] = `
           href="http://google.com"
         >
           <li
-            class="card container"
-            style="background-image: url(undefined);"
+            class="card container "
           >
             <span
               class="name"
@@ -91,8 +89,7 @@ exports[`Test hiccup should render page correctly 1`] = `
           href="http://google.com"
         >
           <li
-            class="card container"
-            style="background-image: url(undefined);"
+            class="card container "
           >
             <span
               class="name"
@@ -110,8 +107,7 @@ exports[`Test hiccup should render page correctly 1`] = `
           href="http://google.com"
         >
           <li
-            class="card container"
-            style="background-image: url(undefined);"
+            class="card container "
           >
             <span
               class="name"

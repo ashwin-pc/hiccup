@@ -13,6 +13,7 @@
     backdrop-filter: blur(2px);
     border: 1px solid var(--theme-bg-2);
     pointer-events: none;
+    outline: none;
 }
 
 .placeholder {

@@ -1,7 +1,7 @@
 {
     "featured": [{
         "name": "Featured Link",
-        "background": "/assets/logo.png",
+        "background": "/assets/card.png",
         "link": "http://google.com"
     }, {
         "name": "Another Feaured link",

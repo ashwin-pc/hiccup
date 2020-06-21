@@ -16,3 +16,7 @@
 .card:hover {
     opacity: 1;
 }
+
+.highlight {
+    border: 2px solid var(--theme-highlight-1);
+}

@@ -1,21 +1,46 @@
-import React, { useMemo } from 'react'
+import React, { useCallback, useRef, useEffect } from 'react'
 import { useSearchContext } from '../SearchContext'
 import styles from './index.module.css'
 
 const SearchBar = () => {
-    const { searchTerm } = useSearchContext()
-    const searchStyle = useMemo(() => ({
-        display: searchTerm !== null ? 'block' : 'none'
-    }), [searchTerm])
+    const { searching, searchTerm, setSearchTerm, onSubmit } = useSearchContext()
+    const inputRef = useRef(null)
+
+    const handleChange = useCallback(event => {
+        setSearchTerm(event.target.value)
+    }, [setSearchTerm])
+
+    const handleSubmit = useCallback(event => {
+        if (event.key === 'Enter') {
+            onSubmit && onSubmit(event.target.value)
+        }
+    }, [onSubmit])
+
+    useEffect(() => {
+        if (searching) {
+            inputRef.current && inputRef.current.focus()
+        } else {
+            setSearchTerm && setSearchTerm('')
+        }
+    }, [searching, setSearchTerm])
+
     
     return (
-        <div className={styles.search} style={searchStyle}>
-            { searchTerm === '' ? <Placeholder /> : (searchTerm) }
-        </div>
+        searching
+        ? <input 
+            type="text"
+            name="search"
+            className={styles.search}
+            value={searchTerm}
+            onChange={handleChange}
+            ref={inputRef}
+            onKeyDown={handleSubmit}
+            placeholder="Start searching"
+            autoComplete="off"
+        />
+        : null
     )
 }
-
-const Placeholder = () => <span className={styles.placeholder}>Start searching</span>
 
 export {
     SearchBar,

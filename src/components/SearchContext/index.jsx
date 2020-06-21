@@ -3,38 +3,24 @@ import React, { createContext, useEffect, useCallback, useState, useContext } fr
 const SearchContext = createContext()
 
 const SearchProvider = ({ children }) => {
-    const [searchTerm, setSearchTerm] = useState(null)
+    const [searchTerm, setSearchTerm] = useState('')
+    const [searching, setSearching] = useState(false)
     const [initiateAction, setInitiateAction] = useState(false)
 
     const handleSearchEvent = useCallback(event => {
         if (event.key === 'Escape' ) {
-            setSearchTerm(null)
+            setSearching(false)
         } else if (event.key === '/') {
-            setSearchTerm(previousSearchTerm => {
-                return previousSearchTerm === null ? '' : (previousSearchTerm + event.key)
-            })
-        } else if (event.key === 'Backspace') {
-            setSearchTerm(previousSearchTerm => {
-                if (previousSearchTerm && previousSearchTerm.length > 1) {
-                    return previousSearchTerm.slice(0, -1)
-                }
-                return null
-            })
-        } else if (event.key === 'Enter') {
-            console.log('here')
-            setInitiateAction(true)
-        } else {
-            setSearchTerm(previousSearchTerm => {
-                return previousSearchTerm !== null ? (previousSearchTerm + event.key) : null
-            })
+            setSearching(true)
         }
     }, [])
 
+    const onSubmit = useCallback(value => setInitiateAction(true), [])
+
     useEffect(() => {
-        const listener = document.addEventListener('keydown', handleSearchEvent)
-        return () => document.removeEventListener('keydown', listener)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+        const listener = document.addEventListener('keyup', handleSearchEvent)
+        return () => document.removeEventListener('keyup', listener)
+    }, [handleSearchEvent])
 
     useEffect(() => {
         setTimeout(() => setInitiateAction(false), 0)
@@ -42,7 +28,10 @@ const SearchProvider = ({ children }) => {
 
     return (
         <SearchContext.Provider value={{
+            searching,
             searchTerm,
+            setSearchTerm,
+            onSubmit,
             initiateAction,
         }}>
             {children}
@@ -51,17 +40,18 @@ const SearchProvider = ({ children }) => {
 }
 
 const useSearchContext = (string, link) => {
-    const { searchTerm, initiateAction } = useContext(SearchContext)
+    const { searchTerm, initiateAction, ...props } = useContext(SearchContext)
     const highlight = stringSearch(string, searchTerm)
-
+    
     if (highlight && initiateAction && link) {
         window.open(link, '_blank')
     }
 
     return {
+        highlight,
         searchTerm,
         initiateAction,
-        highlight,
+        ...props,
     }
 }
 
