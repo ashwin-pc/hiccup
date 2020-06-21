@@ -12,7 +12,7 @@ exports[`Test hiccup should render page correctly 1`] = `
     >
       <li
         class="card container "
-        style="background-image: url(/assets/logo.png);"
+        style="background-image: url(./assets/logo.png);"
       >
         Featured Link
       </li>
@@ -24,7 +24,7 @@ exports[`Test hiccup should render page correctly 1`] = `
     >
       <li
         class="card container "
-        style="background-image: url(/assets/card.png);"
+        style="background-image: url(./assets/card.png);"
       >
         Another Feaured link
       </li>
