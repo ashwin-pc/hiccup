@@ -7,7 +7,7 @@ const ConfigContext = createContext()
 
 const ConfigProvider = ({ config: overridingConfig, children }) => {
     const [config, setConfig] = useState({})
-    const url = (process.env.PUBLIC_URL || '') + '/config.json'
+    const url = (process.env.PUBLIC_URL || '.') + '/config.json'
 
     const getConfig = useCallback(async () => {
         // Give highest priority to the overriding config
