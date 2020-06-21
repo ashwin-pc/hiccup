@@ -1,5 +1,8 @@
 # Hiccup
 
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/ashwin-pc/hiccup)
+![GitHub](https://img.shields.io/github/license/ashwin-pc/hiccup)
+
 ![](public/logo192.png)
 
 A static start page to get to your most important links, **FAST**. You can use this for your home server, new tab using browser extentions, or basically anywhere you can server a static webpage from!
@@ -21,15 +24,15 @@ A static start page to get to your most important links, **FAST**. You can use t
 
 Landing page
 
-![](docs/assets/screen.png)
+![Landing Page](docs/assets/screen.png)
 
 Quickly find links
 
-![](docs/assets/screen-2.png)
+![Quickly find links](docs/assets/screen-2.png)
 
 Locally manage config using JSON
 
-![](docs/assets/screen-3.png)
+![Locally manage config using JSON](docs/assets/screen-3.png)
 
 ## Getting started
 
