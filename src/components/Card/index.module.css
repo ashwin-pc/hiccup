@@ -17,6 +17,15 @@
     opacity: 1;
 }
 
+.link {
+    display: flex;
+}
+
+.link:focus {
+    outline: 2px solid var(--theme-highlight-1);
+    outline-offset: -1px;
+}
+
 .highlight {
     border: 2px solid var(--theme-highlight-1);
 }
