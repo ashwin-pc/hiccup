@@ -7,7 +7,7 @@ const Card = ({ tag = '', link, background, children, className = '' }) => {
     const highlightClass = highlight ? styles.highlight : undefined
     
     return (
-        <a href={link}>
+        <a href={link} target="_blank" rel="noopener noreferrer">
             <li className={[styles.card, className, highlightClass].join(' ')} style={{
                 backgroundImage: background && `url(${background})`,
             }}>

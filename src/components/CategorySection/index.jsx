@@ -3,10 +3,14 @@ import { ConfigContext } from '../ConfigContext'
 import { CategorySection } from './CategorySection'
 
 const ConnectedCategorySection = () => {
-    const { categories } = useContext(ConfigContext)
+    const { config } = useContext(ConfigContext)
+
+    if (!config.categories) {
+        return null
+    }
 
     return (
-        <CategorySection categories={categories} />
+        <CategorySection categories={config.categories} />
     )
 }
 

@@ -1,6 +1,7 @@
 :root {
   --theme-bg-1: black;
   --theme-bg-2: #151515;
+  --theme-bg-3: #2d2d2d;
   --theme-color-1: #abaaaa;
   --theme-color-disabled: #555;
   --theme-highlight-1: gold;
@@ -42,7 +43,7 @@ li {
   list-style-type: none;
 }
 
-code {
+code, textarea {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }

@@ -7,6 +7,8 @@ exports[`Test hiccup should render page correctly 1`] = `
   >
     <a
       href="http://google.com"
+      rel="noopener noreferrer"
+      target="_blank"
     >
       <li
         class="card container "
@@ -17,6 +19,8 @@ exports[`Test hiccup should render page correctly 1`] = `
     </a>
     <a
       href="http://google.com"
+      rel="noopener noreferrer"
+      target="_blank"
     >
       <li
         class="card container "
@@ -40,6 +44,8 @@ exports[`Test hiccup should render page correctly 1`] = `
       <ul>
         <a
           href="http://google.com"
+          rel="noopener noreferrer"
+          target="_blank"
         >
           <li
             class="card container "
@@ -58,6 +64,8 @@ exports[`Test hiccup should render page correctly 1`] = `
         </a>
         <a
           href="http://google.com"
+          rel="noopener noreferrer"
+          target="_blank"
         >
           <li
             class="card container "
@@ -87,6 +95,8 @@ exports[`Test hiccup should render page correctly 1`] = `
       <ul>
         <a
           href="http://google.com"
+          rel="noopener noreferrer"
+          target="_blank"
         >
           <li
             class="card container "
@@ -105,6 +115,8 @@ exports[`Test hiccup should render page correctly 1`] = `
         </a>
         <a
           href="http://google.com"
+          rel="noopener noreferrer"
+          target="_blank"
         >
           <li
             class="card container "
@@ -124,5 +136,10 @@ exports[`Test hiccup should render page correctly 1`] = `
       </ul>
     </div>
   </div>
+  <svg
+    class="config-icon"
+  >
+    cog-solid.svg
+  </svg>
 </div>
 `;

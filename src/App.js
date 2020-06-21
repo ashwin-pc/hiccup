@@ -4,6 +4,7 @@ import { CategorySection } from './components/CategorySection'
 import { SearchProvider } from './components/SearchContext'
 import { ConfigProvider } from './components/ConfigContext'
 import { SearchBar } from './components/SearchBar'
+import { ConfigEditor } from './components/ConfigEditor'
 
 const App = ({ config }) => {
   
@@ -13,6 +14,7 @@ const App = ({ config }) => {
         <FeaturedSection />
         <CategorySection />
         <SearchBar />
+        <ConfigEditor />
       </SearchProvider>
     </ConfigProvider>
   )
