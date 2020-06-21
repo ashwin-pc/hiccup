@@ -1,16 +1,152 @@
 # Hiccup
 
-A static start page to get to your links fast.
+![](public/logo192.png)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A static start page to get to your most important links, **FAST**. You can use this for your home server, new tab using browser extentions, or basically anywhere you can server a static webpage from!
 
-## How to use it
+### [Live Demo](https://test.designedbyashw.in/hiccup/)
 
-### Config
+## Features
 
-Since this is a static website, the only way to permanently update the links is to modify the `config.json` file. If using the pre built version, just update the `config.json` file. During development, update the config in the `assets` folder since the build will override any other config file.
+- Static Webpage
+- Featured Links
+- Categories
+- Quick link preview
+- Search (with tag support)
+- Local Config management
+- PWA support
+- Keyboard shortcuts
 
-## Available Scripts
+## Screens
+
+Landing page
+
+![](docs/assets/screen.png)
+
+Quickly find links
+
+![](docs/assets/screen-2.png)
+
+Locally manage config using JSON
+
+![](docs/assets/screen-3.png)
+
+## Getting started
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Serve the release build or any of the available react scripts to run the app.
+The startpage uses a `config.json` file as the source of truth for page. It can be modified locally but the result will only be saved on the browsers `localStorage` and persist across sessions.
+
+### Using Config
+
+Since this is a static website, the only way to permanently update the links is to modify the `config.json` file. If using the pre built version, just update the `config.json` file in the release zip. During development, update the config in the `assets` folder since the build will override any other config file.
+
+To update config on a local browser instance, use the online config editor using the ⚙️ icon. This will persist the config across sessions. The local editor allows to:
+
+- Delete local cache and restore the configuration from `config.json`
+- Reset a local modification to the last saved point (useful if config was edited by accident)
+- Save the config to `localS
+
+#### Config structure
+
+```js
+{
+    "featured": [{
+        "name": "Link name as seen on the card", // required
+        "link": "link", // required
+        "background": "path to background image", // optional
+        "tags": "space spearated tags for searching" //optional
+    }, {
+        // ... Other featured links
+    }],
+    "catagories": [{
+        "name": "Category name", // required
+        "links": [{
+            "name": "Link name as seen on the card", // required
+            "link": "link", // required
+            "tags": "space spearated tags for searching" //optional
+        }, {
+            // ... Other category links
+        }]
+    }, {
+        // ... Other categorys
+    }],
+}
+```
+
+#### Sample config 
+```
+{
+    "featured": [{
+        "name": "Featured Link",
+        "link": "http://google.com",
+        "background": "/assets/card.png"
+    }, {
+        "name": "Another Feaured link",
+        "link": "http://google.com"
+    }, {
+        "name": "One more",
+        "link": "http://google.com"
+    }, {
+        "name": "Oh no!!!",
+        "link": "http://google.com",
+        "tags": "space separated tags"
+    }],
+    "categories": [{
+        "title": "Category 1",
+        "links": [{
+            "name": "Link 1",
+            "link": "http://google.com"
+        }, {
+            "name": "Link 2",
+            "link": "http://google.com"
+        }]
+    }, {
+        "title": "Category 2",
+        "links": [{
+            "name": "Link 1",
+            "link": "http://google.com"
+        }, {
+            "name": "Link 2",
+            "link": "http://google.com"
+        }]
+    }, {
+        "title": "Category 3",
+        "links": [{
+            "name": "Link 1",
+            "link": "http://google.com",
+            "tags": "more searchable tags"
+        }]
+    }, {
+        "title": "Category 4",
+        "links": [{
+            "name": "Link 1",
+            "link": "http://google.com"
+        }, {
+            "name": "Link 2",
+            "link": "http://google.com"
+        }, {
+            "name": "Link 3",
+            "link": "http://google.com"
+        }, {
+            "name": "Link 4",
+            "link": "http://google.com"
+        }]
+    }]
+}
+```
+
+### Using Search
+
+The purpose of the search is to get to you link as easily as possible.
+
+- Press `/` to activate the search
+- Press `Esc` to quit the search
+- Hit `Enter` to open the first highlighted link amongst search results. (Featured left to right, followed by categories left to right then top to bottom)
+
+Search looks at the `name`, `link` and `tags` field of each link in the config to find a match.
+
+
+## Available Scripts for development
 
 In the project directory, you can run:
 
