@@ -5,7 +5,7 @@
 
 ![](public/logo192.png)
 
-A static start page to get to your most important links, **FAST**. You can use this for your home server, new tab using browser extentions, or basically anywhere you can server a static webpage from!
+A static start page to get to your most important links, **FAST**. You can use this for your home server, new tab using browser extentions, use the **demo page** directly or basically anywhere you can server a static webpage from!
 
 ### [Live Demo](https://test.designedbyashw.in/hiccup/)
 
@@ -53,6 +53,7 @@ To update config on a local browser instance, use the online config editor using
 
 ```js
 {
+    // featured and catagories are optional sections. Remove them to use the page without it. 
     "featured": [{
         "name": "Link name as seen on the card", // required
         "link": "link", // required
@@ -75,6 +76,8 @@ To update config on a local browser instance, use the online config editor using
     }],
 }
 ```
+
+Refer to the [JSON Scheme file](src/modules/validateConfig/schema.json) for the latest schema.
 
 #### Sample config 
 ```

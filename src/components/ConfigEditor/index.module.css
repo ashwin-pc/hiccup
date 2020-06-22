@@ -67,3 +67,10 @@
     bottom: 10px;
     right: 10px;
 }
+
+.error {
+    padding: 5px 10px;
+    border: 1px solid red;
+    background-color: #ff00000f;
+    margin: 10px 0;
+}
