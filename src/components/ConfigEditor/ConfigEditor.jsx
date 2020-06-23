@@ -1,8 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { ReactComponent as ConfigIcon } from './cog-solid.svg'
-import { ReactComponent as SaveIcon } from './save-solid.svg'
-import { ReactComponent as ResetIcon } from './undo-solid.svg'
-import { ReactComponent as ClearIcon } from './trash-solid.svg'
+import { Icon } from '../Icon'
 import { validateConfig } from '../../modules/validateConfig'
 import { Modal } from '../Modal'
 import styles from './index.module.css'
@@ -40,12 +37,12 @@ const ConfigEditor = ({ config: defaultConfig, updateConfig, resetConfig, clearC
                 {errorMsg && <p className={styles.error}>{errorMsg}</p>}
                 <textarea className={styles.editor} onChange={handleChange} rows={20} value={config} />
                 <div className={styles['modal-button-container']}>
-                    <ClearIcon className={styles['modal-icon']} onClick={clearConfig} />
-                    <ResetIcon className={styles['modal-icon']} onClick={resetConfig} />
-                    <SaveIcon className={styles['modal-icon']} onClick={handleSave}/>
+                    <Icon icon="trash" className={styles['modal-icon']} onClick={clearConfig} />
+                    <Icon icon="undo" className={styles['modal-icon']} onClick={resetConfig} />
+                    <Icon icon="save" className={styles['modal-icon']} onClick={handleSave}/>
                 </div>
             </Modal>
-            <ConfigIcon className={styles['config-icon']} onClick={() => setShow(true)}/>
+            <Icon icon="cog" className={styles['config-icon']} onClick={() => setShow(true)}/>
         </>
     )
 }
