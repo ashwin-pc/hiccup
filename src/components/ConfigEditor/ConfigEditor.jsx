@@ -4,7 +4,7 @@ import { validateConfig } from '../../modules/validateConfig'
 import { Modal } from '../Modal'
 import styles from './index.module.css'
 
-const ConfigEditor = ({ config: defaultConfig, updateConfig, resetConfig, clearConfig }) => {
+const ConfigEditor = ({ config: defaultConfig, updateConfig, resetConfig, clearConfig, setEditing }) => {
     const [config, setConfig] = useState(toString(defaultConfig))
     const [show, setShow] = useState(false)
     const [errorMsg, setErrorMsg] = useState(null)
@@ -37,12 +37,15 @@ const ConfigEditor = ({ config: defaultConfig, updateConfig, resetConfig, clearC
                 {errorMsg && <p className={styles.error}>{errorMsg}</p>}
                 <textarea className={styles.editor} onChange={handleChange} rows={20} value={config} />
                 <div className={styles['modal-button-container']}>
-                    <Icon icon="trash" className={styles['modal-icon']} onClick={clearConfig} />
-                    <Icon icon="undo" className={styles['modal-icon']} onClick={resetConfig} />
-                    <Icon icon="save" className={styles['modal-icon']} onClick={handleSave}/>
+                    <Icon icon="trash" className={styles['icon']} onClick={clearConfig} />
+                    <Icon icon="undo" className={styles['icon']} onClick={resetConfig} />
+                    <Icon icon="save" className={styles['icon']} onClick={handleSave}/>
                 </div>
             </Modal>
-            <Icon icon="cog" className={styles['config-icon']} onClick={() => setShow(true)}/>
+            <div className={styles['config-actions-container']}>
+                <Icon icon="edit" className={styles['icon']} onClick={() => setEditing(value => !value)}/>
+                <Icon icon="cog" className={styles['icon']} onClick={() => setShow(true)}/>
+            </div>
         </>
     )
 }

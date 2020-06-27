@@ -7,6 +7,7 @@ const ConfigContext = createContext()
 
 const ConfigProvider = ({ config: overridingConfig, children }) => {
     const [config, setConfig] = useState({})
+    const [editing, setEditing] = useState(false)
     const url = (process.env.PUBLIC_URL || '.') + '/config.json'
 
     const getConfig = useCallback(async () => {
@@ -53,7 +54,7 @@ const ConfigProvider = ({ config: overridingConfig, children }) => {
     }, [config])
 
     return (
-        <ConfigContext.Provider value={{ config, updateConfig, resetConfig, clearConfig }}>
+        <ConfigContext.Provider value={{ config, updateConfig, resetConfig, clearConfig, editing, setEditing }}>
             {children}
         </ConfigContext.Provider>
     )

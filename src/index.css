@@ -5,6 +5,7 @@
   --theme-color-1: #abaaaa;
   --theme-color-disabled: #555;
   --theme-highlight-1: gold;
+  --theme-warning-1: #F44336;
 }
 
 * {
@@ -15,17 +16,17 @@ html,
 body {
   height: 100%;
   margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #root {
   min-height: 100%;
   display: grid;
   place-items: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   background-color: var(--theme-bg-1);
 }
 

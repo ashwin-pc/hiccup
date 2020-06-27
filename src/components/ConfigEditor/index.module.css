@@ -45,22 +45,17 @@
     cursor: pointer;
 }
 
-.modal-icon {
+.icon {
     margin-left: 10px;
-}
-
-.config-icon,
-.modal-icon {
     color: var(--theme-color-1);
     opacity: .3;
 }
 
-.config-icon:hover,
-.modal-icon:hover {
+.icon:hover {
     opacity: 1;
 }
 
-.config-icon {
+.config-actions-container {
     position: fixed;
     bottom: 10px;
     right: 10px;

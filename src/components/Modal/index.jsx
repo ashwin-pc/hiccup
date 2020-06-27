@@ -1,43 +1,15 @@
-import React, { useState, useCallback, useEffect } from 'react'
-import { ReactComponent as CloseIcon } from './times-solid.svg'
-import styles from './index.module.css'
+import React from 'react'
+import { ModalPortal } from './ModalPortal'
+import { Modal } from './Modal'
 
-const Modal = ({ show = false, children, className, onClose }) => {
-
-    const [open, setOpen] = useState(show)
-    const handleClose = useCallback(() => {
-        setOpen(false)
-        onClose && onClose()
-    }, [onClose])
-
-    useEffect(() => {
-        setOpen(show)
-    }, [show])
-    
-    return (
-        open
-        ? <div className={styles.container}>
-            <ModalBackdrop onClick={handleClose} />
-            <ModalPopup className={className} onClose={handleClose}>
-                {children}
-            </ModalPopup>
-        </div>
-        : null
-    )
-}
-
-const ModalBackdrop = ({ onClick }) => (
-    <div className={styles.backdrop} onClick={onClick}/>
-)
-
-const ModalPopup = ({ className, children, onClose }) => (
-    <div className={[styles.modal, className || styles.default].join(' ')}>
-        {children}
-        <CloseIcon className={styles.close} onClick={onClose} />
-    </div>
+const ConnectedModal = props => (
+    <ModalPortal>
+        <Modal {...props} />
+    </ModalPortal>
 )
 
 export {
-    Modal,
-    Modal as default
+    ConnectedModal as Modal,
+    ConnectedModal,
+    ConnectedModal as default
 }
