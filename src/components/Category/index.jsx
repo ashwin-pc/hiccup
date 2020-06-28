@@ -1,19 +1,59 @@
-import React from 'react'
-import { CategoryCard } from '../CategoryCard'
-import styles from './index.module.css'
+import React, { useContext, useMemo, useCallback } from 'react'
+import { ConfigContext } from '../ConfigContext'
+import { Category } from './Category'
+import { AddCategory } from './AddCategory'
 
-const Category = ({ title, links }) => (
-    <div className={styles.category}>
-        <h1 className={styles.title}>{title}</h1>
-        <ul>
-            {links.map(({ name, link, tags }, index) => (
-                <CategoryCard key={index} name={name} link={link} tags={tags} />
-            ))}
-        </ul>
-    </div>
-)
+const ConnectedCategory = (props) => {
+    const { index } = props
+    const hookProps = useCategory(index)
+    return <Category {...hookProps} {...props} />
+}
+
+const useCategory = (categoryIndex) => {
+    const { config, editing, updateConfig } = useContext(ConfigContext)
+
+    const onDelete = useCallback(() => {
+        const newConfig = { ...config }
+        newConfig.categories = newConfig.categories.filter((_, index) => index !== categoryIndex)
+        
+        updateConfig(newConfig)
+    }, [categoryIndex, config, updateConfig])
+
+    const onEdit = useCallback(newTitle => {
+        const newConfig = { ...config }
+        newConfig.categories[categoryIndex].title = newTitle
+
+        updateConfig(newConfig)
+    }, [categoryIndex, config, updateConfig])
+
+    const edit = useMemo(() => ({
+        onEdit,
+        onDelete,
+    }), [onDelete, onEdit])
+
+    return {
+        edit: editing && edit,
+    }
+}
+
+const ConnectedAddCategory = () => {
+    const { config, editing, updateConfig } = useContext(ConfigContext)
+
+    const onSave = useCallback(newCategory => {
+        const newConfig = { ...config }
+        newConfig.categories.push(newCategory)
+
+        updateConfig(newConfig)
+    }, [config, updateConfig])
+
+    return editing ? <AddCategory onSave={onSave}/> : null
+}
+
 
 export {
-    Category,
-    Category as default
+    ConnectedCategory,
+    ConnectedCategory as Category,
+    ConnectedCategory as default,
+    ConnectedAddCategory,
+    ConnectedAddCategory as AddCategory,
 }

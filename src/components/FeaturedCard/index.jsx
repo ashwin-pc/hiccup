@@ -1,23 +1,58 @@
-import React from 'react'
-import process from 'process'
-import { Card } from '../Card'
-import styles from './index.module.css'
+import React, { useContext, useMemo, useCallback } from 'react'
+import { ConfigContext } from '../ConfigContext'
+import { FeaturedCard } from './FeaturedCard'
+import { AddFeaturedCard } from './AddFeaturedCard'
 
-const FeaturedCard = ({ name, link, tags = '', background = '/assets/card.png' }) => {
-    const url = isAbsoluteURL(background) ? background : (process.env.PUBLIC_URL || '.') + background
-    return (
-        <Card link={link} className={styles.container} background={url} tag={[name,link,tags].join(' ')}>
-            {name}
-        </Card>
-    )
+const ConnectedFeaturedCard = ({ index, link }) => {
+    const hookProps = useFeaturedCard(index)
+    return <FeaturedCard {...hookProps} link={link} />
 }
 
-function isAbsoluteURL(url) {
-    const pat = /^https?:\/\//i
-    return pat.test(url)
+const useFeaturedCard = (cardIndex) => {
+    const { config, editing, updateConfig } = useContext(ConfigContext)
+
+    const onDelete = useCallback(() => {
+        const newConfig = { ...config }
+        newConfig.featured = newConfig.featured.filter((_, index) => index !== cardIndex)
+        
+        updateConfig(newConfig)
+    }, [cardIndex, config, updateConfig])
+
+    const onEdit = useCallback(newLink => {
+        const newConfig = { ...config }
+        newConfig.featured = newConfig.featured.map((link, index) => index === cardIndex ? newLink : link)
+
+        updateConfig(newConfig)
+    }, [cardIndex, config, updateConfig])
+
+    const edit = useMemo(() => ({
+        onEdit,
+        onDelete,
+    }), [onDelete, onEdit])
+
+    return {
+        edit: editing && edit,
+    }
 }
+
+const ConnectedAddFeaturedCard = () => {
+    const { config, editing, updateConfig } = useContext(ConfigContext)
+
+    const onSave = useCallback(newLink => {
+        const newConfig = { ...config }
+        newConfig.featured.push(newLink)
+
+        updateConfig(newConfig)
+    }, [config, updateConfig])
+
+    return editing ? <AddFeaturedCard onSave={onSave}/> : null
+}
+
 
 export {
-    FeaturedCard,
-    FeaturedCard as default
+    ConnectedFeaturedCard,
+    ConnectedFeaturedCard as FeaturedCard,
+    ConnectedFeaturedCard as default,
+    ConnectedAddFeaturedCard,
+    ConnectedAddFeaturedCard as AddFeaturedCard,
 }

@@ -30,6 +30,10 @@ Quickly find links
 
 ![Quickly find links](docs/assets/screen-2.png)
 
+Easily edit links
+
+![Locally edit links](docs/assets/screen-edit.png)
+
 Locally manage config using JSON
 
 ![Locally manage config using JSON](docs/assets/screen-3.png)
@@ -38,6 +42,36 @@ Locally manage config using JSON
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Serve the release build or any of the available react scripts to run the app.
 The startpage uses a `config.json` file as the source of truth for page. It can be modified locally but the result will only be saved on the browsers `localStorage` and persist across sessions.
+
+### Using Search
+
+The purpose of the search is to get to you link as easily as possible.
+
+- Press `/` to activate the search
+- Press `Esc` to quit the search
+- Hit `Enter` to open the first highlighted link amongst search results. (Featured left to right, followed by categories left to right then top to bottom)
+
+Search looks at the `name`, `link` and `tags` field of each link in the config to find a match.
+
+### Using Edit mode
+
+The edit mode can be activated using the ✏️ icon on the bottom right of the screen. The Edit mode lets you add, delete and edit links on the startpage. 
+
+The feaures currently supported are:
+
+- Add, edit and delete upto 4 featured cards
+- Add, edit and delete upto 4 categories
+- Add, edit and delete category links
+
+These limits were place intentionally to 
+For more flexibility, you can directly edit the config using the config editor (described in the next section)
+
+e.g.: 
+
+- Remove the category of featured section entirely
+- Add more than 4 categories or featured cards
+
+> The `Edit mode` alters the config and if you ever wish to revert to the original config.json file, click the trash icon in the config editor to completely reset the config state.
 
 ### Using Config
 
@@ -140,16 +174,6 @@ Refer to the [JSON Scheme file](src/modules/validateConfig/schema.json) for the 
     }]
 }
 ```
-
-### Using Search
-
-The purpose of the search is to get to you link as easily as possible.
-
-- Press `/` to activate the search
-- Press `Esc` to quit the search
-- Hit `Enter` to open the first highlighted link amongst search results. (Featured left to right, followed by categories left to right then top to bottom)
-
-Search looks at the `name`, `link` and `tags` field of each link in the config to find a match.
 
 
 ## Available Scripts for development
