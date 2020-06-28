@@ -9,8 +9,18 @@
 .input {
     display: block;
     width: 100%;
-    padding: 7px 10px;
-    margin-top: 3px;
+    padding: 10px;
+    margin-top: 7px;
+    background: var(--theme-bg-1);
+    border: none;
+    color: var(--theme-color-1);
+    outline: none;
+    font-size: 1rem;
+}
+
+.input:active,
+.input:focus {
+    outline: 1px solid var(--theme-highlight-1);
 }
 
 .label {
