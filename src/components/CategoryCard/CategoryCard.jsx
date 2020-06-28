@@ -9,7 +9,7 @@ const CategoryCard = ({ link, edit }) => {
     const { name, link: linkUrl , tags = '' } = link
 
     return (
-        <Card link={linkUrl} className={styles.container} tag={[name,linkUrl,tags].join(' ')}>
+        <Card href={!edit && linkUrl} className={styles.container} tag={[name,linkUrl,tags].join(' ')}>
             <span className={styles.name}>{name}</span>
             <span className={styles.link}>{linkUrl}</span>
             {edit && <EditContainer {...edit} link={link} />}

@@ -10,8 +10,7 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/Featured"
-                    },
-                    "maxItems": 4
+                    }
                 },
                 "categories": {
                     "type": "array",
