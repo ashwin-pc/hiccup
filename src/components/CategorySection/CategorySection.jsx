@@ -1,6 +1,6 @@
 import React from 'react'
 import { Section } from '../Section'
-import { Category } from '../Category'
+import { Category, AddCategory } from '../Category'
 import styles from './index.module.css'
 
 const CategorySection = ({ categories }) => (
@@ -8,6 +8,7 @@ const CategorySection = ({ categories }) => (
         {categories && categories.map(({ title, links }, index) => (
           <Category key={index} title={title} links={links} index={index} />
         ))}
+        {categories && categories.length < 4 && <AddCategory />}
     </Section>
 )
 
