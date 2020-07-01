@@ -16,8 +16,15 @@
 }
 
 .default {
-    padding: 20px;
-    min-width: 300px;
+    padding: 10px;
+    min-width: 600px;
+}
+
+@media (max-width: 800px) {
+    .modal {
+        min-width: auto;
+        width: 100%;
+    }
 }
 
 .backdrop {
