@@ -11,7 +11,7 @@
         "link": "http://google.com"
     }, {
         "name": "Oh no!!!",
-        "link": "http://google.com",
+        "link": "https://www.google.com/search?q=I%27m+Feeling+Curious&csf=b&ct=ifl&cad=2:curious&ei=iin8XpLlKJi80PEPi9GtyAo&ved=0ahUKEwiS0oCHs6vqAhUYHjQIHYtoC6kQnRsIDg&rct=j",
         "tags": "space separated tags"
     }],
     "categories": [{
@@ -46,12 +46,12 @@
             "link": "http://google.com"
         }, {
             "name": "Link 2",
-            "link": "http://google.com"
+            "link": "https://www.google.com/search?q=I%27m+Feeling+Curious&csf=b&ct=ifl&cad=2:curious&ei=iin8XpLlKJi80PEPi9GtyAo&ved=0ahUKEwiS0oCHs6vqAhUYHjQIHYtoC6kQnRsIDg&rct=j"
         }, {
             "name": "Link 3",
             "link": "http://google.com"
         }, {
-            "name": "Link 4",
+            "name": "Just a long link name to make sure we are safe",
             "link": "http://google.com"
         }]
     }]
