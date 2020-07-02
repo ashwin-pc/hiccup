@@ -7,11 +7,11 @@ import { DEFAULT_BG, DEFAULT_LINK } from './AddFeaturedCard'
 import styles from './index.module.css'
 
 const FeaturedCard = ({ link, edit }) => {
-    const { name, link: linkUrl , tags = '', background = DEFAULT_BG } = link || {}
+    const { name, link: linkUrl, background = DEFAULT_BG } = link || {}
     const backgroundUrl = isAbsoluteURL(background) ? background : (process.env.PUBLIC_URL || '.') + background
 
     return (
-        <Card href={!edit && linkUrl} className={styles.container} background={backgroundUrl} tag={[name,link,tags].join(' ')}>
+        <Card href={!edit && linkUrl} className={styles.container} background={backgroundUrl} link={link} >
             {edit && <EditContainer {...edit} link={link} />}
             {name}
         </Card>

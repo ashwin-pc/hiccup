@@ -5,6 +5,7 @@
     color: var( --theme-color-1);
     position: relative;
     margin: 20px;
+    z-index: 10;
 }
 
 .search {
@@ -13,7 +14,7 @@
     backdrop-filter: blur(2px);
     border: 1px solid var(--theme-bg-2);
     font-size: 1rem;
-    padding: 13px 20px;
+    padding: 13px 20px 13px 40px;
     width: 100%;
     color: var( --theme-color-1);
 }
@@ -53,6 +54,33 @@
     font-size: .8em;
 }
 
-.placeholder {
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+}
+
+.web-icon {
+    margin-right: 10px;
+}
+
+.featured-icon {
+    color: var(--theme-highlight-1);
+    margin-right: 10px;
+}
+
+.placeholder,
+.provider {
     color: var(--theme-color-disabled);
+}
+
+.backdrop {
+    position: fixed;
+    background: #00000091;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }

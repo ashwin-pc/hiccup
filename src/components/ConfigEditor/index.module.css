@@ -43,6 +43,8 @@
     margin-top: 10px;
     float: right;
     cursor: pointer;
+    padding: 10px 0 0 10px;
+    background: #000000e0;
 }
 
 .icon {
