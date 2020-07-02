@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useEffect, useState, useContext } from 'react'
+import { addConfigId } from '../../modules/configId'
 import process from 'process'
 
 const CONFIG_KEY = 'config'
@@ -6,9 +7,13 @@ const CONFIG_KEY = 'config'
 const ConfigContext = createContext()
 
 const ConfigProvider = ({ config: overridingConfig, children }) => {
-    const [config, setConfig] = useState({})
+    const [config, setRealConfig] = useState({})
     const [editing, setEditing] = useState(false)
     const url = (process.env.PUBLIC_URL || '.') + '/config.json'
+
+    const setConfig = useCallback((configValue) => {
+        setRealConfig(addConfigId(configValue))
+    }, [])
 
     const getConfig = useCallback(async () => {
         // Give highest priority to the overriding config
@@ -30,11 +35,11 @@ const ConfigProvider = ({ config: overridingConfig, children }) => {
         const result = await fetch(url).then(response => response.json())
 
         setConfig(result)
-    }, [overridingConfig, url])
+    }, [overridingConfig, setConfig, url])
 
     const updateConfig = useCallback(newConfig => {
         setConfig(newConfig)
-    }, [])
+    }, [setConfig])
 
     const resetConfig = useCallback(() => {
         getConfig()
