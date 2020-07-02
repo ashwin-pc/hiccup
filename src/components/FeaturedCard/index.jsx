@@ -1,5 +1,5 @@
-import React, { useContext, useMemo, useCallback } from 'react'
-import { ConfigContext } from '../ConfigContext'
+import React, { useMemo, useCallback } from 'react'
+import { useConfigContext } from '../ConfigContext'
 import { FeaturedCard } from './FeaturedCard'
 import { AddFeaturedCard } from './AddFeaturedCard'
 
@@ -9,7 +9,7 @@ const ConnectedFeaturedCard = ({ index, link }) => {
 }
 
 const useFeaturedCard = (cardIndex) => {
-    const { config, editing, updateConfig } = useContext(ConfigContext)
+    const { config, editing, updateConfig } = useConfigContext()
 
     const onDelete = useCallback(() => {
         const newConfig = { ...config }
@@ -36,7 +36,7 @@ const useFeaturedCard = (cardIndex) => {
 }
 
 const ConnectedAddFeaturedCard = () => {
-    const { config, editing, updateConfig } = useContext(ConfigContext)
+    const { config, editing, updateConfig } = useConfigContext()
 
     const onSave = useCallback(newLink => {
         const newConfig = { ...config }

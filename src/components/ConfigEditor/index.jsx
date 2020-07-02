@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
-import { ConfigContext } from '../ConfigContext'
+import React from 'react'
+import { useConfigContext } from '../ConfigContext'
 import { ConfigEditor } from './ConfigEditor'
 
 const ConnectedConfigEditor = () => {
-    const { config, updateConfig, resetConfig, clearConfig, setEditing } = useContext(ConfigContext)
+    const { config, updateConfig, resetConfig, clearConfig, setEditing } = useConfigContext()
     return <ConfigEditor config={config} updateConfig={updateConfig} resetConfig={resetConfig} clearConfig={clearConfig} setEditing={setEditing} />
 }
 
