@@ -1,5 +1,5 @@
-import React, { useContext, useMemo, useCallback } from 'react'
-import { ConfigContext } from '../ConfigContext'
+import React, { useMemo, useCallback } from 'react'
+import { useConfigContext } from '../ConfigContext'
 import { CategoryCard } from './CategoryCard'
 import { AddCategoryCard } from './AddCategoryCard'
 
@@ -9,7 +9,7 @@ const ConnectedCategoryCard = ({ index, link, categoryIndex }) => {
 }
 
 const useCategoryCard = (cardIndex, categoryIndex) => {
-    const { config, editing, updateConfig } = useContext(ConfigContext)
+    const { config, editing, updateConfig } = useConfigContext()
 
     const onDelete = useCallback(() => {
         const newConfig = { ...config }
@@ -36,7 +36,7 @@ const useCategoryCard = (cardIndex, categoryIndex) => {
 }
 
 const ConnectedAddCategoryCard = ({ categoryIndex }) => {
-    const { config, editing, updateConfig } = useContext(ConfigContext)
+    const { config, editing, updateConfig } = useConfigContext()
 
     const onSave = useCallback(newLink => {
         const newConfig = { ...config }

@@ -11,9 +11,9 @@ const App = ({ config }) => {
   return (
     <ConfigProvider config={config}>
       <SearchProvider>
+        <SearchBar />
         <FeaturedSection />
         <CategorySection />
-        <SearchBar />
         <ConfigEditor />
       </SearchProvider>
     </ConfigProvider>

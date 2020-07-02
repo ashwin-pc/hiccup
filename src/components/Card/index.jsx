@@ -1,9 +1,7 @@
 import React from 'react'
-import { useSearchContext } from '../SearchContext'
 import styles from './index.module.css'
 
-const Card = ({ tag = '', href, background, children, className = '' }) => {
-    const { highlight } = useSearchContext(tag, href)
+const Card = ({ href, background, children, highlight, className = '' }) => {
     const highlightClass = highlight ? styles.highlight : undefined
     
     const cardContent = (

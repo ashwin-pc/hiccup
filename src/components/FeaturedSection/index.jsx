@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
-import { ConfigContext } from '../ConfigContext'
+import React from 'react'
+import { useConfigContext } from '../ConfigContext'
 import { FeaturedSection } from './FeaturedSection'
 
 const ConnectedFeaturedSection = () => {
-    const { config } = useContext(ConfigContext)
+    const { config } = useConfigContext()
 
     if (!config.featured) {
         return null

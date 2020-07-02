@@ -1,4 +1,4 @@
-import React, { createContext, useCallback, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useEffect, useState, useContext } from 'react'
 import process from 'process'
 
 const CONFIG_KEY = 'config'
@@ -60,8 +60,13 @@ const ConfigProvider = ({ config: overridingConfig, children }) => {
     )
 }
 
+const useConfigContext = () => {
+    return useContext(ConfigContext)
+}
+
 export {
     ConfigProvider,
     ConfigContext,
-    ConfigContext as default,
+    useConfigContext,
+    useConfigContext as default,
 }

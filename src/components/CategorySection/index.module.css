@@ -9,3 +9,9 @@
         grid-template-columns: repeat(4, minmax(0, 1fr));
     }
 }
+
+@media (max-width: 600px) {
+    .categories {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
