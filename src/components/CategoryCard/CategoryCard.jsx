@@ -6,10 +6,10 @@ import { DEFAULT_LINK } from './AddCategoryCard'
 import styles from './index.module.css'
 
 const CategoryCard = ({ link, edit }) => {
-    const { name, link: linkUrl , tags = '' } = link
+    const { name, link: linkUrl } = link
 
     return (
-        <Card href={!edit && linkUrl} className={styles.container} tag={[name,linkUrl,tags].join(' ')}>
+        <Card href={!edit && linkUrl} className={styles.container} link={link}>
             <span className={styles.name}>{name}</span>
             <span className={styles.link}>{linkUrl}</span>
             {edit && <EditContainer {...edit} link={link} />}

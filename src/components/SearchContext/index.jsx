@@ -4,14 +4,11 @@ const SearchContext = createContext()
 
 const SearchProvider = ({ children }) => {
     const [results, setResults] = useState([])
-    const [highlight, setHighlight] = useState()
 
     return (
         <SearchContext.Provider value={{
             results,
-            setResults,
-            highlight,
-            setHighlight
+            setResults
         }}>
             {children}
         </SearchContext.Provider>

@@ -1,27 +1,16 @@
-import React from 'react'
-import styles from './index.module.css'
+import React, { useMemo } from 'react'
+import { Card } from './Card'
+import { useSearchContext } from '../SearchContext'
+import { ID } from '../../modules/configId'
 
-const Card = ({ href, background, children, highlight, className = '' }) => {
-    const highlightClass = highlight ? styles.highlight : undefined
-    
-    const cardContent = (
-        <li className={[styles.card, className, highlightClass].join(' ')} style={{
-            backgroundImage: background && `url(${background})`,
-        }}>
-            { children }
-        </li>
-    )
-
-    return (
-        href
-        ? <a href={href} className={styles.link} target="_blank" rel="noopener noreferrer">
-            {cardContent}
-        </a>
-        : <>{ cardContent }</>
-    )
+const ConnectedCard = ({ link, ...props }) => {
+    const { results } = useSearchContext()
+    const highlight = useMemo(() => results.map(result => result.id).includes(link[ID]), [link, results])
+    return <Card {...props} highlight={highlight} />
 }
 
 export {
-    Card,
-    Card as default
+    ConnectedCard,
+    ConnectedCard as Card,
+    ConnectedCard as default
 }

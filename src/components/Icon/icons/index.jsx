@@ -5,6 +5,9 @@ import { ReactComponent as Undo } from './undo-solid.svg'
 import { ReactComponent as Edit } from './pen-solid.svg'
 import { ReactComponent as Add } from './plus-circle-solid.svg'
 import { ReactComponent as FolderPlus } from './folder-plus-solid.svg'
+import { ReactComponent as Star } from './star-regular.svg'
+import { ReactComponent as Search } from './search-solid.svg'
+import { ReactComponent as Earth } from './globe-americas-solid.svg'
 
 const icons = {
     cog: Cog,
@@ -14,6 +17,9 @@ const icons = {
     edit: Edit,
     add: Add,
     'folder-plus': FolderPlus,
+    star: Star,
+    search: Search,
+    earth: Earth,
 }
 
 export {
