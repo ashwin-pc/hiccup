@@ -38,12 +38,10 @@
 
 .modal-button-container {
     position: absolute;
-    bottom: 20px;
-    right: 20px;
-    margin-top: 10px;
-    float: right;
+    bottom: 13px;
+    right: 13px;
     cursor: pointer;
-    padding: 10px 0 0 10px;
+    padding: 10px 10px 10px 0px;
     background: #000000e0;
 }
 
