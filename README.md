@@ -46,10 +46,9 @@ The startpage uses a `config.json` file as the source of truth for page. It can 
 ### Using Search
 
 The purpose of the search is to get to you link as easily as possible.
-
-- Press `/` to activate the search
+- Press `UpArrow` and `DownArrow` to navigate the search
 - Press `Esc` to quit the search
-- Hit `Enter` to open the first highlighted link amongst search results. (Featured left to right, followed by categories left to right then top to bottom)
+- Hit `Enter` to open the first highlighted link amongst search results. (Featured cards have a star and the Search provider is marked by a globe)
 
 Search looks at the `name`, `link` and `tags` field of each link in the config to find a match.
 
