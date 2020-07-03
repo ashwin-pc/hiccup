@@ -16,3 +16,8 @@
     background: var(--theme-bg-3);
     color: var(--theme-color-1);
 }
+
+.button:focus,
+.button:active {
+    outline: 2px solid var(--theme-highlight-1);
+}
