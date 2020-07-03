@@ -1,5 +1,6 @@
 import React, { createContext, useCallback, useEffect, useState, useContext } from 'react'
 import { addConfigId } from '../../modules/configId'
+import { isWindows } from '../../modules/isWindows'
 import process from 'process'
 
 const CONFIG_KEY = 'config'
@@ -53,6 +54,24 @@ const ConfigProvider = ({ config: overridingConfig, children }) => {
     useEffect(() => {
         getConfig()
     }, [getConfig])
+
+    // Keyboard shortcut for Editing mode
+    useEffect(() => {
+        const listner = document.addEventListener('keydown', event => {
+            const modifierKey = isWindows() ? 'ctrlKey' : 'metaKey'
+
+            if (event.key === 'e' && event[modifierKey] === true) {
+                setEditing(val => !val)
+            }
+
+            if (event.key === 'Escape') {
+                setEditing(false)
+            }
+        })
+        return () => {
+            document.removeEventListener('keypress', listner)
+        }
+    }, [])
 
     useEffect(() => {
         localStorage.setItem(CONFIG_KEY, JSON.stringify(config))

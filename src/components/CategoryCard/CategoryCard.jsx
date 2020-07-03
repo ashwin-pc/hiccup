@@ -31,8 +31,8 @@ const EditContainer = ({ onEdit, onDelete, link }) => {
     return (
         <>
             <div className={styles['edit-container']}>
-                <Icon icon="edit" className={styles['edit-icon']} onClick={() => setShowEditModal(true)} />
-                <Icon icon="trash" className={styles['delete-icon']} onClick={onDelete} />
+                <Icon icon="edit" size={15} className={styles['edit-icon']} onClick={() => setShowEditModal(true)} />
+                <Icon icon="trash" size={15} className={styles['delete-icon']} onClick={onDelete} />
             </div>
             <EditLinkModal show={showEditModal} fields={linkFields} onCancel={() =>  setShowEditModal(false)} onSave={handleSave} />
         </>

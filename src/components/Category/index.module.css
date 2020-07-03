@@ -31,5 +31,5 @@
     display: grid;
     place-items: center;
     padding: 30px;
-    border: 2px dashed var(--theme-highlight-1);
+    border: 1px dashed var(--theme-highlight-1);
 }

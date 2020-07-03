@@ -26,15 +26,17 @@
 
 .edit-container {
     position: absolute;
-    background-color: #000000c7;
+    background: linear-gradient(90deg, #00000054, #000000c9, #000000c9);
     display: grid;
-    place-items: center;
+    place-items: center flex-end;
+    padding: 0 15px;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
-    backdrop-filter: blur(1px);
-    grid-template-columns: 1fr 1fr;
+    /* backdrop-filter: blur(0.7px); */
+    grid-template-columns: 1fr 35px;
+    pointer-events: all;
 }
 
 .edit-icon,
@@ -54,7 +56,7 @@
 }
 
 .add-card {
-    border: 2px dashed var(--theme-highlight-1);
+    border: 1px dashed var(--theme-highlight-1);
     color: var(--theme-highlight-1);
     text-align: center;
 }

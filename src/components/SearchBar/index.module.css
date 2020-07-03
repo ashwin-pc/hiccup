@@ -1,10 +1,9 @@
 .search-container {
-    width: 80%;
+    width: 100%;
     max-width: 1000px;
     opacity: 1;
     color: var( --theme-color-1);
     position: relative;
-    margin: 20px;
     z-index: 10;
 }
 

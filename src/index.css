@@ -27,6 +27,7 @@ body {
   min-height: 100%;
   display: grid;
   place-items: center;
+  align-content: center;
   background-color: var(--theme-bg-1);
 }
 

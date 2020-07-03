@@ -54,7 +54,7 @@ Search looks at the `name`, `link` and `tags` field of each link in the config t
 
 ### Using Edit mode
 
-The edit mode can be activated using the ✏️ icon on the bottom right of the screen. The Edit mode lets you add, delete and edit links on the startpage. 
+The edit mode can be activated using  `Cmd/Ctrl + e` or the ✏️ icon on the bottom right of the screen. To exit the edit mode at any time use `Esc` or the commands used to start editing. The Edit mode lets you add, delete and edit links on the startpage. 
 
 The feaures currently supported are:
 
