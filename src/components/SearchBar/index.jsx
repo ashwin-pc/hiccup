@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, useEffect } from 'react'
+import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react'
 import { useConfigContext } from '../ConfigContext'
 import { useSearchContext } from '../SearchContext'
 import { Icon } from '../Icon'
@@ -13,26 +13,47 @@ const SEARCH_PROVIDERS = {
     }
 }
 
-/**
- * TODO: 
- * - Add keyboard navigation of links
- */
 const SearchBar = () => {
     // TODO: Move this to index and pass ocnfig as a param
     const { config } = useConfigContext()
     const [searchTerm, setSearchTerm] = useState('')
+    const [currentHighlight, setCurrentHighlight] = useState(0)
     const { results } = useSearch(searchTerm, config)
     const { url: providerUrl , name: providerName } = useMemo(() => SEARCH_PROVIDERS.google, [])
 
     const searching = searchTerm.length > 0
 
+    const resultsRef = useRef([]);
+    // you can access the elements with itemsRef.current[n]
+
+    useEffect(() => {
+        resultsRef.current = resultsRef.current.slice(0, results.length + 2);
+    }, [results.length]);
+
     const handleChange = useCallback(event => {
         setSearchTerm(event.target.value)
     }, [])
 
-    const handleClear = useCallback(event => {
+    const handleExit = useCallback(() => {
         setSearchTerm('')
+        resultsRef.current && resultsRef.current[0].blur()
     }, [])
+
+    const handleNavigation = useCallback(event => {
+ 
+        if (event.key === 'ArrowDown') {
+            const focussableCardsCount = results.length + (searching ? 1 : 0) + 1
+            setCurrentHighlight(highlight => highlight < focussableCardsCount - 1 ? highlight + 1 : highlight)
+        } else if (event.key === 'ArrowUp') {
+            setCurrentHighlight(highlight => highlight < 1 ? 0 : highlight - 1)
+        } else if (event.key === 'Escape') {
+            handleExit()
+        }
+    }, [handleExit, results.length, searching])
+
+    useEffect(() => {
+        resultsRef.current[currentHighlight].focus()
+    }, [currentHighlight])
 
     const handleSearchProvider = useCallback(event => {
         if (event.key === 'Enter') {
@@ -41,7 +62,7 @@ const SearchBar = () => {
     }, [providerUrl])
     
     return (
-        <div className={styles['search-container']} >
+        <div className={styles['search-container']} onKeyDown={handleNavigation}>
             <input 
                 type="text"
                 name="search"
@@ -52,22 +73,23 @@ const SearchBar = () => {
                 placeholder="Search"
                 autoComplete="off"
                 autoFocus={true}
+                ref={el => resultsRef.current[0] = el}
             />
             <Icon icon="search" size={10} className={styles['search-icon']} />
             <div className={styles.results}>
-                {searching && <a href={`${providerUrl}${searchTerm}`} className={styles.result}>
+                {searching && <a href={`${providerUrl}${searchTerm}`} className={styles.result} ref={el => resultsRef.current[1] = el}>
                     <Icon icon="earth" size={10} className={styles['web-icon']} />
                     <span className={styles.provider}>{providerName}</span> { searchTerm }
                 </a>}
                 {results.map(({ name, url, featured }, index) => (
-                    <a key={index} href={url} target="__blank" className={styles.result}>
+                    <a key={index} href={url} target="__blank" className={styles.result} ref={el => resultsRef.current[index + 2] = el} >
                         {featured && <Icon icon="star" size={10} className={styles['featured-icon']} />}
                         { name }
                         <span className={styles.url}>{ url }</span>
                     </a>
                 ))}
             </div>
-            {searching && <div className={styles.backdrop} onClick={handleClear}></div>}
+            {searching && <div className={styles.backdrop} onClick={handleExit}></div>}
         </div>
     )
 }

@@ -8,7 +8,7 @@ const EditLinkModal = ({ show = true, fields, onCancel, onSave }) => {
     const handleSave = useCallback(() => (onSave && onSave(values)), [onSave, values])
     const inputs = useMemo(() => {
         return Object.entries(values).map(([name, value], index) => (
-            <Input key={index} label={name} name={name} value={value} onChange={e => setValues({...values, ...{ [name] : e.target.value }})} />
+            <Input key={index} label={name} name={name} value={value} onChange={e => setValues({...values, ...{ [name] : e.target.value }})} autoFocus={index === 0} />
         ))
     }, [values])
 
