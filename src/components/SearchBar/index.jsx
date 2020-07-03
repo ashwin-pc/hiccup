@@ -3,6 +3,7 @@ import { useConfigContext } from '../ConfigContext'
 import { useSearchContext } from '../SearchContext'
 import { Icon } from '../Icon'
 import { ID } from '../../modules/configId'
+import { useWindowSize } from '../../modules/useWindowSize'
 import styles from './index.module.css'
 
 const MIN_SEARCH_LENGTH = 2
@@ -20,11 +21,11 @@ const SearchBar = () => {
     const [currentHighlight, setCurrentHighlight] = useState(0)
     const { results } = useSearch(searchTerm, config)
     const { url: providerUrl , name: providerName } = useMemo(() => SEARCH_PROVIDERS.google, [])
+    const [placeholder, setPlaceholder] = useState('')
+    const { innerWidth } = useWindowSize()
+    const resultsRef = useRef([]);
 
     const searching = searchTerm.length > 0
-
-    const resultsRef = useRef([]);
-    // you can access the elements with itemsRef.current[n]
 
     useEffect(() => {
         resultsRef.current = resultsRef.current.slice(0, results.length + 2);
@@ -60,6 +61,10 @@ const SearchBar = () => {
             window.location.href = `${providerUrl}${event.target.value}`
         }
     }, [providerUrl])
+
+    useEffect(() => {
+        setPlaceholder(innerWidth < 600 ? "Search" : "Search   ...... or use Shift + Tab for URL bar")
+    }, [innerWidth])
     
     return (
         <div className={styles['search-container']} onKeyDown={handleNavigation}>
@@ -70,7 +75,7 @@ const SearchBar = () => {
                 value={searchTerm}
                 onChange={handleChange}
                 onKeyPress={handleSearchProvider}
-                placeholder="Search"
+                placeholder={placeholder}
                 autoComplete="off"
                 autoFocus={true}
                 ref={el => resultsRef.current[0] = el}
