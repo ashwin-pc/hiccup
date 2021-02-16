@@ -1,0 +1,15 @@
+.hotkey {
+
+}
+
+.key {
+    background: black;
+    padding: 10px;
+    display: inline-block;
+    margin-right: 10px;
+    border-radius: 4px;
+}
+
+.description {
+    display: inline-block;
+}

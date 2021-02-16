@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useEffect, useState, useContext } from 'react'
+import { useHotkeys } from 'react-hotkeys-hook'
 import { addConfigId } from '../../modules/configId'
-import { isWindows } from '../../modules/isWindows'
 import process from 'process'
 
 const CONFIG_KEY = 'config'
@@ -21,7 +21,7 @@ const ConfigProvider = ({ config: overridingConfig, children }) => {
         if (overridingConfig) {
             setConfig(overridingConfig)
 
-            return 
+            return
         }
 
         // Check localstorage for config
@@ -31,7 +31,7 @@ const ConfigProvider = ({ config: overridingConfig, children }) => {
 
             return
         }
-        
+
         // Else fetch the default file
         const result = await fetch(url).then(response => response.json())
 
@@ -56,22 +56,8 @@ const ConfigProvider = ({ config: overridingConfig, children }) => {
     }, [getConfig])
 
     // Keyboard shortcut for Editing mode
-    useEffect(() => {
-        const listner = document.addEventListener('keydown', event => {
-            const modifierKey = isWindows() ? 'ctrlKey' : 'metaKey'
-
-            if (event.key === 'e' && event[modifierKey] === true) {
-                setEditing(val => !val)
-            }
-
-            if (event.key === 'Escape') {
-                setEditing(false)
-            }
-        })
-        return () => {
-            document.removeEventListener('keypress', listner)
-        }
-    }, [])
+    useHotkeys('ctrl+e,cmd+e', () => setEditing(val => !val))
+    useHotkeys('Escape', () => setEditing(false))
 
     useEffect(() => {
         localStorage.setItem(CONFIG_KEY, JSON.stringify(config))

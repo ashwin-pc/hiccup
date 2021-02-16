@@ -3,6 +3,7 @@ import { Icon } from '../Icon'
 import { validateConfig } from '../../modules/validateConfig'
 import { Modal } from '../Modal'
 import styles from './index.module.css'
+import { useHotkeys } from 'react-hotkeys-hook'
 
 const ConfigEditor = ({ config: defaultConfig, updateConfig, resetConfig, clearConfig, setEditing }) => {
     const [config, setConfig] = useState(toString(defaultConfig))
@@ -13,7 +14,7 @@ const ConfigEditor = ({ config: defaultConfig, updateConfig, resetConfig, clearC
 
     const handleSave = useCallback(({ key }) => {
         const [valid, error, path] = validateConfig(config)
-        if(valid) {
+        if (valid) {
             updateConfig(JSON.parse(config))
             setShow(false)
             setErrorMsg(null)
@@ -24,11 +25,13 @@ const ConfigEditor = ({ config: defaultConfig, updateConfig, resetConfig, clearC
     }, [config, updateConfig])
 
     useEffect(() => {
-        if(defaultConfig) {
+        if (defaultConfig) {
             setConfig(toString(defaultConfig))
             setErrorMsg(null)
         }
     }, [defaultConfig])
+
+    useHotkeys('ctrl+k,cmd+k', () => setShow(val => !val))
 
     return (
         <>
@@ -39,12 +42,12 @@ const ConfigEditor = ({ config: defaultConfig, updateConfig, resetConfig, clearC
                 <div className={styles['modal-button-container']}>
                     <Icon icon="trash" className={styles['icon']} onClick={clearConfig} />
                     <Icon icon="undo" className={styles['icon']} onClick={resetConfig} />
-                    <Icon icon="save" className={styles['icon']} onClick={handleSave}/>
+                    <Icon icon="save" className={styles['icon']} onClick={handleSave} />
                 </div>
             </Modal>
             <div className={styles['config-actions-container']}>
-                <Icon icon="edit" className={styles['icon']} onClick={() => setEditing(value => !value)}/>
-                <Icon icon="cog" className={styles['icon']} onClick={() => setShow(true)}/>
+                <Icon icon="edit" className={styles['icon']} onClick={() => setEditing(value => !value)} />
+                <Icon icon="cog" className={styles['icon']} onClick={() => setShow(true)} />
             </div>
         </>
     )
