@@ -30,5 +30,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        source: "./build"
-        target: "~/public_html/test/hiccup"
+        source: "build/*"
+        rm: true
+        strip_components: 1
+        target: "public_html/test/hiccup"
