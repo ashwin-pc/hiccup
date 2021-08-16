@@ -7,6 +7,8 @@ import { SearchBar } from './components/SearchBar'
 import { ConfigEditor } from './components/ConfigEditor'
 import { Hotkeys } from './components/Hotkeys'
 
+export const ROOT_ID = 'root'
+
 const App = ({ config }) => {
 
   return (

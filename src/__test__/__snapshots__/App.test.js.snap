@@ -1,11 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Test hiccup should render page correctly 1`] = `
-<div>
+<div
+  id="root"
+>
+  <div
+    class="search-container"
+  >
+    <input
+      autocomplete="off"
+      class="search"
+      name="search"
+      placeholder="Search   ...... or use Shift + Tab for URL bar"
+      type="text"
+      value=""
+    />
+    <svg
+      class="icon search-icon"
+      style="width: 10px;"
+    >
+      search-solid.svg
+    </svg>
+    <div
+      class="results"
+    />
+  </div>
   <div
     class="section featured"
   >
     <a
+      class="link"
       href="http://google.com"
       rel="noopener noreferrer"
       target="_blank"
@@ -18,6 +42,7 @@ exports[`Test hiccup should render page correctly 1`] = `
       </li>
     </a>
     <a
+      class="link"
       href="http://google.com"
       rel="noopener noreferrer"
       target="_blank"
@@ -43,6 +68,7 @@ exports[`Test hiccup should render page correctly 1`] = `
       </h1>
       <ul>
         <a
+          class="link"
           href="http://google.com"
           rel="noopener noreferrer"
           target="_blank"
@@ -63,6 +89,7 @@ exports[`Test hiccup should render page correctly 1`] = `
           </li>
         </a>
         <a
+          class="link"
           href="http://google.com"
           rel="noopener noreferrer"
           target="_blank"
@@ -94,6 +121,7 @@ exports[`Test hiccup should render page correctly 1`] = `
       </h1>
       <ul>
         <a
+          class="link"
           href="http://google.com"
           rel="noopener noreferrer"
           target="_blank"
@@ -114,6 +142,7 @@ exports[`Test hiccup should render page correctly 1`] = `
           </li>
         </a>
         <a
+          class="link"
           href="http://google.com"
           rel="noopener noreferrer"
           target="_blank"
@@ -136,10 +165,21 @@ exports[`Test hiccup should render page correctly 1`] = `
       </ul>
     </div>
   </div>
-  <svg
-    class="config-icon"
+  <div
+    class="config-actions-container"
   >
-    cog-solid.svg
-  </svg>
+    <svg
+      class="icon icon"
+      style="width: 20px;"
+    >
+      pen-solid.svg
+    </svg>
+    <svg
+      class="icon icon"
+      style="width: 20px;"
+    >
+      cog-solid.svg
+    </svg>
+  </div>
 </div>
 `;
