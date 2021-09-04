@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react'
-import { Icon } from '../Icon'
-import { validateConfig } from '../../modules/validateConfig'
-import { Modal } from '../Modal'
+import { Icon } from 'components/common/Icon'
+import { validateConfig } from 'modules/config/validate'
+import { Modal } from 'components/common/Modal'
 import styles from './index.module.css'
 import { useHotkeys } from 'react-hotkeys-hook'
 

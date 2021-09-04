@@ -1,0 +1,8 @@
+.error {
+  border: 1px solid red;
+  border-radius: 5px;
+  background-color: #ff00001a;
+  padding: 5px 8px;
+  white-space: pre;
+  font-family: monospace;
+}

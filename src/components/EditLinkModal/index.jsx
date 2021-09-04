@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback } from 'react'
-import { Modal, styles as modalStyles } from '../Modal'
-import { Input } from '../Input'
+import { Modal, styles as modalStyles } from 'components/common/Modal'
+import { Input } from 'components/common/Input'
 
 const EditLinkModal = ({ show = true, fields, onCancel, onSave }) => {
     const [values, setValues] = useState(fields || {})

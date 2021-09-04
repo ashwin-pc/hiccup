@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
-import { Modal, styles as modalStyles } from '../Modal'
+import { Modal, styles as modalStyles } from 'components/common/Modal'
 import styles from './index.module.css'
 
 export const HOTKEYS = {
