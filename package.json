@@ -1,6 +1,6 @@
 {
   "name": "hiccup",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "private": false,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
