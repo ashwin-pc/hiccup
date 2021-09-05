@@ -2,9 +2,9 @@ import { useMemo } from 'react'
 import { Card } from 'components/Card'
 import { Icon } from 'components/common/Icon'
 import { triggerEdit } from 'components/EditLinkModal'
-import { DEFAULT_LINK } from './constants'
 import styles from './index.module.css'
 import { LinksEntity } from 'modules/config/Config'
+import { DEFAULT_LINK } from 'modules/config'
 
 interface EditContainerProps {
   onEdit: (link: LinksEntity) => void

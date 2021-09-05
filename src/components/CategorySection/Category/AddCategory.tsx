@@ -1,39 +1,30 @@
-import React, { useCallback, useState } from 'react'
+import { FC } from 'react'
 import { Icon } from 'components/common/Icon'
-import { EditLinkModal } from 'components/EditLinkModal'
+import { triggerEdit } from 'components/EditLinkModal'
 import styles from './index.module.css'
+import { CategoriesEntity } from 'modules/config/Config'
+import { DEFAULT_CATEGORY } from 'modules/config'
 
-const DEFAULT_CATEGORY = {
-  title: '',
-}
-
-const AddCategory = ({ onSave }: { onSave: (title: string) => void }) => {
-  const [showEditModal, setShowEditModal] = useState(false)
-
-  const handleSave = useCallback(
-    (newCategory: typeof DEFAULT_CATEGORY) => {
-      setShowEditModal(false)
-      onSave && onSave(newCategory.title)
-    },
-    [onSave]
-  )
-
+const AddCategory: FC<{
+  onSave: (data: Omit<CategoriesEntity, 'links'>) => void
+}> = ({ onSave }) => {
   return (
     <div className={styles['add-container']}>
       <Icon
         icon="folder-plus"
         size={30}
         className={styles['add-icon']}
-        onClick={() => setShowEditModal(true)}
-      />
-      <EditLinkModal
-        show={showEditModal}
-        fields={DEFAULT_CATEGORY}
-        onCancel={() => setShowEditModal(false)}
-        onSave={handleSave}
+        as="button"
+        onClick={() =>
+          triggerEdit({
+            fields: DEFAULT_CATEGORY,
+            onSave,
+            title: 'Add Category',
+          })
+        }
       />
     </div>
   )
 }
 
-export { AddCategory, AddCategory as default, DEFAULT_CATEGORY }
+export { AddCategory, AddCategory as default }

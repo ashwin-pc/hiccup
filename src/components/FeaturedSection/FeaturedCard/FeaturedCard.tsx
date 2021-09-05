@@ -1,23 +1,23 @@
-import React, { useState, useMemo, useCallback } from 'react'
+import React, { useState, useMemo, useCallback, FC } from 'react'
 import process from 'process'
 import { Card } from 'components/Card'
 import { Icon } from 'components/common/Icon'
-import { EditLinkModal } from 'components/EditLinkModal'
-import { DEFAULT_BG, DEFAULT_LINK } from './AddFeaturedCard'
+import { triggerEdit } from 'components/EditLinkModal'
+import { DEFAULT_BG, DEFAULT_FEATURED_LINK } from 'modules/config'
 import styles from './index.module.css'
 import { FeaturedEntity } from 'modules/config/Config'
 
-interface Props {
+interface EditContainerProps {
+  onEdit: (newLink: FeaturedEntity) => void
+  onDelete: () => void
   link: FeaturedEntity
-  edit:
-    | false
-    | {
-        onEdit: (newLink: FeaturedEntity) => void
-        onDelete: () => void
-      }
+}
+interface Props extends EditContainerProps {
+  link: FeaturedEntity
+  editing: boolean
 }
 
-const FeaturedCard = ({ link, edit }: Props) => {
+const FeaturedCard: FC<Props> = ({ link, editing, ...editingProps }) => {
   const { name, link: linkUrl, background = DEFAULT_BG } = link || {}
   const backgroundUrl = isAbsoluteURL(background)
     ? background
@@ -25,40 +25,24 @@ const FeaturedCard = ({ link, edit }: Props) => {
 
   return (
     <Card
-      href={!edit && linkUrl}
+      href={!editing && linkUrl}
       className={styles.container}
       background={backgroundUrl}
       link={link}
     >
-      {edit && <EditContainer {...edit} link={link} />}
+      {editing && <EditContainer {...editingProps} link={link} />}
       {name}
     </Card>
   )
 }
 
-const EditContainer = ({
-  onEdit,
-  onDelete,
-  link,
-}: {
-  onEdit: (newLink: FeaturedEntity) => void
-  onDelete: () => void
-  link: FeaturedEntity
-}) => {
-  const [showEditModal, setShowEditModal] = useState(false)
+const EditContainer: FC<EditContainerProps> = ({ onEdit, onDelete, link }) => {
   const linkFields = useMemo(
     () => ({
-      ...DEFAULT_LINK,
+      ...DEFAULT_FEATURED_LINK,
       ...link,
     }),
     [link]
-  )
-  const handleSave = useCallback(
-    (editedLink) => {
-      setShowEditModal(false)
-      onEdit && onEdit(editedLink)
-    },
-    [onEdit]
   )
 
   return (
@@ -67,7 +51,13 @@ const EditContainer = ({
         <Icon
           icon="edit"
           className={styles['edit-icon']}
-          onClick={() => setShowEditModal(true)}
+          onClick={() =>
+            triggerEdit({
+              fields: linkFields,
+              onSave: onEdit,
+              title: 'Edit featured link',
+            })
+          }
         />
         <Icon
           icon="trash"
@@ -75,12 +65,6 @@ const EditContainer = ({
           onClick={onDelete}
         />
       </div>
-      <EditLinkModal
-        show={showEditModal}
-        fields={linkFields}
-        onCancel={() => setShowEditModal(false)}
-        onSave={handleSave}
-      />
     </>
   )
 }

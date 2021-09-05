@@ -4,7 +4,7 @@ import { CategoryCard } from './CategoryCard'
 import { AddCategoryCard } from './AddCategoryCard'
 import { LinksEntity } from 'modules/config/Config'
 import { triggerEdit } from 'components/EditLinkModal'
-import { DEFAULT_LINK } from './constants'
+import { DEFAULT_LINK } from 'modules/config'
 interface Props {
   index: number
   categoryIndex: number

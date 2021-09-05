@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useConfigContext } from 'components/ConfigContext'
 import { FeaturedCard } from './FeaturedCard'
 import { AddFeaturedCard } from './AddFeaturedCard'
@@ -9,12 +9,7 @@ interface Props {
   link: FeaturedEntity
 }
 
-const ConnectedFeaturedCard = ({ index, link }: Props) => {
-  const hookProps = useFeaturedCard(index)
-  return <FeaturedCard {...hookProps} link={link} />
-}
-
-const useFeaturedCard = (cardIndex: number) => {
+const ConnectedFeaturedCard = ({ index: cardIndex, link }: Props) => {
   const { editing, dispatch } = useConfigContext()
 
   const onDelete = useCallback(() => {
@@ -27,18 +22,14 @@ const useFeaturedCard = (cardIndex: number) => {
     },
     [cardIndex, dispatch]
   )
-
-  const edit = useMemo(
-    () => ({
-      onEdit,
-      onDelete,
-    }),
-    [onDelete, onEdit]
+  return (
+    <FeaturedCard
+      link={link}
+      editing={editing}
+      onEdit={onEdit}
+      onDelete={onDelete}
+    />
   )
-
-  return {
-    edit: editing && edit,
-  }
 }
 
 const ConnectedAddFeaturedCard = () => {

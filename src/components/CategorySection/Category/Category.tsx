@@ -1,30 +1,35 @@
-import React, { useState, useCallback, useMemo } from 'react'
+import { useMemo } from 'react'
 import { Icon } from 'components/common/Icon'
-import { EditLinkModal } from 'components/EditLinkModal'
+import { triggerEdit } from 'components/EditLinkModal'
 import { CategoryCard, AddCategoryCard } from './CategoryCard'
 import styles from './index.module.css'
 import { CategoriesEntity } from 'modules/config/Config'
 
-interface CategoryProps extends CategoriesEntity {
+interface EditProps {
+  onEdit: (data: Omit<CategoriesEntity, 'links'>) => void
+  onDelete: () => void
+}
+
+interface EditContainerProps extends EditProps {
+  title: string
+}
+
+interface CategoryProps extends EditProps, CategoriesEntity {
   index: number
-  edit:
-    | false
-    | {
-        onEdit: (title: string) => void
-        onDelete: () => void
-      }
+  editing: boolean
 }
 
 const Category = ({
   title,
   links,
   index: categoryIndex,
-  edit,
+  editing,
+  ...editingProps
 }: CategoryProps) => (
   <div className={styles.category}>
     <h1 className={styles.title}>
       {title}
-      {edit && <EditContainer {...edit} title={title} />}
+      {editing && <EditContainer {...editingProps} title={title} />}
     </h1>
     <ul>
       {links.map((link, index) => (
@@ -40,24 +45,8 @@ const Category = ({
   </div>
 )
 
-const EditContainer = ({
-  onEdit,
-  onDelete,
-  title,
-}: {
-  onEdit: (title: string) => void
-  onDelete: () => void
-  title: string
-}) => {
-  const [showEditModal, setShowEditModal] = useState(false)
+const EditContainer = ({ onEdit, onDelete, title }: EditContainerProps) => {
   const linkFields = useMemo(() => ({ title }), [title])
-  const handleSave = useCallback(
-    ({ title }) => {
-      setShowEditModal(false)
-      onEdit && onEdit(title)
-    },
-    [onEdit]
-  )
 
   return (
     <>
@@ -66,21 +55,23 @@ const EditContainer = ({
           icon="edit"
           className={styles['edit-icon']}
           size={13}
-          onClick={() => setShowEditModal(true)}
+          as="button"
+          onClick={() =>
+            triggerEdit({
+              fields: linkFields,
+              onSave: onEdit,
+              title: 'Edit Category',
+            })
+          }
         />
         <Icon
           icon="trash"
           className={styles['delete-icon']}
           size={13}
+          as="button"
           onClick={onDelete}
         />
       </div>
-      <EditLinkModal
-        show={showEditModal}
-        fields={linkFields}
-        onCancel={() => setShowEditModal(false)}
-        onSave={handleSave}
-      />
     </>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react'
+import { useCallback } from 'react'
 import { useConfigContext } from 'components/ConfigContext'
 import { Category } from './Category'
 import { AddCategory } from './AddCategory'
@@ -9,12 +9,7 @@ interface Props extends CategoriesEntity {
 }
 
 const ConnectedCategory = (props: Props) => {
-  const { index } = props
-  const hookProps = useCategory(index)
-  return <Category {...hookProps} {...props} />
-}
-
-const useCategory = (categoryIndex: number) => {
+  const { index: categoryIndex } = props
   const { editing, dispatch } = useConfigContext()
 
   const onDelete = useCallback(() => {
@@ -22,31 +17,28 @@ const useCategory = (categoryIndex: number) => {
   }, [categoryIndex, dispatch])
 
   const onEdit = useCallback(
-    (newTitle) => {
-      dispatch.editCategory(categoryIndex, newTitle)
+    ({ title }: Pick<CategoriesEntity, 'title'>) => {
+      dispatch.editCategory(categoryIndex, title)
     },
     [categoryIndex, dispatch]
   )
 
-  const edit = useMemo(
-    () => ({
-      onEdit,
-      onDelete,
-    }),
-    [onDelete, onEdit]
+  return (
+    <Category
+      editing={editing}
+      onDelete={onDelete}
+      onEdit={onEdit}
+      {...props}
+    />
   )
-
-  return {
-    edit: editing && edit,
-  }
 }
 
 const ConnectedAddCategory = () => {
   const { editing, dispatch } = useConfigContext()
 
   const onSave = useCallback(
-    (newCategoryTitle: string) => {
-      dispatch.addCategory(newCategoryTitle)
+    ({ title: categoryTitle }) => {
+      dispatch.addCategory(categoryTitle)
     },
     [dispatch]
   )
