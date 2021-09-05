@@ -9,6 +9,7 @@ import { ReactComponent as Star } from './star-regular.svg'
 import { ReactComponent as Search } from './search-solid.svg'
 import { ReactComponent as Earth } from './globe-americas-solid.svg'
 import { ReactComponent as Sync } from './sync-alt-solid.svg'
+import { ReactComponent as Download } from './file-download-solid.svg'
 
 const icons = {
   cog: Cog,
@@ -22,6 +23,7 @@ const icons = {
   search: Search,
   earth: Earth,
   sync: Sync,
+  download: Download,
 }
 
 export { icons, icons as default }

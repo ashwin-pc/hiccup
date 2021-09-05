@@ -6,7 +6,8 @@ interface Props extends SVGProps<SVGSVGElement> {
   icon: keyof typeof icons
   size?: number
   className?: string
-  as?: 'button'
+  as?: 'button' | 'a'
+  download?: string
 }
 
 const Icon: FunctionComponent<Props> = ({
@@ -14,6 +15,8 @@ const Icon: FunctionComponent<Props> = ({
   size = 20,
   className = '',
   as,
+  href,
+  download,
   onClick,
   ...props
 }) => {
@@ -41,6 +44,14 @@ const Icon: FunctionComponent<Props> = ({
       >
         {iconElement}
       </button>
+    )
+  }
+
+  if (as === 'a') {
+    return (
+      <a className={styles.a} href={href} download={download}>
+        {iconElement}
+      </a>
     )
   }
 

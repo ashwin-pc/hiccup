@@ -39,22 +39,6 @@ const useSearch = (searchTerm: string, config: ConfigEntity) => {
           })
         })
       })
-      //   const categoryMap = config.categories.reduce(
-      //     (map, category) => [...map, ...category.links],
-      //     [] as LinksEntity[]
-      //   )
-      //   list.push(
-      //     ...categoryMap.map((link) => {
-      //       const { name, link: url, tags } = link
-      //       return {
-      //         featured: false,
-      //         id: link[ID],
-      //         searchText: [name, url, tags].join(' '),
-      //         name,
-      //         url,
-      //       }
-      //     })
-      //   )
     }
 
     return list

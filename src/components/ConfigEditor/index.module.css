@@ -37,19 +37,19 @@
 }
 
 .modal-button-container {
-  position: absolute;
-  bottom: 13px;
-  right: 13px;
-  cursor: pointer;
-  padding: 10px 10px 10px 0px;
-  background: #000000e0;
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 10px;
 }
 
 .icon {
-  margin-left: 10px;
+  cursor: pointer;
   opacity: 0.3;
 }
 
+a:hover > .icon,
+a:focus > .icon,
 button:hover > .icon,
 button:focus > .icon {
   opacity: 1;
