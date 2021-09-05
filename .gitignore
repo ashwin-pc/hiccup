@@ -24,3 +24,4 @@ yarn-error.log*
 
 /assets
 deploy.sh
+.vscode

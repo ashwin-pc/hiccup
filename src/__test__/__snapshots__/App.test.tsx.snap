@@ -1,0 +1,193 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test hiccup should render page correctly 1`] = `
+<div
+  id="root"
+>
+  <div
+    class="search-container"
+  >
+    <input
+      autocomplete="off"
+      class="search"
+      name="search"
+      placeholder="Search   ...... or use Shift + Tab for URL bar"
+      type="text"
+      value=""
+    />
+    <svg
+      class="icon search-icon"
+      style="width: 10px;"
+    >
+      search-solid.svg
+    </svg>
+    <div
+      class="results"
+    />
+  </div>
+  <div
+    class="section featured"
+  >
+    <a
+      class="link"
+      href="http://google.com"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <li
+        class="card container "
+        style="background-image: url(./assets/logo.png);"
+      >
+        Featured Link
+      </li>
+    </a>
+    <a
+      class="link"
+      href="http://google.com"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <li
+        class="card container "
+        style="background-image: url(./assets/card.png);"
+      >
+        Another Feaured link
+      </li>
+    </a>
+  </div>
+  <div
+    class="section categories"
+  >
+    <div
+      class="category"
+    >
+      <h1
+        class="title"
+      >
+        Category 1
+      </h1>
+      <ul>
+        <a
+          class="link"
+          href="http://google.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <li
+            class="card container "
+          >
+            <span
+              class="name"
+            >
+              Link 1
+            </span>
+            <span
+              class="link"
+            >
+              http://google.com
+            </span>
+          </li>
+        </a>
+        <a
+          class="link"
+          href="http://google.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <li
+            class="card container "
+          >
+            <span
+              class="name"
+            >
+              Test Link 2
+            </span>
+            <span
+              class="link"
+            >
+              http://google.com
+            </span>
+          </li>
+        </a>
+      </ul>
+    </div>
+    <div
+      class="category"
+    >
+      <h1
+        class="title"
+      >
+        Category 2
+      </h1>
+      <ul>
+        <a
+          class="link"
+          href="http://google.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <li
+            class="card container "
+          >
+            <span
+              class="name"
+            >
+              Link 1
+            </span>
+            <span
+              class="link"
+            >
+              http://google.com
+            </span>
+          </li>
+        </a>
+        <a
+          class="link"
+          href="http://google.com"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <li
+            class="card container "
+          >
+            <span
+              class="name"
+            >
+              Link 2
+            </span>
+            <span
+              class="link"
+            >
+              http://google.com
+            </span>
+          </li>
+        </a>
+      </ul>
+    </div>
+  </div>
+  <div
+    class="config-actions-container"
+  >
+    <button
+      class="button"
+    >
+      <svg
+        class="icon icon"
+        style="width: 20px;"
+      >
+        pen-solid.svg
+      </svg>
+    </button>
+    <button
+      class="button"
+    >
+      <svg
+        class="icon icon"
+        style="width: 20px;"
+      >
+        cog-solid.svg
+      </svg>
+    </button>
+  </div>
+</div>
+`;

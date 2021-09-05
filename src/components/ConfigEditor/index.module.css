@@ -1,69 +1,72 @@
 .title {
-    font-size: 1rem;
-    margin-top: 0px;
+  font-size: 1rem;
+  margin-top: 0px;
 }
 
 .modal {
-    min-width: 530px;
-    padding: 10px;
+  min-width: 530px;
+  padding: 10px;
 }
 
 @media (max-width: 600px) {
-    .modal {
-        min-width: auto;
-        width: 100%;
-    }
+  .modal {
+    min-width: auto;
+    width: 100%;
+  }
 }
 
 .editor {
-    width: 100%;
-    background: var(--theme-bg-1);
-    color: var(--theme-color-1);
-    border: none;
-    outline: none;
-    border-radius: 4px;
-    padding: 10px;
+  width: 100%;
+  background: var(--theme-bg-1);
+  color: var(--theme-color-1);
+  border: none;
+  outline: none;
+  border-radius: 4px;
+  padding: 10px;
 }
 
 .editor::-webkit-scrollbar {
-    background-color: var(--theme-bg-2);
-    width: 3px;
+  background-color: var(--theme-bg-2);
+  width: 3px;
 }
 
 .editor::-webkit-scrollbar-thumb {
-    background-color: var(--theme-highlight-1);
-    border-radius: 10px;
-    outline: none;
+  background-color: var(--theme-highlight-1);
+  border-radius: 10px;
+  outline: none;
 }
 
 .modal-button-container {
-    position: absolute;
-    bottom: 13px;
-    right: 13px;
-    cursor: pointer;
-    padding: 10px 10px 10px 0px;
-    background: #000000e0;
+  position: absolute;
+  bottom: 13px;
+  right: 13px;
+  cursor: pointer;
+  padding: 10px 10px 10px 0px;
+  background: #000000e0;
 }
 
 .icon {
-    margin-left: 10px;
-    color: var(--theme-color-1);
-    opacity: .3;
+  margin-left: 10px;
+  opacity: 0.3;
 }
 
-.icon:hover {
-    opacity: 1;
+button:hover > .icon,
+button:focus > .icon {
+  opacity: 1;
 }
 
 .config-actions-container {
-    position: fixed;
-    bottom: 10px;
-    right: 10px;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  color: var(--theme-color-1);
 }
 
 .error {
-    padding: 5px 10px;
-    border: 1px solid red;
-    background-color: #ff00000f;
-    margin: 10px 0;
+  padding: 5px 10px;
+  border: 1px solid red;
+  background-color: #ff00000f;
+  margin: 10px 0;
+  white-space: pre;
+  font-family: monospace;
 }

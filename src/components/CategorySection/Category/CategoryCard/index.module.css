@@ -1,0 +1,75 @@
+.container {
+  padding: 0.5rem 1rem;
+}
+
+.name {
+  transform: translateY(6px);
+  transition: all 0.2s ease;
+}
+
+.link {
+  opacity: 0;
+  font-size: 0.7em;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.container:hover > .link {
+  opacity: 0.3;
+}
+
+.container:hover > .name {
+  transform: translateY(0px);
+}
+
+.edit-container {
+  position: absolute;
+  background: linear-gradient(90deg, #00000054, #000000c9, #000000c9);
+  display: grid;
+  place-items: center flex-end;
+  padding: 0 15px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  /* backdrop-filter: blur(0.7px); */
+  grid-template-columns: 1fr 35px;
+  pointer-events: all;
+}
+
+.edit-icon,
+.delete-icon {
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+button:hover > .edit-icon,
+button:focus > .edit-icon,
+button:hover > .delete-icon,
+button:focus > .delete-icon {
+  opacity: 1;
+}
+
+.edit-container button:focus > .delete-icon,
+.delete-icon:hover {
+  color: var(--theme-warning-1);
+}
+
+.add-card {
+  border: 1px dashed var(--theme-highlight-1);
+  color: var(--theme-highlight-1);
+  text-align: center;
+  cursor: pointer;
+  background-color: transparent;
+  width: 100%;
+  transition: background-color 0.5s var(--ease-1);
+}
+
+.add-card:hover,
+.add-card:focus {
+  outline: none;
+  border-style: solid;
+  background-color: rgba(var(--theme-highlight-1-rgb), 0.3);
+}
