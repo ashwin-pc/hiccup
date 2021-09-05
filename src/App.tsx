@@ -4,7 +4,7 @@ import { CategorySection } from './components/CategorySection'
 import { SearchProvider } from './components/SearchContext'
 import { ConfigProvider } from './components/ConfigContext'
 import { SearchBar } from './components/SearchBar'
-// import { ConfigEditor } from './components/ConfigEditor'
+import { ConfigEditor } from './components/ConfigEditor'
 import { Hotkeys } from './components/Hotkeys'
 import { ConnectedEditLinkModal } from 'components/EditLinkModal'
 
@@ -21,7 +21,7 @@ const App = ({ config }: Props) => (
       <FeaturedSection />
       <CategorySection />
       <ConnectedEditLinkModal />
-      {/* <ConfigEditor /> */}
+      <ConfigEditor />
       <Hotkeys />
     </SearchProvider>
   </ConfigProvider>

@@ -45,10 +45,10 @@
   cursor: pointer;
 }
 
-.edit-container button:hover > .edit-icon,
-.edit-container button:focus > .edit-icon,
-.edit-container button:hover > .delete-icon,
-.edit-container button:focus > .delete-icon {
+button:hover > .edit-icon,
+button:focus > .edit-icon,
+button:hover > .delete-icon,
+button:focus > .delete-icon {
   opacity: 1;
 }
 

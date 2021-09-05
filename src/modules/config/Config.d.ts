@@ -14,6 +14,6 @@ export interface CategoriesEntity {
 }
 
 export interface ConfigEntity {
-  featured?: FeaturedEntity[]
-  categories?: CategoriesEntity[]
+  featured: FeaturedEntity[]
+  categories: CategoriesEntity[]
 }

@@ -19,7 +19,10 @@
                     }
                 }
             },
-            "required": [],
+            "required": [
+                "featured",
+                "categories"
+            ],
             "title": "Config"
         },
         "Category": {

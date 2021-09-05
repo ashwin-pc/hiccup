@@ -168,18 +168,26 @@ exports[`Test hiccup should render page correctly 1`] = `
   <div
     class="config-actions-container"
   >
-    <svg
-      class="icon icon"
-      style="width: 20px;"
+    <button
+      class="button"
     >
-      pen-solid.svg
-    </svg>
-    <svg
-      class="icon icon"
-      style="width: 20px;"
+      <svg
+        class="icon icon"
+        style="width: 20px;"
+      >
+        pen-solid.svg
+      </svg>
+    </button>
+    <button
+      class="button"
     >
-      cog-solid.svg
-    </svg>
+      <svg
+        class="icon icon"
+        style="width: 20px;"
+      >
+        cog-solid.svg
+      </svg>
+    </button>
   </div>
 </div>
 `;

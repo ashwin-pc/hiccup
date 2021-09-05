@@ -6,30 +6,33 @@ import React, {
   FC,
 } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
-// import { addConfigId } from '../../modules/configId'
 import { ConfigEntity } from 'modules/config/Config'
 import useMethods from 'modules/useMethods'
 import { methods } from './methods'
-import { load as loadConfig, save as saveConfig } from 'modules/config'
+import {
+  EMPTY_CONFIG,
+  load as loadConfig,
+  save as saveConfig,
+} from 'modules/config'
 import { Modal, styles as modalStyles } from 'components/common/Modal'
 import styles from './index.module.css'
-
-// const CONFIG_KEY = 'config'
+import { on, off, trigger } from 'modules/ui-events'
 
 interface IConfigContext {
   config: ConfigEntity
   dispatch: ReturnType<typeof methods>
   editing: boolean
-  setEditing: React.Dispatch<boolean>
+  setEditing: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const ConfigContext = createContext<IConfigContext | undefined>(undefined)
+const CONFIG_ERROR_EVENT_TYPE = 'config-error'
 
 const ConfigProvider: FC<{ config?: ConfigEntity }> = ({
   config: overridingConfig,
   children,
 }) => {
-  const [config, dispatch] = useMethods(methods, {})
+  const [config, dispatch] = useMethods(methods, EMPTY_CONFIG)
   const [editing, setEditing] = useState(false)
   const [error, setError] = useState<string>()
 
@@ -61,55 +64,13 @@ const ConfigProvider: FC<{ config?: ConfigEntity }> = ({
     }
   }, [config, dispatch])
 
-  // const [config, setRealConfig] = useState({})
-  // const url = (process.env.PUBLIC_URL || '.') + '/config.json'
-
-  // const setConfig = useCallback((configValue) => {
-  //     setRealConfig(addConfigId(configValue))
-  // }, [])
-
-  // const getConfig = useCallback(async () => {
-  //     // Give highest priority to the overriding config
-  //     if (overridingConfig) {
-  //         setConfig(overridingConfig)
-
-  //         return
-  //     }
-
-  //     // Check localstorage for config
-  //     const localConfig = localStorage.getItem(CONFIG_KEY)
-  //     if (localConfig) {
-  //         setConfig(JSON.parse(localConfig))
-
-  //         return
-  //     }
-
-  //     // Else fetch the default file
-  //     const result = await fetch(url).then(response => response.json())
-
-  //     setConfig(result)
-  // }, [overridingConfig, setConfig, url])
-
-  // const updateConfig = useCallback(newConfig => {
-  //     setConfig(newConfig)
-  // }, [setConfig])
-
-  // const resetConfig = useCallback(() => {
-  //     getConfig()
-  // }, [getConfig])
-
-  // const clearConfig = useCallback(() => {
-  //     localStorage.removeItem(CONFIG_KEY)
-  //     getConfig()
-  // }, [getConfig])
-
-  // useEffect(() => {
-  //     getConfig()
-  // }, [getConfig])
-
-  // useEffect(() => {
-  //     localStorage.setItem(CONFIG_KEY, JSON.stringify(config))
-  // }, [config])
+  useEffect(() => {
+    const handleError = ({ detail }: { detail: string }) => setError(detail)
+    on(CONFIG_ERROR_EVENT_TYPE, handleError)
+    return () => {
+      off(CONFIG_ERROR_EVENT_TYPE, handleError)
+    }
+  }, [])
 
   return (
     <ConfigContext.Provider value={{ config, dispatch, editing, setEditing }}>
@@ -118,8 +79,8 @@ const ConfigProvider: FC<{ config?: ConfigEntity }> = ({
         <Modal show={!!error} onClose={() => setError(undefined)}>
           <h1 className={modalStyles.title}>Error</h1>
           <p className={modalStyles.body}>
-            There was an error saving the change. See the error message below to
-            fix it.
+            There was an error saving/loading the config. See the error message
+            below to fix it.
           </p>
           <div className={styles.error}>{error}</div>
         </Modal>
@@ -136,7 +97,11 @@ const useConfigContext = () => {
   return context
 }
 
+const triggerConfigError = (error: string) =>
+  trigger(CONFIG_ERROR_EVENT_TYPE, error)
+
 export {
+  triggerConfigError,
   ConfigProvider,
   ConfigContext,
   useConfigContext,

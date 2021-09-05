@@ -1,8 +1,18 @@
-import { CategoriesEntity, FeaturedEntity, LinksEntity } from './Config'
+import {
+  CategoriesEntity,
+  ConfigEntity,
+  FeaturedEntity,
+  LinksEntity,
+} from './Config'
 
 export const URL = `${process.env.PUBLIC_URL || '.'}/config.json`
 export const CONFIG_KEY = 'hiccup_config'
 export const DEFAULT_BG = '/assets/card.png'
+
+export const EMPTY_CONFIG: ConfigEntity = {
+  featured: [],
+  categories: [],
+}
 
 export const DEFAULT_LINK: LinksEntity = {
   name: '',

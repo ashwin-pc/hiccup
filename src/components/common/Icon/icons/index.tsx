@@ -8,21 +8,20 @@ import { ReactComponent as FolderPlus } from './folder-plus-solid.svg'
 import { ReactComponent as Star } from './star-regular.svg'
 import { ReactComponent as Search } from './search-solid.svg'
 import { ReactComponent as Earth } from './globe-americas-solid.svg'
+import { ReactComponent as Sync } from './sync-alt-solid.svg'
 
 const icons = {
-    cog: Cog,
-    save: Save,
-    trash: Trash,
-    undo: Undo,
-    edit: Edit,
-    add: Add,
-    'folder-plus': FolderPlus,
-    star: Star,
-    search: Search,
-    earth: Earth,
+  cog: Cog,
+  save: Save,
+  trash: Trash,
+  undo: Undo,
+  edit: Edit,
+  add: Add,
+  'folder-plus': FolderPlus,
+  star: Star,
+  search: Search,
+  earth: Earth,
+  sync: Sync,
 }
 
-export {
-    icons,
-    icons as default,
-}
+export { icons, icons as default }
