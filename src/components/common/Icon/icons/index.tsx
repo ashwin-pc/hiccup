@@ -1,3 +1,5 @@
+// Thanks to Font Awesome (Free) for the icons! CC License https://fontawesome.com/license/free
+
 import { ReactComponent as Cog } from './cog-solid.svg'
 import { ReactComponent as Save } from './save-solid.svg'
 import { ReactComponent as Trash } from './trash-solid.svg'
@@ -10,6 +12,7 @@ import { ReactComponent as Search } from './search-solid.svg'
 import { ReactComponent as Earth } from './globe-americas-solid.svg'
 import { ReactComponent as Sync } from './sync-alt-solid.svg'
 import { ReactComponent as Download } from './file-download-solid.svg'
+import { ReactComponent as Upload } from './upload-solid.svg'
 
 const icons = {
   cog: Cog,
@@ -24,6 +27,7 @@ const icons = {
   earth: Earth,
   sync: Sync,
   download: Download,
+  upload: Upload,
 }
 
 export { icons, icons as default }

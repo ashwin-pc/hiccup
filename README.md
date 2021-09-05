@@ -19,6 +19,7 @@ A static start page to get to your most important links, **FAST**. You can use t
 - Local Config management
 - PWA support
 - Keyboard shortcuts
+- Full keyboard navigation support
 
 ## Screens
 
@@ -40,8 +41,14 @@ Locally manage config using JSON
 
 ## Getting started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Serve the release build or any of the available react scripts to run the app.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Serve the release build or use any of the available react scripts to run the app.
 The startpage uses a `config.json` file as the source of truth for page. It can be modified locally but the result will only be saved on the browsers `localStorage` and persist across sessions.
+
+### Hotkeys
+
+The app has a few hotkeys to help you easily navigate around. To quickly view the available hotkeys, use the `Cmd/Ctrl + /` hotkey!
+
+> Note: Hotkeys do not work when the search is bar is in focus. Use `Tab` to focus out of the search bar and into the app or click anywhere outside the search bar to use hotkeys
 
 ### Using Search
 
@@ -79,9 +86,11 @@ Since this is a static website, the only way to permanently update the links is 
 
 To update config on a local browser instance, use the online config editor using the ⚙️ icon. This will persist the config across sessions. The local editor allows to:
 
-- Delete local cache and restore the configuration from `config.json`
-- Reset a local modification to the last saved point (useful if config was edited by accident)
-- Save the config to `localS
+- Edit the raw local config
+- Sync the configuration from `./config.json` file
+- Download the latest valid config file
+- Upload a local config file. (psst.. if the file has issues, no problem! The editor will still load it and show you the errors until you can save it)
+- Save the config to **LocalStorage**
 
 #### Config structure
 
