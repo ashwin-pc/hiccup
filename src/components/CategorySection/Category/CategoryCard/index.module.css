@@ -45,11 +45,14 @@
   cursor: pointer;
 }
 
-.edit-icon:hover,
-.delete-icon:hover {
+.edit-container button:hover > .edit-icon,
+.edit-container button:focus > .edit-icon,
+.edit-container button:hover > .delete-icon,
+.edit-container button:focus > .delete-icon {
   opacity: 1;
 }
 
+.edit-container button:focus > .delete-icon,
 .delete-icon:hover {
   color: var(--theme-warning-1);
 }

@@ -102,6 +102,6 @@ export default function useMethods<S, R extends MethodRecordBase<S>>(
         dispatch({ type, payload } as ActionUnion<R>)
       return accum
     }, {} as CallbacksFor<typeof methodsFactory>)
-  }, [])
+  }, [methodsFactory, state])
   return [state, callbacks]
 }

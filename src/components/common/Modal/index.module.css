@@ -68,11 +68,24 @@
   position: absolute;
   top: 5px;
   right: 7px;
-  width: 12px;
-  opacity: 0.4;
   cursor: pointer;
+  opacity: 0.4;
+  background: transparent;
+  border: none;
+  color: white;
+  transition: opacity 0.5s var(--ease-1);
 }
 
+.close:focus {
+  outline: none;
+  color: var(--theme-highlight-1);
+}
+
+.close:focus,
 .close:hover {
   opacity: 1;
+}
+
+.close > svg {
+  width: 16px;
 }

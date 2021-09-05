@@ -9,19 +9,18 @@ const AddFeaturedCard: FC<{
   onSave: (newLink: FeaturedEntity) => void
 }> = ({ onSave }) => {
   return (
-    <div className={[styles.container, styles['add-card']].join(' ')}>
-      <Icon
-        icon="add"
-        className={styles['add-icon']}
-        onClick={() =>
-          triggerEdit({
-            fields: DEFAULT_FEATURED_LINK,
-            onSave,
-            title: 'Add Featured Link',
-          })
-        }
-      />
-    </div>
+    <button
+      className={[styles.container, styles['add-card']].join(' ')}
+      onClick={() =>
+        triggerEdit({
+          fields: DEFAULT_FEATURED_LINK,
+          onSave,
+          title: 'Add Featured Link',
+        })
+      }
+    >
+      <Icon icon="add" className={styles['add-icon']} />
+    </button>
   )
 }
 

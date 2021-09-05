@@ -1,4 +1,4 @@
-import { FunctionComponent, SVGProps, useMemo } from 'react'
+import { FunctionComponent, SVGProps, useMemo, MouseEventHandler } from 'react'
 import icons from './icons'
 import styles from './index.module.css'
 
@@ -14,6 +14,7 @@ const Icon: FunctionComponent<Props> = ({
   size = 20,
   className = '',
   as,
+  onClick,
   ...props
 }) => {
   const IconTag = icons[icon]
@@ -25,14 +26,22 @@ const Icon: FunctionComponent<Props> = ({
         style={{
           width: size + 'px',
         }}
+        {...(as !== 'button' && onClick)}
         {...props}
       />
     ),
-    [IconTag, className, props, size]
+    [IconTag, as, className, onClick, props, size]
   )
 
   if (as === 'button') {
-    return <button className={styles.button}>{iconElement}</button>
+    return (
+      <button
+        className={styles.button}
+        onClick={onClick as MouseEventHandler<HTMLButtonElement> | undefined}
+      >
+        {iconElement}
+      </button>
+    )
   }
 
   return <>{iconElement}</>

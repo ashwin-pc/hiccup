@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback, FC } from 'react'
+import { useMemo, FC } from 'react'
 import process from 'process'
 import { Card } from 'components/Card'
 import { Icon } from 'components/common/Icon'
@@ -51,6 +51,7 @@ const EditContainer: FC<EditContainerProps> = ({ onEdit, onDelete, link }) => {
         <Icon
           icon="edit"
           className={styles['edit-icon']}
+          as="button"
           onClick={() =>
             triggerEdit({
               fields: linkFields,
@@ -62,6 +63,7 @@ const EditContainer: FC<EditContainerProps> = ({ onEdit, onDelete, link }) => {
         <Icon
           icon="trash"
           className={styles['delete-icon']}
+          as="button"
           onClick={onDelete}
         />
       </div>
