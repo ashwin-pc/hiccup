@@ -1,45 +1,18 @@
-import React, { useCallback, useState } from 'react'
+import React, { FunctionComponent } from 'react'
 import { Icon } from 'components/common/Icon'
-import { EditLinkModal } from 'components/EditLinkModal'
 import styles from './index.module.css'
-import { LinksEntity } from 'modules/config/Config'
 
-const DEFAULT_LINK: LinksEntity = {
-  name: '',
-  link: '',
-  tags: '',
-}
-
-const AddCategoryCard = ({
-  onSave,
-}: {
-  onSave: (link: LinksEntity) => void
-}) => {
-  const [showEditModal, setShowEditModal] = useState(false)
-
-  const handleSave = useCallback(
-    (editedLink: typeof DEFAULT_LINK) => {
-      setShowEditModal(false)
-      onSave && onSave(editedLink)
-    },
-    [onSave]
-  )
-
+const AddCategoryCard: FunctionComponent<
+  React.ButtonHTMLAttributes<HTMLElement>
+> = (props) => {
   return (
-    <div className={[styles.container, styles['add-card']].join(' ')}>
-      <Icon
-        icon="add"
-        className={styles['add-icon']}
-        onClick={() => setShowEditModal(true)}
-      />
-      <EditLinkModal
-        show={showEditModal}
-        fields={DEFAULT_LINK}
-        onCancel={() => setShowEditModal(false)}
-        onSave={handleSave}
-      />
-    </div>
+    <button
+      className={[styles.container, styles['add-card']].join(' ')}
+      {...props}
+    >
+      <Icon icon="add" className={styles['add-icon']} />
+    </button>
   )
 }
 
-export { AddCategoryCard, AddCategoryCard as default, DEFAULT_LINK }
+export { AddCategoryCard, AddCategoryCard as default }

@@ -35,7 +35,7 @@ const Category = ({
           categoryIndex={categoryIndex}
         />
       ))}
-      <AddCategoryCard categoryIndex={categoryIndex} />
+      <AddCategoryCard title={title} categoryIndex={categoryIndex} />
     </ul>
   </div>
 )

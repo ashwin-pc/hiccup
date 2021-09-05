@@ -46,6 +46,7 @@ The startpage uses a `config.json` file as the source of truth for page. It can 
 ### Using Search
 
 The purpose of the search is to get to you link as easily as possible.
+
 - Press `UpArrow` and `DownArrow` to navigate the search
 - Press `Esc` to quit the search
 - Hit `Enter` to open the first highlighted link amongst search results. (Featured cards have a star and the Search provider is marked by a globe)
@@ -54,7 +55,7 @@ Search looks at the `name`, `link` and `tags` field of each link in the config t
 
 ### Using Edit mode
 
-The edit mode can be activated using  `Cmd/Ctrl + e` or the ✏️ icon on the bottom right of the screen. To exit the edit mode at any time use `Esc` or the commands used to start editing. The Edit mode lets you add, delete and edit links on the startpage. 
+The edit mode can be activated using `Cmd/Ctrl + e` or the ✏️ icon on the bottom right of the screen. To exit the edit mode at any time use `Esc` or the commands used to start editing. The Edit mode lets you add, delete and edit links on the startpage.
 
 The feaures currently supported are:
 
@@ -62,10 +63,10 @@ The feaures currently supported are:
 - Add, edit and delete upto 4 categories
 - Add, edit and delete category links
 
-These limits were place intentionally to 
+These limits were place intentionally to
 For more flexibility, you can directly edit the config using the config editor (described in the next section)
 
-e.g.: 
+e.g.:
 
 - Remove the category of featured section entirely
 - Add more than 4 categories or featured cards
@@ -86,7 +87,7 @@ To update config on a local browser instance, use the online config editor using
 
 ```js
 {
-    // featured and catagories are optional sections. Remove them to use the page without it. 
+    // featured and catagories are optional sections. Remove them to use the page without it.
     "featured": [{
         "name": "Link name as seen on the card", // required
         "link": "link", // required
@@ -112,7 +113,8 @@ To update config on a local browser instance, use the online config editor using
 
 Refer to the [JSON Scheme file](src/modules/validateConfig/schema.json) for the latest schema.
 
-#### Sample config 
+#### Sample config
+
 ```
 {
     "featured": [{
@@ -173,7 +175,6 @@ Refer to the [JSON Scheme file](src/modules/validateConfig/schema.json) for the 
     }]
 }
 ```
-
 
 ## Available Scripts for development
 

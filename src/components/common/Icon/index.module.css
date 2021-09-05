@@ -1,0 +1,10 @@
+.button {
+  background: transparent;
+  color: inherit;
+  border: none;
+}
+
+.button:focus {
+  outline: none;
+  color: var(--theme-highlight-1);
+}

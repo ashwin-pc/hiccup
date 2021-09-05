@@ -1,9 +1,10 @@
-import React, { useMemo, useCallback } from 'react'
+import React, { useCallback, FC } from 'react'
 import { useConfigContext } from 'components/ConfigContext'
 import { CategoryCard } from './CategoryCard'
 import { AddCategoryCard } from './AddCategoryCard'
 import { LinksEntity } from 'modules/config/Config'
-
+import { triggerEdit } from 'components/EditLinkModal'
+import { DEFAULT_LINK } from './constants'
 interface Props {
   index: number
   categoryIndex: number
@@ -33,24 +34,17 @@ const useCategoryCard = (cardIndex: number, categoryIndex: number) => {
     [cardIndex, categoryIndex, dispatch]
   )
 
-  const edit = useMemo(
-    () => ({
-      onEdit,
-      onDelete,
-    }),
-    [onDelete, onEdit]
-  )
-
   return {
-    edit: editing && edit,
+    onEdit,
+    onDelete,
+    editing,
   }
 }
 
-const ConnectedAddCategoryCard = ({
-  categoryIndex,
-}: {
+const ConnectedAddCategoryCard: FC<{
   categoryIndex: number
-}) => {
+  title: string
+}> = ({ categoryIndex, title }) => {
   const { editing, dispatch } = useConfigContext()
 
   const onSave = useCallback(
@@ -60,7 +54,17 @@ const ConnectedAddCategoryCard = ({
     [categoryIndex, dispatch]
   )
 
-  return editing ? <AddCategoryCard onSave={onSave} /> : null
+  return editing ? (
+    <AddCategoryCard
+      onClick={() =>
+        triggerEdit({
+          fields: DEFAULT_LINK,
+          onSave,
+          title: `${title}: Add link`,
+        })
+      }
+    />
+  ) : null
 }
 
 export {

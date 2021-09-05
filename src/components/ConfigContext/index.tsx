@@ -1,14 +1,12 @@
 import React, {
   createContext,
-  useCallback,
   useEffect,
   useState,
   useContext,
   FC,
 } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
-import { addConfigId } from '../../modules/configId'
-import process from 'process'
+// import { addConfigId } from '../../modules/configId'
 import { ConfigEntity } from 'modules/config/Config'
 import useMethods from 'modules/useMethods'
 import { methods } from './methods'

@@ -10,11 +10,10 @@ const CategorySection = ({
   categories: CategoriesEntity[]
 }) => (
   <Section className={styles.categories}>
-    {categories &&
-      categories.map(({ title, links }, index) => (
-        <Category key={index} title={title} links={links} index={index} />
-      ))}
-    {categories && categories.length < 4 && <AddCategory />}
+    {categories.map(({ title, links }, index) => (
+      <Category key={index} title={title} links={links} index={index} />
+    ))}
+    {categories.length < 4 && <AddCategory />}
   </Section>
 )
 

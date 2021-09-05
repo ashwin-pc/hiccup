@@ -5,7 +5,10 @@
   --theme-color-1: #abaaaa;
   --theme-color-disabled: #555;
   --theme-highlight-1: gold;
-  --theme-warning-1: #F44336;
+  --theme-highlight-1-rgb: 255, 215, 0;
+  --theme-warning-1: #f44336;
+
+  --ease-1: cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 * {
@@ -45,7 +48,8 @@ li {
   list-style-type: none;
 }
 
-code, textarea {
+code,
+textarea {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
