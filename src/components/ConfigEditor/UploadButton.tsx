@@ -6,9 +6,9 @@ interface HTMLInputEvent extends ChangeEvent {
   target: HTMLInputElement & EventTarget
 }
 
-export const UploadButton: FC<{ handleFile: (file: File) => void }> = ({
-  handleFile,
-}) => {
+export const UploadButton: FC<{
+  handleFile: (file: string | ArrayBuffer | null | undefined) => void
+}> = ({ handleFile }) => {
   // Create a reference to the hidden file input element
   const hiddenFileInput = useRef<HTMLInputElement>(null)
 
@@ -21,7 +21,12 @@ export const UploadButton: FC<{ handleFile: (file: File) => void }> = ({
   // to handle the user-selected file
   const handleChange = (event: HTMLInputEvent) => {
     const fileUploaded = event.target.files?.[0]
-    fileUploaded && handleFile(fileUploaded)
+
+    if (fileUploaded) {
+      const reader = new FileReader()
+      reader.onload = (e) => handleFile(e.target?.result)
+      reader.readAsText(fileUploaded)
+    }
   }
   return (
     <>

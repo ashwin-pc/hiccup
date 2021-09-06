@@ -17,3 +17,5 @@ global.fetch = jest.fn(() =>
         json: () => Promise.resolve({ rates: { CAD: 1.42 } }),
     })
 )
+
+global.URL.createObjectURL = jest.fn();

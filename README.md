@@ -39,6 +39,10 @@ Locally manage config using JSON
 
 ![Locally manage config using JSON](docs/assets/screen-config.png)
 
+Drag & drop config file
+
+![Drag & drop config file](docs/assets/screen-drop.png)
+
 ## Getting started
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Serve the release build or use any of the available react scripts to run the app.

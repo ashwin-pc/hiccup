@@ -13,6 +13,7 @@ import { ReactComponent as Earth } from './globe-americas-solid.svg'
 import { ReactComponent as Sync } from './sync-alt-solid.svg'
 import { ReactComponent as Download } from './file-download-solid.svg'
 import { ReactComponent as Upload } from './upload-solid.svg'
+import { ReactComponent as File } from './file-alt-solid.svg'
 
 const icons = {
   cog: Cog,
@@ -28,6 +29,7 @@ const icons = {
   sync: Sync,
   download: Download,
   upload: Upload,
+  file: File,
 }
 
 export { icons, icons as default }
