@@ -5,189 +5,193 @@ exports[`Test hiccup should render page correctly 1`] = `
   id="root"
 >
   <div
-    class="search-container"
-  >
-    <input
-      autocomplete="off"
-      class="search"
-      name="search"
-      placeholder="Search   ...... or use Shift + Tab for URL bar"
-      type="text"
-      value=""
-    />
-    <svg
-      class="icon search-icon"
-      style="width: 10px;"
-    >
-      search-solid.svg
-    </svg>
-    <div
-      class="results"
-    />
-  </div>
-  <div
-    class="section featured"
-  >
-    <a
-      class="link"
-      href="http://google.com"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <li
-        class="card container "
-        style="background-image: url(./assets/logo.png);"
-      >
-        Featured Link
-      </li>
-    </a>
-    <a
-      class="link"
-      href="http://google.com"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <li
-        class="card container "
-        style="background-image: url(./assets/card.png);"
-      >
-        Another Feaured link
-      </li>
-    </a>
-  </div>
-  <div
-    class="section categories"
+    class="upload"
   >
     <div
-      class="category"
+      class="search-container"
     >
-      <h1
-        class="title"
+      <input
+        autocomplete="off"
+        class="search"
+        name="search"
+        placeholder="Search   ...... or use Shift + Tab for URL bar"
+        type="text"
+        value=""
+      />
+      <svg
+        class="icon search-icon"
+        style="width: 10px;"
       >
-        Category 1
-      </h1>
-      <ul>
-        <a
-          class="link"
-          href="http://google.com"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <li
-            class="card container "
-          >
-            <span
-              class="name"
-            >
-              Link 1
-            </span>
-            <span
-              class="link"
-            >
-              http://google.com
-            </span>
-          </li>
-        </a>
-        <a
-          class="link"
-          href="http://google.com"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          <li
-            class="card container "
-          >
-            <span
-              class="name"
-            >
-              Test Link 2
-            </span>
-            <span
-              class="link"
-            >
-              http://google.com
-            </span>
-          </li>
-        </a>
-      </ul>
+        search-solid.svg
+      </svg>
+      <div
+        class="results"
+      />
     </div>
     <div
-      class="category"
+      class="section featured"
     >
-      <h1
-        class="title"
+      <a
+        class="link"
+        href="http://google.com"
+        rel="noopener noreferrer"
+        target="_blank"
       >
-        Category 2
-      </h1>
-      <ul>
-        <a
-          class="link"
-          href="http://google.com"
-          rel="noopener noreferrer"
-          target="_blank"
+        <li
+          class="card container "
+          style="background-image: url(./assets/logo.png);"
         >
-          <li
-            class="card container "
-          >
-            <span
-              class="name"
-            >
-              Link 1
-            </span>
-            <span
-              class="link"
-            >
-              http://google.com
-            </span>
-          </li>
-        </a>
-        <a
-          class="link"
-          href="http://google.com"
-          rel="noopener noreferrer"
-          target="_blank"
+          Featured Link
+        </li>
+      </a>
+      <a
+        class="link"
+        href="http://google.com"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <li
+          class="card container "
+          style="background-image: url(./assets/card.png);"
         >
-          <li
-            class="card container "
-          >
-            <span
-              class="name"
-            >
-              Link 2
-            </span>
-            <span
-              class="link"
-            >
-              http://google.com
-            </span>
-          </li>
-        </a>
-      </ul>
+          Another Feaured link
+        </li>
+      </a>
     </div>
-  </div>
-  <div
-    class="config-actions-container"
-  >
-    <button
-      class="button"
+    <div
+      class="section categories"
     >
-      <svg
-        class="icon icon"
-        style="width: 20px;"
+      <div
+        class="category"
       >
-        pen-solid.svg
-      </svg>
-    </button>
-    <button
-      class="button"
+        <h1
+          class="title"
+        >
+          Category 1
+        </h1>
+        <ul>
+          <a
+            class="link"
+            href="http://google.com"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <li
+              class="card container "
+            >
+              <span
+                class="name"
+              >
+                Link 1
+              </span>
+              <span
+                class="link"
+              >
+                http://google.com
+              </span>
+            </li>
+          </a>
+          <a
+            class="link"
+            href="http://google.com"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <li
+              class="card container "
+            >
+              <span
+                class="name"
+              >
+                Test Link 2
+              </span>
+              <span
+                class="link"
+              >
+                http://google.com
+              </span>
+            </li>
+          </a>
+        </ul>
+      </div>
+      <div
+        class="category"
+      >
+        <h1
+          class="title"
+        >
+          Category 2
+        </h1>
+        <ul>
+          <a
+            class="link"
+            href="http://google.com"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <li
+              class="card container "
+            >
+              <span
+                class="name"
+              >
+                Link 1
+              </span>
+              <span
+                class="link"
+              >
+                http://google.com
+              </span>
+            </li>
+          </a>
+          <a
+            class="link"
+            href="http://google.com"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <li
+              class="card container "
+            >
+              <span
+                class="name"
+              >
+                Link 2
+              </span>
+              <span
+                class="link"
+              >
+                http://google.com
+              </span>
+            </li>
+          </a>
+        </ul>
+      </div>
+    </div>
+    <div
+      class="config-actions-container"
     >
-      <svg
-        class="icon icon"
-        style="width: 20px;"
+      <button
+        class="button"
       >
-        cog-solid.svg
-      </svg>
-    </button>
+        <svg
+          class="icon icon"
+          style="width: 20px;"
+        >
+          pen-solid.svg
+        </svg>
+      </button>
+      <button
+        class="button"
+      >
+        <svg
+          class="icon icon"
+          style="width: 20px;"
+        >
+          cog-solid.svg
+        </svg>
+      </button>
+    </div>
   </div>
 </div>
 `;

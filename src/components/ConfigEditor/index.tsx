@@ -33,32 +33,26 @@ const ConfigEditor = () => {
   )
 
   const handleFile = useCallback(
-    (file: File) => {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        const uploadedConfig = e.target?.result
-
-        if (typeof uploadedConfig !== 'string') {
-          return setErrorMsg(
-            'Uploaded file format incorrect. Upload a correct JSON file'
-          )
-        }
-
-        const [valid, error, path] = validateConfigText(uploadedConfig)
-
-        if (!valid) {
-          // If the issue was not in parsing the JSON, show the text in the editor
-          if (path !== 'json') {
-            setConfigText(uploadedConfig)
-          }
-
-          setErrorMsg(`Upload Error:\nError: ${error}\nPath: ${path}`)
-          return
-        }
-
-        saveAndCloseModal(JSON.parse(uploadedConfig))
+    (uploadedConfig) => {
+      if (typeof uploadedConfig !== 'string') {
+        return setErrorMsg(
+          'Uploaded file format incorrect. Upload a correct JSON file'
+        )
       }
-      reader.readAsText(file)
+
+      const [valid, error, path] = validateConfigText(uploadedConfig)
+
+      if (!valid) {
+        // If the issue was not in parsing the JSON, show the text in the editor
+        if (path !== 'json') {
+          setConfigText(uploadedConfig)
+        }
+
+        setErrorMsg(`Upload Error:\nError: ${error}\nPath: ${path}`)
+        return
+      }
+
+      saveAndCloseModal(JSON.parse(uploadedConfig))
     },
     [saveAndCloseModal]
   )
@@ -128,14 +122,6 @@ const ConfigEditor = () => {
         />
         <div className={styles['modal-button-container']}>
           <UploadButton handleFile={handleFile} />
-          <div className={styles.spacer}></div>
-          <Icon
-            icon="sync"
-            size={15}
-            as="button"
-            className={styles['icon']}
-            onClick={handleSync}
-          />
           <Icon
             icon="download"
             size={13}
@@ -143,6 +129,15 @@ const ConfigEditor = () => {
             href={fileURL}
             download={fileName}
             className={styles['icon']}
+          />
+          <Spacer />
+          <Icon
+            icon="sync"
+            size={15}
+            as="button"
+            aria-label="sync"
+            className={styles['icon']}
+            onClick={handleSync}
           />
           <Icon
             icon="save"
@@ -170,6 +165,8 @@ const ConfigEditor = () => {
     </>
   )
 }
+
+const Spacer = () => <div className={styles.spacer}></div>
 
 const toString = (json: any) => JSON.stringify(json, null, '  ')
 
