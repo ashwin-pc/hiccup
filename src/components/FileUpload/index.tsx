@@ -66,7 +66,7 @@ export const FileUpload: FC = ({ children }) => {
       onDragOver={handleDragOver}
     >
       {children}
-      {dragging >= 0 && (
+      {dragging > 0 && (
         <div className={[styles.dropzone, highlightClass].join(' ')}>
           <Icon size={40} icon="file" />
           Drop your config file here
