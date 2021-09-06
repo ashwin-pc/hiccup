@@ -5,8 +5,12 @@
   --theme-color-1: #abaaaa;
   --theme-color-disabled: #555;
   --theme-highlight-1: gold;
-  --theme-highlight-1-rgb: 255, 215, 0;
   --theme-warning-1: #f44336;
+
+  --theme-bg-1-rgb: 0, 0, 0;
+  --theme-bg-2-rgb: 21, 21, 21;
+  --theme-bg-3-rgb: 45, 45, 45;
+  --theme-highlight-1-rgb: 255, 215, 0;
 
   --ease-1: cubic-bezier(0.075, 0.82, 0.165, 1);
 }

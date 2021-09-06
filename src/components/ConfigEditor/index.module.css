@@ -4,13 +4,15 @@
 }
 
 .modal {
-  min-width: 530px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  width: 80%;
   padding: 10px;
 }
 
 @media (max-width: 600px) {
   .modal {
-    min-width: auto;
     width: 100%;
   }
 }
@@ -37,19 +39,20 @@
 }
 
 .modal-button-container {
-  position: absolute;
-  bottom: 13px;
-  right: 13px;
-  cursor: pointer;
-  padding: 10px 10px 10px 0px;
-  background: #000000e0;
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 10px;
+  align-items: center;
 }
 
 .icon {
-  margin-left: 10px;
+  cursor: pointer;
   opacity: 0.3;
 }
 
+a:hover > .icon,
+a:focus > .icon,
 button:hover > .icon,
 button:focus > .icon {
   opacity: 1;
@@ -69,4 +72,29 @@ button:focus > .icon {
   margin: 10px 0;
   white-space: pre;
   font-family: monospace;
+}
+
+.upload {
+  background: var(--theme-bg-3);
+  border: none;
+  padding: 7px 20px;
+  color: var(--theme-color-1);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-gap: 10px;
+  align-items: center;
+  border-radius: 4px;
+  transition: all 0.3s var(--ease-1);
+}
+
+.upload:focus,
+.upload:hover {
+  outline: none;
+  background-color: transparent;
+  box-shadow: 0 0 0 2px var(--theme-highlight-1);
+  color: var(--theme-highlight-1);
+}
+
+.spacer {
+  flex-grow: 1;
 }

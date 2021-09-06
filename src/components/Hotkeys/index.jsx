@@ -6,7 +6,7 @@ import styles from './index.module.css'
 export const HOTKEYS = {
     'Ctrl/⌘ + /': 'Toggle Shortcuts',
     'Ctrl/⌘ + E': 'Toggle Edit mode',
-    'Ctrl/⌘ + K': 'Toggle raw config editor',
+    'Ctrl/⌘ + K': 'Toggle Config editor',
 }
 
 export function Hotkeys() {

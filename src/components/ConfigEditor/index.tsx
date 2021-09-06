@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useState, useCallback, useEffect, useMemo } from 'react'
 import { useConfigContext } from '../ConfigContext'
 import { Icon } from 'components/common/Icon'
 import { Modal } from 'components/common/Modal'
@@ -6,69 +6,103 @@ import styles from './index.module.css'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { validate } from 'modules/config'
 import { sync } from 'modules/config/load'
+import hash from 'modules/hash'
+import { UploadButton } from './UploadButton'
+import { ConfigEntity } from 'modules/config/Config'
 
 const ConfigEditor = () => {
   const { config, dispatch, setEditing } = useConfigContext()
   const [configText, setConfigText] = useState<string>(toString(config))
+  const [fileURL, setFileURL] = useState<string>()
 
   const [show, setShow] = useState(false)
   const [errorMsg, setErrorMsg] = useState<string>()
+
+  const saveAndCloseModal = useCallback(
+    (configToSave: ConfigEntity) => {
+      dispatch.setConfig(configToSave)
+      setErrorMsg(undefined)
+      setShow(false)
+    },
+    [dispatch]
+  )
 
   const handleChange = useCallback(
     (event) => setConfigText(event.target.value),
     []
   )
 
-  const handleSave = useCallback(() => {
-    try {
-      const newConfig = JSON.parse(configText)
-      const [valid, error, path] = validate(newConfig)
+  const handleFile = useCallback(
+    (uploadedConfig) => {
+      if (typeof uploadedConfig !== 'string') {
+        return setErrorMsg(
+          'Uploaded file format incorrect. Upload a correct JSON file'
+        )
+      }
+
+      const [valid, error, path] = validateConfigText(uploadedConfig)
 
       if (!valid) {
-        setErrorMsg(`${path || 'Generic'} : ${error}`)
+        // If the issue was not in parsing the JSON, show the text in the editor
+        if (path !== 'json') {
+          setConfigText(uploadedConfig)
+        }
+
+        setErrorMsg(`Upload Error:\nError: ${error}\nPath: ${path}`)
         return
       }
 
-      dispatch.setConfig(newConfig)
-      setShow(false)
-      setErrorMsg(undefined)
-    } catch (e) {
-      setErrorMsg('Not a valid JSON')
+      saveAndCloseModal(JSON.parse(uploadedConfig))
+    },
+    [saveAndCloseModal]
+  )
+
+  const handleSave = useCallback(() => {
+    const [valid, error, path] = validateConfigText(configText)
+
+    if (!valid) {
+      setErrorMsg(`${path || 'Generic'} : ${error}`)
+      return
     }
-  }, [configText, dispatch])
+
+    saveAndCloseModal(JSON.parse(configText))
+  }, [configText, saveAndCloseModal])
 
   const handleSync = useCallback(async () => {
     try {
       const remoteConfig = await sync()
-      dispatch.setConfig(remoteConfig)
-      setShow(false)
-      setErrorMsg(undefined)
+      saveAndCloseModal(remoteConfig)
     } catch (error) {
       setErrorMsg(`Sync failed: \n${error}`)
     }
-  }, [dispatch])
+  }, [saveAndCloseModal])
 
   useEffect(() => {
-    try {
-      const [valid, error, path] = validate(JSON.parse(configText))
+    const [valid, error, path] = validateConfigText(configText)
+    if (!valid) setErrorMsg(`${path || 'Generic'} : ${error}`)
 
-      if (!valid) {
-        setErrorMsg(`${path || 'Generic'} : ${error}`)
-      }
-    } catch (e) {
-      setErrorMsg('Not a valid JSON')
-    }
     return () => {
       setErrorMsg(undefined)
     }
   }, [configText])
 
-  //   update the config text when config changes
+  // update the config text and download link when config changes
   useEffect(() => {
+    const blob = new Blob([toString(config)], {
+      type: 'application/json',
+    })
+    const url = URL.createObjectURL(blob)
+
     setConfigText(toString(config))
+    setFileURL(url)
   }, [config])
 
   useHotkeys('ctrl+k,cmd+k', () => setShow((val) => !val))
+
+  const fileName = useMemo(
+    () => `config-${hash(toString(config))}.json`,
+    [config]
+  )
 
   return (
     <>
@@ -87,14 +121,27 @@ const ConfigEditor = () => {
           autoFocus
         />
         <div className={styles['modal-button-container']}>
+          <UploadButton handleFile={handleFile} />
+          <Icon
+            icon="download"
+            size={13}
+            as="a"
+            href={fileURL}
+            download={fileName}
+            className={styles['icon']}
+          />
+          <Spacer />
           <Icon
             icon="sync"
+            size={15}
             as="button"
+            aria-label="sync"
             className={styles['icon']}
             onClick={handleSync}
           />
           <Icon
             icon="save"
+            size={15}
             as="button"
             className={styles['icon']}
             onClick={handleSave}
@@ -119,6 +166,18 @@ const ConfigEditor = () => {
   )
 }
 
+const Spacer = () => <div className={styles.spacer}></div>
+
 const toString = (json: any) => JSON.stringify(json, null, '  ')
+
+const validateConfigText = (configString: string) => {
+  try {
+    const configToValidate = JSON.parse(configString)
+
+    return validate(configToValidate)
+  } catch (e) {
+    return [false, 'Not a valid JSON', 'parse']
+  }
+}
 
 export { ConfigEditor, ConfigEditor as default }

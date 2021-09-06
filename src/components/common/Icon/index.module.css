@@ -4,6 +4,7 @@
   border: none;
 }
 
+.a:focus,
 .button:focus {
   outline: none;
   color: var(--theme-highlight-1);
