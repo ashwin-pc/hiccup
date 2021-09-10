@@ -1,0 +1,8 @@
+version: '3.9'
+services:
+  web:
+    image: bleckbeard/hiccup:latest
+    ports:
+      - '8899:80'
+    volumes:
+      - ./public/config.json:/usr/share/nginx/html/config.json

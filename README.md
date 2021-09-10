@@ -16,6 +16,7 @@ A static start page to get to your most important links, **FAST**. You can use t
 - Categories
 - Quick link preview
 - Search (with search provider and tag support)
+- Docker support
 - Local Config management
 - PWA support
 - Keyboard shortcuts
@@ -47,6 +48,29 @@ Drag & drop config file
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Serve the release build or use any of the available react scripts to run the app.
 The startpage uses a `config.json` file as the source of truth for page. It can be modified locally but the result will only be saved on the browsers `localStorage` and persist across sessions.
+
+### Installation
+
+To use the app, you have many options
+
+#### [Hosted site](https://test.designedbyashw.in/hiccup)
+
+I have hosted an instance of the app [here](https://test.designedbyashw.in/hiccup). Sinnce this is a static site, chages you make to the links only exist locally on your browser and are never sent anywhere. To save the links to other browsers, just doenload the config file from the editor using the download button and drag the config file onto a new instance of hiccup on your new browser. The links in your config stay private. You can even have multiple config files that you can load based on your need.
+
+#### Docker
+
+To run the app using docker the image `bleckbeard/hiccup:latest`. You can use the command below or the `docker-compose.yaml` file from the repo. Be sure to change the volume to the location of your local config file. Use the one in `./public/config.json` for reference.
+
+```
+docker run \
+    -p 8899:80 \
+    -v `pwd`/public/config.json:/usr/share/nginx/html/config.json \
+    bleckbeard/hiccup:latest
+```
+
+#### Using a static site host
+
+You cann download the built file or build it yourself and deploy to a static site provider like netlify or github-pages (or any other way to host a static site). To persist the config, edit the local config file. You can always sync the version of your config file to this using the config editor.
 
 ### Hotkeys
 
