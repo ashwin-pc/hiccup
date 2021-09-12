@@ -272,6 +272,19 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/ma
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
 
+### Releasing the app
+
+To release the app
+
+- Update the semver in the package.json
+- Update the `Readme.md` if new features have been added or breaking changes have been introduced
+- Run the `release.sh` script to:
+  - build the code and bundle it
+  - deploy the latest docker images
+  - bundle the built code to add as an `.zip` artifact to the github release
+- Push the code to Github and create a new release
+- Add the bundled zip as an artifact to the release and delete it locally
+
 ### Deployment
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/deployment

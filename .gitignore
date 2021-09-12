@@ -25,3 +25,4 @@ yarn-error.log*
 /assets
 deploy.sh
 .vscode
+hiccup*.zip
