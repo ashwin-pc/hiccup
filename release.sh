@@ -7,7 +7,7 @@ npm run build
 
 echo 
 echo Building docker image
-# docker build -t bleckbeard/hiccup:latest . 
+docker build -t bleckbeard/hiccup:latest . 
 docker tag bleckbeard/hiccup:latest bleckbeard/hiccup:v$VERSION
 
 
