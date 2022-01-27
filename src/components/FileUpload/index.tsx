@@ -45,14 +45,10 @@ export const FileUpload: FC = ({ children }) => {
 
   const onSave = useCallback(
     (modalData: EditModalField[]) => {
-      const categoryFieldIndex = modalData.findIndex(
-        ({ label }) => label === CATEGORY_KEY
-      )
-      const categoryField = modalData.slice(categoryFieldIndex, 1)[0]
-
       const newLink = transformFieldsToEntity(modalData) as NewEntity
+      const category = newLink.category
       delete newLink.category
-      dispatch.addQuickLink(categoryField.value || '', newLink)
+      dispatch.addQuickLink(category || '', newLink)
     },
     [dispatch]
   )

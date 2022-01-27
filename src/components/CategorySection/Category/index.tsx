@@ -40,7 +40,8 @@ const ConnectedAddCategory = () => {
   const { editing, dispatch } = useConfigContext()
 
   const onSave = useCallback(
-    ({ title: categoryTitle }) => {
+    (fields: EditModalField[]) => {
+      const { title: categoryTitle } = transformFieldsToEntity(fields) as any
       dispatch.addCategory(categoryTitle)
     },
     [dispatch]
