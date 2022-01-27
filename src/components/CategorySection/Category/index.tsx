@@ -3,6 +3,8 @@ import { useConfigContext } from 'components/ConfigContext'
 import { Category } from './Category'
 import { AddCategory } from './AddCategory'
 import { CategoriesEntity } from 'modules/config/Config'
+import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
+import { transformFieldsToEntity } from 'components/EditLinkModal/transforms'
 
 interface Props extends CategoriesEntity {
   index: number
@@ -17,7 +19,8 @@ const ConnectedCategory = (props: Props) => {
   }, [categoryIndex, dispatch])
 
   const onEdit = useCallback(
-    ({ title }: Pick<CategoriesEntity, 'title'>) => {
+    (fields: EditModalField[]) => {
+      const { title } = transformFieldsToEntity(fields) as any
       dispatch.editCategory(categoryIndex, title)
     },
     [categoryIndex, dispatch]

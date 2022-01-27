@@ -13,6 +13,10 @@ export interface CategoriesEntity {
   links: LinksEntity[]
 }
 
+export interface NewEntity extends LinksEntity {
+  category?: string
+}
+
 export interface ConfigEntity {
   featured: FeaturedEntity[]
   categories: CategoriesEntity[]

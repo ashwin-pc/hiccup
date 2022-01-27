@@ -3,6 +3,7 @@ import {
   ConfigEntity,
   FeaturedEntity,
   LinksEntity,
+  NewEntity,
 } from './Config'
 
 export const URL = `${process.env.PUBLIC_URL || '.'}/config.json`
@@ -15,6 +16,12 @@ export const EMPTY_CONFIG: ConfigEntity = {
 }
 
 export const DEFAULT_LINK: LinksEntity = {
+  name: '',
+  link: '',
+  tags: '',
+}
+
+export const DEFAULT_NEW_LINK: NewEntity = {
   name: '',
   link: '',
   tags: '',

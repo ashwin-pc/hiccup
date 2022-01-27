@@ -2,18 +2,19 @@ import { FC } from 'react'
 import { Icon } from 'components/common/Icon'
 import { triggerEdit } from 'components/EditLinkModal'
 import styles from './index.module.css'
-import { CategoriesEntity } from 'modules/config/Config'
 import { DEFAULT_CATEGORY } from 'modules/config'
+import { transformEntityToFields } from 'components/EditLinkModal/transforms'
+import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
 
 const AddCategory: FC<{
-  onSave: (data: Omit<CategoriesEntity, 'links'>) => void
+  onSave: (data: EditModalField[]) => void
 }> = ({ onSave }) => {
   return (
     <button
       className={styles['add-container']}
       onClick={() =>
         triggerEdit({
-          fields: DEFAULT_CATEGORY,
+          fields: transformEntityToFields(DEFAULT_CATEGORY),
           onSave,
           title: 'Add Category',
         })

@@ -6,9 +6,11 @@ import { triggerEdit } from 'components/EditLinkModal'
 import { DEFAULT_BG, DEFAULT_FEATURED_LINK } from 'modules/config'
 import styles from './index.module.css'
 import { FeaturedEntity } from 'modules/config/Config'
+import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
+import { transformEntityToFields } from 'components/EditLinkModal/transforms'
 
 interface EditContainerProps {
-  onEdit: (newLink: FeaturedEntity) => void
+  onEdit: (modalData: EditModalField[]) => void
   onDelete: () => void
   link: FeaturedEntity
 }
@@ -54,7 +56,7 @@ const EditContainer: FC<EditContainerProps> = ({ onEdit, onDelete, link }) => {
           as="button"
           onClick={() =>
             triggerEdit({
-              fields: linkFields,
+              fields: transformEntityToFields(linkFields),
               onSave: onEdit,
               title: 'Edit featured link',
             })

@@ -1,6 +1,13 @@
 import Icon from 'components/common/Icon'
 import useConfigContext, { triggerConfigError } from 'components/ConfigContext'
+import { triggerEdit } from 'components/EditLinkModal'
+import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
+import {
+  transformEntityToFields,
+  transformFieldsToEntity,
+} from 'components/EditLinkModal/transforms'
 import { validate } from 'modules/config'
+import { NewEntity } from 'modules/config/Config'
 import { FC, DragEvent, useCallback, useRef } from 'react'
 import styles from './index.module.css'
 import { useDragging } from './useDragging'
@@ -21,8 +28,13 @@ window.addEventListener(
   false
 )
 
+const CATEGORY_KEY = 'category'
+
 export const FileUpload: FC = ({ children }) => {
-  const { dispatch } = useConfigContext()
+  const {
+    dispatch,
+    config: { categories },
+  } = useConfigContext()
   const dropTargetRef = useRef(null)
   const dragging = useDragging(document)
   const draggingOverDropTarget = useDragging(dropTargetRef.current)
@@ -31,10 +43,63 @@ export const FileUpload: FC = ({ children }) => {
     evt.dataTransfer.dropEffect = 'copy'
   }, [])
 
+  const onSave = useCallback(
+    (modalData: EditModalField[]) => {
+      const categoryFieldIndex = modalData.findIndex(
+        ({ label }) => label === CATEGORY_KEY
+      )
+      const categoryField = modalData.slice(categoryFieldIndex, 1)[0]
+
+      const newLink = transformFieldsToEntity(modalData) as NewEntity
+      delete newLink.category
+      dispatch.addQuickLink(categoryField.value || '', newLink)
+    },
+    [dispatch]
+  )
+
   const handleDrop = useCallback(
     (evt: DragEvent) => {
       evt.preventDefault()
       const file = evt.dataTransfer.files[0]
+      const linkUrl = evt.dataTransfer.getData('text/uri-list')
+
+      // Links
+      if (linkUrl) {
+        const hasCategories = categories.length > 0
+        const newLink: NewEntity = {
+          name: '',
+          link: linkUrl,
+          tags: '',
+        }
+        const modalFields: EditModalField[] = [
+          ...transformEntityToFields(newLink),
+        ]
+
+        if (hasCategories) {
+          modalFields.unshift({
+            type: 'select',
+            label: CATEGORY_KEY,
+            options: categories.map(({ title }) => ({
+              label: title,
+              value: title,
+            })),
+            value: categories[0].title,
+          })
+        } else {
+          modalFields.unshift({
+            type: 'input',
+            label: CATEGORY_KEY,
+            value: 'quick',
+          })
+        }
+
+        triggerEdit({
+          fields: modalFields,
+          onSave,
+          title: `Add link`,
+        })
+        return
+      }
 
       if (file) {
         const reader = new FileReader()
@@ -53,7 +118,7 @@ export const FileUpload: FC = ({ children }) => {
         reader.readAsText(file)
       }
     },
-    [dispatch]
+    [categories, dispatch, onSave]
   )
 
   const highlightClass = draggingOverDropTarget ? styles.highlight : undefined
@@ -69,7 +134,7 @@ export const FileUpload: FC = ({ children }) => {
       {dragging > 0 && (
         <div className={[styles.dropzone, highlightClass].join(' ')}>
           <Icon size={40} icon="file" />
-          Drop your config file here
+          Drop your link or config file here
         </div>
       )}
     </div>

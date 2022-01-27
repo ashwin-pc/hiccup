@@ -1,7 +1,7 @@
-import React, { ChangeEventHandler, FC } from 'react'
+import React, { ChangeEventHandler, FC, InputHTMLAttributes } from 'react'
 import styles from './index.module.css'
 
-interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   name?: string
   label?: string
   value: string
@@ -18,7 +18,7 @@ export const Input: FC<Props> = ({
   return (
     <div className={styles.inputContainer}>
       {label && (
-        <label htmlFor="name" className={styles.label}>
+        <label htmlFor={name} className={styles.label}>
           {label}
         </label>
       )}

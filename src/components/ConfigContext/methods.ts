@@ -57,6 +57,22 @@ export const methods = (state: ConfigEntity) => ({
     state.categories[categoryIndex].links[cardIndex] = link
   },
 
+  addQuickLink: (category: string, link: LinksEntity) => {
+    const categoryIndex = state.categories.findIndex(
+      ({ title }) => title === category
+    )
+
+    if (categoryIndex < 0) {
+      state.categories.push({
+        title: category,
+        links: [link],
+      })
+      return
+    }
+
+    state.categories[categoryIndex].links.push(link)
+  },
+
   setConfig: (config: ConfigEntity) => {
     state.categories = config.categories
     state.featured = config.featured
