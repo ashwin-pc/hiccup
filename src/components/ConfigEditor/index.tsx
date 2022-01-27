@@ -111,8 +111,10 @@ const ConfigEditor = () => {
         onClose={() => setShow(false)}
         className={styles.modal}
       >
-        <h1 className={styles.title}>Local Config Editor</h1>
-        {errorMsg && <p className={styles.error}>{errorMsg}</p>}
+        <div>
+          <h1 className={styles.title}>Local Config Editor</h1>
+          {errorMsg && <p className={styles.error}>{errorMsg}</p>}
+        </div>
         <textarea
           className={styles.editor}
           onChange={handleChange}
