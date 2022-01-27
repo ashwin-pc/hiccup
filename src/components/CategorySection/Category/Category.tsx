@@ -4,9 +4,11 @@ import { triggerEdit } from 'components/EditLinkModal'
 import { CategoryCard, AddCategoryCard } from './CategoryCard'
 import styles from './index.module.css'
 import { CategoriesEntity } from 'modules/config/Config'
+import { transformEntityToFields } from 'components/EditLinkModal/transforms'
+import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
 
 interface EditProps {
-  onEdit: (data: Omit<CategoriesEntity, 'links'>) => void
+  onEdit: (fields: EditModalField[]) => void
   onDelete: () => void
 }
 
@@ -46,7 +48,7 @@ const Category = ({
 )
 
 const EditContainer = ({ onEdit, onDelete, title }: EditContainerProps) => {
-  const linkFields = useMemo(() => ({ title }), [title])
+  const categoryEntity = useMemo(() => ({ title }), [title])
 
   return (
     <>
@@ -58,7 +60,7 @@ const EditContainer = ({ onEdit, onDelete, title }: EditContainerProps) => {
           as="button"
           onClick={() =>
             triggerEdit({
-              fields: linkFields,
+              fields: transformEntityToFields(categoryEntity),
               onSave: onEdit,
               title: 'Edit Category',
             })

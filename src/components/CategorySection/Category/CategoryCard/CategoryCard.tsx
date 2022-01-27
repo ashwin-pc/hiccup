@@ -5,9 +5,11 @@ import { triggerEdit } from 'components/EditLinkModal'
 import styles from './index.module.css'
 import { LinksEntity } from 'modules/config/Config'
 import { DEFAULT_LINK } from 'modules/config'
+import { transformEntityToFields } from 'components/EditLinkModal/transforms'
+import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
 
 interface EditContainerProps {
-  onEdit: (link: LinksEntity) => void
+  onEdit: (fields: EditModalField[]) => void
   onDelete: () => void
   link: LinksEntity
 }
@@ -46,7 +48,7 @@ const EditContainer = ({ onEdit, onDelete, link }: EditContainerProps) => {
         className={styles['edit-icon']}
         onClick={() =>
           triggerEdit({
-            fields: linkFields,
+            fields: transformEntityToFields(linkFields),
             onSave: onEdit,
             title: `Edit link`,
           })

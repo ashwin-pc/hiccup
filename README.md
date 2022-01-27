@@ -55,7 +55,7 @@ To use the app, you have many options
 
 #### [Hosted site](https://test.designedbyashw.in/hiccup)
 
-I have hosted an instance of the app [here](https://test.designedbyashw.in/hiccup). Sinnce this is a static site, chages you make to the links only exist locally on your browser and are never sent anywhere. To save the links to other browsers, just doenload the config file from the editor using the download button and drag the config file onto a new instance of hiccup on your new browser. The links in your config stay private. You can even have multiple config files that you can load based on your need.
+I have hosted an instance of the app [here](https://test.designedbyashw.in/hiccup). Since this is a static site, chages you make to the links only exist locally on your browser and are never sent anywhere. To save the links to other browsers, just doenload the config file from the editor using the download button and drag the config file onto a new instance of hiccup on your new browser. The links in your config stay private. You can even have multiple config files that you can load based on your need.
 
 #### Docker
 

@@ -5,35 +5,73 @@ import {
   FeaturedEntity,
   LinksEntity,
   CategoriesEntity,
+  NewEntity,
 } from 'modules/config/Config'
+import Select, { SelectOption } from 'components/common/Select/Select'
 
-export type Fields =
+export type Entities =
   | FeaturedEntity
   | LinksEntity
   | Omit<CategoriesEntity, 'links'>
+  | NewEntity
+
+export type EditModalField = {
+  type: 'input' | 'select'
+  label: string
+  value: string | undefined
+  options?: SelectOption[]
+}
 
 export const EditLinkModal: FC<{
-  fields: Fields
+  fields: EditModalField[]
   onCancel: Function
   onSave: Function
   title?: string
 }> = ({ fields, onCancel, onSave, title = 'Edit Link' }) => {
-  const [values, setValues] = useState(fields)
-  const handleSave = useCallback(() => onSave(values), [onSave, values])
+  const [data, setData] = useState<EditModalField[]>(fields)
+  const handleSave = useCallback(() => onSave(data), [data, onSave])
   const inputs = useMemo(() => {
-    return Object.entries(values).map(([name, value], index) => (
-      <Input
-        key={index}
-        label={name}
-        name={name}
-        value={value as string}
-        onChange={(e) =>
-          setValues({ ...values, ...{ [name]: e.target.value } })
-        }
-        autoFocus={index === 0}
-      />
-    ))
-  }, [values])
+    return data.map(({ label, type, options, value }, index) => {
+      if (type === 'select') {
+        return (
+          <Select
+            label={label}
+            name={label}
+            key={index}
+            values={options}
+            value={value}
+            onChange={(e) => {
+              const value = e.target.value
+              setData((oldData) => {
+                const newData = JSON.parse(JSON.stringify(oldData))
+                newData[index].value = value
+                return newData
+              })
+            }}
+            autoFocus={index === 0}
+          />
+        )
+      }
+
+      return (
+        <Input
+          key={index}
+          label={label}
+          name={label}
+          value={value as string}
+          onChange={(e) => {
+            const value = e.target.value
+            setData((oldData) => {
+              const newData = JSON.parse(JSON.stringify(oldData))
+              newData[index].value = value
+              return newData
+            })
+          }}
+          autoFocus={index === 0}
+        />
+      )
+    })
+  }, [data])
 
   return (
     <Modal show={true} onClose={onCancel}>

@@ -1,26 +1,26 @@
 import { useState, useCallback, useEffect } from 'react'
 import { on, off, trigger } from 'modules/ui-events'
-import { EditLinkModal, Fields } from './EditLinkModal'
+import { EditLinkModal, EditModalField } from './EditLinkModal'
 
 const EDIT_EVENT_TYPE = 'edit-link'
 
-interface ActionDataType<T> {
+interface ActionDataType {
   title: string
-  fields: T
-  onSave(fields: T): void
+  fields: EditModalField[]
+  onSave(fields: EditModalField[]): void
 }
 
 const ConnectedEditLinkModal = () => {
-  const [actionState, setActionState] = useState<ActionDataType<Fields>>()
+  const [actionState, setActionState] = useState<ActionDataType>()
   const handleEditTrigger = useCallback(
-    ({ detail }: CustomEvent<ActionDataType<Fields>>) => {
+    ({ detail }: CustomEvent<ActionDataType>) => {
       setActionState(detail)
     },
     []
   )
 
   const handleSave = useCallback(
-    (newFields: Fields) => {
+    (newFields: EditModalField[]) => {
       actionState?.onSave(newFields)
       setActionState(undefined)
     },
@@ -48,7 +48,7 @@ const ConnectedEditLinkModal = () => {
   )
 }
 
-function triggerEdit<T>(data: ActionDataType<T>) {
+function triggerEdit(data: ActionDataType) {
   trigger(EDIT_EVENT_TYPE, data)
 }
 

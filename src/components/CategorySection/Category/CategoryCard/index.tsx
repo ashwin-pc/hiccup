@@ -5,6 +5,11 @@ import { AddCategoryCard } from './AddCategoryCard'
 import { LinksEntity } from 'modules/config/Config'
 import { triggerEdit } from 'components/EditLinkModal'
 import { DEFAULT_LINK } from 'modules/config'
+import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
+import {
+  transformEntityToFields,
+  transformFieldsToEntity,
+} from 'components/EditLinkModal/transforms'
 interface Props {
   index: number
   categoryIndex: number
@@ -28,8 +33,11 @@ const useCategoryCard = (cardIndex: number, categoryIndex: number) => {
   }, [cardIndex, categoryIndex, dispatch])
 
   const onEdit = useCallback(
-    (newLink) => {
-      dispatch.editCategoryLink(categoryIndex, cardIndex, newLink)
+    (modalData: EditModalField[]) => {
+      const updatedCategoryLink = transformFieldsToEntity(
+        modalData
+      ) as LinksEntity
+      dispatch.editCategoryLink(categoryIndex, cardIndex, updatedCategoryLink)
     },
     [cardIndex, categoryIndex, dispatch]
   )
@@ -48,8 +56,9 @@ const ConnectedAddCategoryCard: FC<{
   const { editing, dispatch } = useConfigContext()
 
   const onSave = useCallback(
-    (newLink) => {
-      dispatch.addCategoryLink(categoryIndex, newLink)
+    (modalData: EditModalField[]) => {
+      const newCategoryLink = transformFieldsToEntity(modalData) as LinksEntity
+      dispatch.addCategoryLink(categoryIndex, newCategoryLink)
     },
     [categoryIndex, dispatch]
   )
@@ -58,7 +67,7 @@ const ConnectedAddCategoryCard: FC<{
     <AddCategoryCard
       onClick={() =>
         triggerEdit({
-          fields: DEFAULT_LINK,
+          fields: transformEntityToFields(DEFAULT_LINK),
           onSave,
           title: `${title}: Add link`,
         })
