@@ -14,4 +14,6 @@ FROM nginx:mainline-alpine as server
 
 WORKDIR /usr/share/nginx/html
 
+COPY default.conf /etc/nginx/conf.d/
+
 COPY  --from=builder /app/build ./
