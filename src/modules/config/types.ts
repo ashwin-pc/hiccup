@@ -17,7 +17,13 @@ export interface NewEntity extends LinksEntity {
   category?: string
 }
 
+export interface Metadata {
+  readonly?: boolean
+}
+
 export interface ConfigEntity {
+  version?: string
   featured: FeaturedEntity[]
   categories: CategoriesEntity[]
+  metadata?: Metadata
 }

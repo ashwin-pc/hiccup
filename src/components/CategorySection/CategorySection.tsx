@@ -2,7 +2,7 @@ import React, { FC } from 'react'
 import { Section } from 'components/common/Section'
 import { Category, AddCategory } from './Category'
 import styles from './index.module.css'
-import { CategoriesEntity } from 'modules/config/Config'
+import { CategoriesEntity } from 'modules/config/types'
 
 const CategorySection: FC<{
   categories: CategoriesEntity[]

@@ -1,4 +1,4 @@
-import { FeaturedEntity, LinksEntity } from 'modules/config/Config'
+import { FeaturedEntity, LinksEntity } from 'modules/config/types'
 import React, { createContext, useState, useContext, FC } from 'react'
 
 export interface SearchResult {

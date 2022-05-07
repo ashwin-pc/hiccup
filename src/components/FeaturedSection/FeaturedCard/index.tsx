@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useConfigContext } from 'components/ConfigContext'
 import { FeaturedCard } from './FeaturedCard'
 import { AddFeaturedCard } from './AddFeaturedCard'
-import { FeaturedEntity } from 'modules/config/Config'
+import { FeaturedEntity } from 'modules/config/types'
 import { transformFieldsToEntity } from 'components/EditLinkModal/transforms'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
 

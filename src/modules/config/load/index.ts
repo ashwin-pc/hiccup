@@ -1,5 +1,5 @@
 import { CONFIG_KEY, URL } from '../constants'
-import { ConfigEntity } from '../Config'
+import { ConfigEntity } from '../types'
 import { isValid, validate } from '../validate'
 import { triggerConfigError } from 'components/ConfigContext'
 import { EMPTY_CONFIG } from '..'

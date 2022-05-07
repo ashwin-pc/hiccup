@@ -1,5 +1,5 @@
 import { CONFIG_KEY } from '../constants'
-import { ConfigEntity } from '../Config'
+import { ConfigEntity } from '../types'
 import { validate } from '../validate'
 
 export const save = (config: ConfigEntity) => {

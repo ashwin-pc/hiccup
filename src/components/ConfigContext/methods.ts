@@ -2,7 +2,7 @@ import {
   ConfigEntity,
   FeaturedEntity,
   LinksEntity,
-} from '../../modules/config/Config'
+} from '../../modules/config/types'
 
 export const methods = (state: ConfigEntity) => ({
   addFeaturedCard: (card: FeaturedEntity) => {
@@ -74,7 +74,9 @@ export const methods = (state: ConfigEntity) => ({
   },
 
   setConfig: (config: ConfigEntity) => {
+    state.version = config.version
     state.categories = config.categories
     state.featured = config.featured
+    state.metadata = config.metadata
   },
 })

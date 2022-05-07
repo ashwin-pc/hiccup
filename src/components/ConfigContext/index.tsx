@@ -6,7 +6,7 @@ import React, {
   FC,
 } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
-import { ConfigEntity } from 'modules/config/Config'
+import { ConfigEntity } from 'modules/config/types'
 import useMethods from 'modules/useMethods'
 import { methods } from './methods'
 import {
@@ -35,6 +35,8 @@ const ConfigProvider: FC<{ config?: ConfigEntity }> = ({
   const [config, dispatch] = useMethods(methods, EMPTY_CONFIG)
   const [editing, setEditing] = useState(false)
   const [error, setError] = useState<string>()
+
+  debugger
 
   // Keyboard shortcuts
   useHotkeys('ctrl+e,cmd+e', () => setEditing((val) => !val))
@@ -72,8 +74,15 @@ const ConfigProvider: FC<{ config?: ConfigEntity }> = ({
     }
   }, [])
 
+  const contextValue = {
+    config,
+    dispatch,
+    editing: config.metadata?.readonly ? false : editing,
+    setEditing,
+  }
+
   return (
-    <ConfigContext.Provider value={{ config, dispatch, editing, setEditing }}>
+    <ConfigContext.Provider value={contextValue}>
       <>
         {children}
         <Modal show={!!error} onClose={() => setError(undefined)}>

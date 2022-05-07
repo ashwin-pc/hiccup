@@ -1,4 +1,5 @@
 {
+    "version": "1.0",
     "featured": [
         {
             "name": "Featured Link",
@@ -77,5 +78,8 @@
                 }
             ]
         }
-    ]
+    ],
+    "metadata": {
+        "readonly": false
+    }
 }

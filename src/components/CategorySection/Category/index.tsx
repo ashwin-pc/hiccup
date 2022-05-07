@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useConfigContext } from 'components/ConfigContext'
 import { Category } from './Category'
 import { AddCategory } from './AddCategory'
-import { CategoriesEntity } from 'modules/config/Config'
+import { CategoriesEntity } from 'modules/config/types'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
 import { transformFieldsToEntity } from 'components/EditLinkModal/transforms'
 

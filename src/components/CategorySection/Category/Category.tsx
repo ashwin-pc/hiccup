@@ -3,7 +3,7 @@ import { Icon } from 'components/common/Icon'
 import { triggerEdit } from 'components/EditLinkModal'
 import { CategoryCard, AddCategoryCard } from './CategoryCard'
 import styles from './index.module.css'
-import { CategoriesEntity } from 'modules/config/Config'
+import { CategoriesEntity } from 'modules/config/types'
 import { transformEntityToFields } from 'components/EditLinkModal/transforms'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
 

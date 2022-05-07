@@ -8,7 +8,7 @@ import { validate } from 'modules/config'
 import { sync } from 'modules/config/load'
 import hash from 'modules/hash'
 import { UploadButton } from './UploadButton'
-import { ConfigEntity } from 'modules/config/Config'
+import { ConfigEntity } from 'modules/config/types'
 
 const ConfigEditor = () => {
   const { config, dispatch, setEditing } = useConfigContext()
@@ -68,14 +68,21 @@ const ConfigEditor = () => {
     saveAndCloseModal(JSON.parse(configText))
   }, [configText, saveAndCloseModal])
 
-  const handleSync = useCallback(async () => {
-    try {
-      const remoteConfig = await sync()
-      saveAndCloseModal(remoteConfig)
-    } catch (error) {
-      setErrorMsg(`Sync failed: \n${error}`)
-    }
-  }, [saveAndCloseModal])
+  const handleSync = useCallback(
+    async (save = false) => {
+      try {
+        const remoteConfig = await sync()
+        if (save) {
+          saveAndCloseModal(remoteConfig)
+        } else {
+          setConfigText(toString(remoteConfig))
+        }
+      } catch (error) {
+        setErrorMsg(`Sync failed: \n${error}`)
+      }
+    },
+    [saveAndCloseModal]
+  )
 
   useEffect(() => {
     const [valid, error, path] = validateConfigText(configText)
@@ -139,7 +146,7 @@ const ConfigEditor = () => {
             as="button"
             aria-label="sync"
             className={styles['icon']}
-            onClick={handleSync}
+            onClick={() => handleSync()}
           />
           <Icon
             icon="save"
@@ -151,18 +158,30 @@ const ConfigEditor = () => {
         </div>
       </Modal>
       <div className={styles['config-actions-container']}>
-        <Icon
-          icon="edit"
-          as="button"
-          className={styles['icon']}
-          onClick={() => setEditing((value) => !value)}
-        />
-        <Icon
-          icon="cog"
-          as="button"
-          className={styles['icon']}
-          onClick={() => setShow(true)}
-        />
+        {config.metadata?.readonly ? (
+          <Icon
+            icon="sync"
+            as="button"
+            aria-label="sync"
+            className={styles['icon']}
+            onClick={() => handleSync(true)}
+          />
+        ) : (
+          <>
+            <Icon
+              icon="edit"
+              as="button"
+              className={styles['icon']}
+              onClick={() => setEditing((value) => !value)}
+            />
+            <Icon
+              icon="cog"
+              as="button"
+              className={styles['icon']}
+              onClick={() => setShow(true)}
+            />
+          </>
+        )}
       </div>
     </>
   )

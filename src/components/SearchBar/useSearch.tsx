@@ -1,5 +1,5 @@
 import { useSearchContext } from 'components/SearchContext'
-import { ConfigEntity } from 'modules/config/Config'
+import { ConfigEntity } from 'modules/config/types'
 import { useEffect, useMemo } from 'react'
 import { MIN_SEARCH_LENGTH } from './constants'
 

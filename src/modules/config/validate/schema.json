@@ -6,6 +6,9 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
+                "version": {
+                    "type": "string"
+                },
                 "featured": {
                     "type": "array",
                     "items": {
@@ -16,6 +19,15 @@
                     "type": "array",
                     "items": {
                         "$ref": "#/definitions/Category"
+                    }
+                },
+                "metadata": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "properties": {
+                        "readonly": {
+                            "type": "boolean"
+                        }
                     }
                 }
             },

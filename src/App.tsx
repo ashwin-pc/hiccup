@@ -1,4 +1,4 @@
-import { ConfigEntity } from 'modules/config/Config'
+import { ConfigEntity } from 'modules/config/types'
 import { FeaturedSection } from './components/FeaturedSection'
 import { CategorySection } from './components/CategorySection'
 import { SearchProvider } from './components/SearchContext'

@@ -1,7 +1,7 @@
 import { FC, useMemo } from 'react'
 import { Card, Props as CardProps } from './Card'
 import { useSearchContext } from '../SearchContext'
-import { LinksEntity } from 'modules/config/Config'
+import { LinksEntity } from 'modules/config/types'
 
 interface ConnectProps extends Omit<CardProps, 'highlight'> {
   link: LinksEntity

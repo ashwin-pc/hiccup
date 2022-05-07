@@ -1,5 +1,5 @@
 import Ajv from 'ajv'
-import { ConfigEntity } from '../Config'
+import { ConfigEntity } from '../types'
 import schema from './schema.json'
 
 const ajv = new Ajv()

@@ -7,7 +7,7 @@ import {
   transformFieldsToEntity,
 } from 'components/EditLinkModal/transforms'
 import { validate } from 'modules/config'
-import { NewEntity } from 'modules/config/Config'
+import { NewEntity } from 'modules/config/types'
 import { FC, DragEvent, useCallback, useRef } from 'react'
 import styles from './index.module.css'
 import { useDragging } from './useDragging'

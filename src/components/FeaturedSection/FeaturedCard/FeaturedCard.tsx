@@ -5,7 +5,7 @@ import { Icon } from 'components/common/Icon'
 import { triggerEdit } from 'components/EditLinkModal'
 import { DEFAULT_BG, DEFAULT_FEATURED_LINK } from 'modules/config'
 import styles from './index.module.css'
-import { FeaturedEntity } from 'modules/config/Config'
+import { FeaturedEntity } from 'modules/config/types'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
 import { transformEntityToFields } from 'components/EditLinkModal/transforms'
 

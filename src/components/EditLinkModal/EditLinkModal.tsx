@@ -6,7 +6,7 @@ import {
   LinksEntity,
   CategoriesEntity,
   NewEntity,
-} from 'modules/config/Config'
+} from 'modules/config/types'
 import Select, { SelectOption } from 'components/common/Select/Select'
 
 export type Entities =

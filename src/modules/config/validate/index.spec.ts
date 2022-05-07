@@ -1,7 +1,8 @@
 import { isValid, validate } from '.'
+import { ConfigEntity } from '../types'
 import mockConfig from '../__mocks__/mock_config.json'
 
-let config: typeof mockConfig
+let config: ConfigEntity
 
 describe('validate', () => {
   beforeEach(() => {
@@ -37,7 +38,7 @@ describe('validate', () => {
 
 describe('isValid', () => {
   beforeEach(() => {
-    config = mockConfig
+    config = JSON.parse(JSON.stringify(mockConfig))
   })
   test('should return true for valid config', () => {
     const valid = isValid(config)
