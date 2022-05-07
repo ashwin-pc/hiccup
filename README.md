@@ -124,6 +124,8 @@ To update config on a local browser instance, use the online config editor using
 
 ```js
 {
+    // Uses semantic versioning
+    "version": "1.0",
     // featured and catagories are optional sections. Remove them to use the page without it.
     "featured": [{
         "name": "Link name as seen on the card", // required
@@ -145,6 +147,9 @@ To update config on a local browser instance, use the online config editor using
     }, {
         // ... Other categorys
     }],
+    "metadata": {
+        "readonly": false // default
+    }
 }
 ```
 
@@ -154,6 +159,7 @@ Refer to the [JSON Scheme file](src/modules/validateConfig/schema.json) for the 
 
 ```
 {
+    "version": "1.0".
     "featured": [{
         "name": "Featured Link",
         "link": "http://google.com",
@@ -209,7 +215,10 @@ Refer to the [JSON Scheme file](src/modules/validateConfig/schema.json) for the 
             "name": "Link 4",
             "link": "http://google.com"
         }]
-    }]
+    }],
+    "metadata": {
+        "readonly": false
+    }
 }
 ```
 
