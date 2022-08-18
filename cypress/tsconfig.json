@@ -5,6 +5,10 @@
         "*/*.ts"
     ],
     "compilerOptions": {
-        "isolatedModules": false
+        "isolatedModules": false,
+        "types": [
+            "cypress",
+            "@testing-library/cypress"
+        ]
     }
 }

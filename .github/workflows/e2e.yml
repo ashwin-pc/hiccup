@@ -6,7 +6,7 @@ on:
 
 jobs:
   ubuntu-latest:
-    name: Ubuntu 20
+    name: Ubuntu Latest
     runs-on: ubuntu-latest
 
     steps:
@@ -16,6 +16,7 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
+          browser: chrome
           build: npm run build
           start: npx serve -s build -l 3000
           wait-on: 'http://localhost:3000'
