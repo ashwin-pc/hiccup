@@ -9,6 +9,7 @@ exports[`Test hiccup should render page correctly 1`] = `
   >
     <div
       class="search-container"
+      data-testid="search-bar"
     >
       <input
         autocomplete="off"
@@ -30,6 +31,7 @@ exports[`Test hiccup should render page correctly 1`] = `
     </div>
     <div
       class="section featured"
+      data-testid="featured-section"
     >
       <a
         class="link"
@@ -39,6 +41,7 @@ exports[`Test hiccup should render page correctly 1`] = `
       >
         <li
           class="card container "
+          data-testid="featured-card"
           style="background-image: url(./assets/logo.png);"
         >
           Featured Link
@@ -52,6 +55,7 @@ exports[`Test hiccup should render page correctly 1`] = `
       >
         <li
           class="card container "
+          data-testid="featured-card"
           style="background-image: url(./assets/card.png);"
         >
           Another Feaured link
@@ -60,6 +64,7 @@ exports[`Test hiccup should render page correctly 1`] = `
     </div>
     <div
       class="section categories"
+      data-testid="category-section"
     >
       <div
         class="category"
@@ -78,6 +83,7 @@ exports[`Test hiccup should render page correctly 1`] = `
           >
             <li
               class="card container "
+              data-testid="category-card"
             >
               <span
                 class="name"
@@ -99,6 +105,7 @@ exports[`Test hiccup should render page correctly 1`] = `
           >
             <li
               class="card container "
+              data-testid="category-card"
             >
               <span
                 class="name"
@@ -131,6 +138,7 @@ exports[`Test hiccup should render page correctly 1`] = `
           >
             <li
               class="card container "
+              data-testid="category-card"
             >
               <span
                 class="name"
@@ -152,6 +160,7 @@ exports[`Test hiccup should render page correctly 1`] = `
           >
             <li
               class="card container "
+              data-testid="category-card"
             >
               <span
                 class="name"
