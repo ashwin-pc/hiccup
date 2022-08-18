@@ -7,7 +7,7 @@ import { CategoriesEntity } from 'modules/config/types'
 const CategorySection: FC<{
   categories: CategoriesEntity[]
 }> = ({ categories }) => (
-  <Section className={styles.categories}>
+  <Section className={styles.categories} data-testid="category-section">
     {categories.map(({ title, links }, index) => (
       <Category key={index} title={title} links={links} index={index} />
     ))}

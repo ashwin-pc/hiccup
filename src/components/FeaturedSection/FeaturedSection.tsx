@@ -5,7 +5,7 @@ import styles from './index.module.css'
 import { FeaturedEntity } from 'modules/config/types'
 
 const FeaturedSection: FC<{ featured: FeaturedEntity[] }> = ({ featured }) => (
-  <Section className={styles.featured}>
+  <Section className={styles.featured} data-testid="featured-section">
     {featured &&
       featured.map((link, index) => (
         <FeaturedCard key={index} index={index} link={link} />

@@ -72,7 +72,11 @@ const SearchBar = () => {
   }, [innerWidth])
 
   return (
-    <div className={styles['search-container']} onKeyDown={handleNavigation}>
+    <div
+      className={styles['search-container']}
+      onKeyDown={handleNavigation}
+      data-testid="search-bar"
+    >
       <input
         type="text"
         name="search"

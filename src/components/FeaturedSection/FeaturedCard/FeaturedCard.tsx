@@ -31,6 +31,7 @@ const FeaturedCard: FC<Props> = ({ link, editing, ...editingProps }) => {
       className={styles.container}
       background={backgroundUrl}
       link={link}
+      data-testid="featured-card"
     >
       {editing && <EditContainer {...editingProps} link={link} />}
       {name}

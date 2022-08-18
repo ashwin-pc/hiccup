@@ -23,7 +23,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {},
   "browserslist": {
@@ -41,11 +42,14 @@
   "homepage": "./",
   "license": "MIT",
   "devDependencies": {
+    "@testing-library/cypress": "^8.0.3",
     "@testing-library/react-hooks": "^7.0.1",
     "@typescript-eslint/parser": "^4.30.0",
+    "cypress": "^10.6.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.24.2",
     "prettier": "2.3.2"
   }
