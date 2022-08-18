@@ -22,7 +22,12 @@ const CategoryCard = ({ link, editing, ...editProps }: CategoryCardProps) => {
   const { name, link: linkUrl } = link
 
   return (
-    <Card href={!editing && linkUrl} className={styles.container} link={link}>
+    <Card
+      href={!editing && linkUrl}
+      className={styles.container}
+      link={link}
+      data-testid="category-card"
+    >
       <span className={styles.name}>{name}</span>
       <span className={styles.link}>{linkUrl}</span>
       {editing && <EditContainer {...editProps} link={link} />}

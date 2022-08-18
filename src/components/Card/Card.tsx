@@ -1,7 +1,7 @@
-import React, { FC } from 'react'
+import React, { FC, HTMLAttributes } from 'react'
 import styles from './index.module.css'
 
-export interface Props {
+export interface Props extends HTMLAttributes<HTMLElement> {
   href: string | false
   background?: string
   highlight: boolean
@@ -14,6 +14,7 @@ const Card: FC<Props> = ({
   children,
   highlight,
   className = '',
+  ...props
 }) => {
   const highlightClass = highlight ? styles.highlight : undefined
 
@@ -23,6 +24,7 @@ const Card: FC<Props> = ({
       style={{
         backgroundImage: background && `url(${background})`,
       }}
+      {...props}
     >
       {children}
     </li>

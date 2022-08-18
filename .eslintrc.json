@@ -4,7 +4,8 @@
     ],
     "extends": [
         "react-app",
-        "prettier"
+        "prettier",
+        "plugin:cypress/recommended"
     ],
     "settings": {
         "import/parsers": {
