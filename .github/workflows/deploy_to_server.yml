@@ -2,35 +2,35 @@ name: CI
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v2
-      with:
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v2
+        with:
           node-version: 14.x
-    
-    - name: Install dependencies
-      run: npm install
-        
-    - name: Build the site
-      run: npm run build
 
-    - name: copy file via ssh password
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
-        port: ${{ secrets.PORT }}
-        source: "build/*"
-        rm: true
-        strip_components: 1
-        target: "public_html/test/hiccup"
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the site
+        run: npm run build
+
+      - name: copy file via ssh password
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          source: 'build/*'
+          rm: true
+          strip_components: 1
+          target: 'public_html/test/hiccup'
