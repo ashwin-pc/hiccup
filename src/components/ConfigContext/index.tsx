@@ -36,8 +36,6 @@ const ConfigProvider: FC<{ config?: ConfigEntity }> = ({
   const [editing, setEditing] = useState(false)
   const [error, setError] = useState<string>()
 
-  debugger
-
   // Keyboard shortcuts
   useHotkeys('ctrl+e,cmd+e', () => setEditing((val) => !val))
   useHotkeys('Escape', () => setEditing(false))

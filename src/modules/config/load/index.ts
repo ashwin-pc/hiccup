@@ -7,13 +7,13 @@ import { EMPTY_CONFIG } from '..'
 export const load = async (
   overridingConfig?: ConfigEntity
 ): Promise<ConfigEntity> => {
-  // Pick the overriding connfig if it exists first
-  if (overridingConfig && isValid(overridingConfig)) return overridingConfig
+  // Pick the overriding config if it exists first
+  // if (overridingConfig && isValid(overridingConfig)) return overridingConfig
 
-  // Then check the local storage if we have one saved there
-  const localConfigString = localStorage.getItem(CONFIG_KEY)
-  const localConfig = !!localConfigString && JSON.parse(localConfigString)
-  if (isValid(localConfig)) return localConfig
+  // // Then check the local storage if we have one saved there
+  // const localConfigString = localStorage.getItem(CONFIG_KEY)
+  // const localConfig = !!localConfigString && JSON.parse(localConfigString)
+  // if (isValid(localConfig)) return localConfig
 
   // Else fetch the default file.
   try {
@@ -28,7 +28,11 @@ export const load = async (
 }
 
 export const sync = async (): Promise<ConfigEntity> => {
-  const remoteConfig = await fetch(URL).then((response) => response.json())
+  const searchParams = new URLSearchParams(window.location.search)
+  const configURL = searchParams.get('config') || URL
+  const remoteConfig = await fetch(configURL, {
+    mode: 'cors',
+  }).then((response) => response.json())
   const [valid, error, path] = validate(remoteConfig)
   if (!valid) throw new Error(`${error}\nPath: ${path}`)
 
