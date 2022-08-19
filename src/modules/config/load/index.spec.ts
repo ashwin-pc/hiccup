@@ -8,10 +8,7 @@ describe('load', () => {
   beforeEach(() => {
     testConfig = JSON.parse(JSON.stringify(mockConfig))
   })
-  test('should load override config', async () => {
-    const config = await load(testConfig)
-    expect(config).toBe(testConfig)
-  })
+
   test('should load from local storage when no override given', async () => {
     window.localStorage.setItem(CONFIG_KEY, JSON.stringify(testConfig))
 

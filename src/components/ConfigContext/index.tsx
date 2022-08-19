@@ -28,10 +28,7 @@ interface IConfigContext {
 const ConfigContext = createContext<IConfigContext | undefined>(undefined)
 const CONFIG_ERROR_EVENT_TYPE = 'config-error'
 
-const ConfigProvider: FC<{ config?: ConfigEntity }> = ({
-  config: overridingConfig,
-  children,
-}) => {
+const ConfigProvider: FC = ({ children }) => {
   const [config, dispatch] = useMethods(methods, EMPTY_CONFIG)
   const [editing, setEditing] = useState(false)
   const [error, setError] = useState<string>()
@@ -42,7 +39,7 @@ const ConfigProvider: FC<{ config?: ConfigEntity }> = ({
 
   // Load the latest config on app start
   useEffect(() => {
-    loadConfig(overridingConfig).then((loadedConfig) => {
+    loadConfig().then((loadedConfig) => {
       dispatch.setConfig(loadedConfig)
     })
 

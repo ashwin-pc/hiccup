@@ -4,12 +4,7 @@ import { isValid, validate } from '../validate'
 import { triggerConfigError } from 'components/ConfigContext'
 import { EMPTY_CONFIG } from '..'
 
-export const load = async (
-  overridingConfig?: ConfigEntity
-): Promise<ConfigEntity> => {
-  // Pick the overriding config if it exists first
-  // if (overridingConfig && isValid(overridingConfig)) return overridingConfig
-
+export const load = async (): Promise<ConfigEntity> => {
   // // Then check the local storage if we have one saved there
   // const localConfigString = localStorage.getItem(CONFIG_KEY)
   // const localConfig = !!localConfigString && JSON.parse(localConfigString)
