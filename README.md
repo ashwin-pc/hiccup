@@ -2,6 +2,7 @@
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ashwin-pc/hiccup)
 ![GitHub](https://img.shields.io/github/license/ashwin-pc/hiccup)
+[![Tests](https://github.com/ashwin-pc/hiccup/actions/workflows/tests.yml/badge.svg)](https://github.com/ashwin-pc/hiccup/actions/workflows/tests.yml)
 
 ![](public/logo192.png)
 
