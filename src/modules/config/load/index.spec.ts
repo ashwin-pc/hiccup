@@ -1,27 +1,30 @@
-import { load } from '.'
+import { load } from './index'
 import { CONFIG_KEY } from '..'
-import mockConfig from '../__mocks__/mock_config.json'
+// import mockLocalConfig from '../__mocks__/mock_config_local.json'
+import mockRemoteConfig from '../__mocks__/mock_config_remote.json'
 
-let testConfig = mockConfig
+// let testConfig = mockConfig
 
 describe('load', () => {
+  beforeAll(() => {
+    global.fetch = () =>
+      Promise.resolve({
+        json: () =>
+          Promise.resolve(JSON.parse(JSON.stringify(mockRemoteConfig))),
+      } as Response)
+  })
+
   beforeEach(() => {
-    testConfig = JSON.parse(JSON.stringify(mockConfig))
+    global.window = Object.create(window)
   })
 
-  test('should load from local storage when no override given', async () => {
-    window.localStorage.setItem(CONFIG_KEY, JSON.stringify(testConfig))
-
-    const config = await load()
-    expect(config).toMatchObject(testConfig)
+  test('should load from network by defualt', async () => {
     window.localStorage.removeItem(CONFIG_KEY)
-  })
-  //   TODO: Mocking fetch is a pain
-  //   test('should load from url', async () => {
-  //     .....
-  //   })
-  test('should return an empty object by default', async () => {
+
     const config = await load()
-    expect(config).toMatchObject({})
+    expect(config).toMatchObject(mockRemoteConfig)
   })
+
+  // TODO: Add cache strategy tests
+  // switching the location.search params is more annoying than thought
 })

@@ -1,6 +1,6 @@
 import { isValid, validate } from '.'
 import { ConfigEntity } from '../types'
-import mockConfig from '../__mocks__/mock_config.json'
+import mockConfig from '../__mocks__/mock_config_local.json'
 
 let config: ConfigEntity
 
