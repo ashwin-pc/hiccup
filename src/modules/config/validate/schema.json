@@ -9,6 +9,12 @@
                 "version": {
                     "type": "string"
                 },
+                "id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
                 "featured": {
                     "type": "array",
                     "items": {
@@ -33,6 +39,8 @@
             },
             "required": [
                 "featured",
+                "id",
+                "title",
                 "categories"
             ],
             "title": "Config"

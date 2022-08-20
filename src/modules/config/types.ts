@@ -23,6 +23,8 @@ export interface Metadata {
 
 export interface ConfigEntity {
   version?: string
+  id: string
+  title: string
   featured: FeaturedEntity[]
   categories: CategoriesEntity[]
   metadata?: Metadata

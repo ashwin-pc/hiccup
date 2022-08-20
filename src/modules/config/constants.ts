@@ -10,6 +10,8 @@ export const CONFIG_KEY = 'hiccup_config'
 export const DEFAULT_BG = '/assets/card.png'
 
 export const EMPTY_CONFIG: ConfigEntity = {
+  id: 'empty',
+  title: 'Empty config',
   featured: [],
   categories: [],
 }
