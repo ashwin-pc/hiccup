@@ -25,7 +25,15 @@ export interface ConfigEntity {
   version?: string
   id: string
   title: string
+  url?: string
   featured: FeaturedEntity[]
   categories: CategoriesEntity[]
   metadata?: Metadata
+}
+
+export interface LocalConfigStore {
+  configs: {
+    [id: string]: ConfigEntity
+  }
+  active: string
 }

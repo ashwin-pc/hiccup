@@ -74,6 +74,9 @@ export const methods = (state: ConfigEntity) => ({
   },
 
   setConfig: (config: ConfigEntity) => {
+    state.id = config.id
+    state.title = config.title
+    state.url = config.url
     state.version = config.version
     state.categories = config.categories
     state.featured = config.featured

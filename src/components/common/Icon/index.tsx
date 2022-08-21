@@ -2,8 +2,10 @@ import { FunctionComponent, SVGProps, useMemo, MouseEventHandler } from 'react'
 import icons from './icons'
 import styles from './index.module.css'
 
-interface Props extends SVGProps<SVGSVGElement> {
-  icon: keyof typeof icons
+export type IconTypes = keyof typeof icons
+
+export interface Props extends SVGProps<SVGSVGElement> {
+  icon: IconTypes
   size?: number
   className?: string
   as?: 'button' | 'a'

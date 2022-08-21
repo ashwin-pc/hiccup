@@ -1,4 +1,3 @@
 export * from './constants'
-export { load } from './load'
-export { save } from './save'
+export { load, fetchConfig, networkCall } from './load'
 export { validate, isValid } from './validate'

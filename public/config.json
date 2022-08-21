@@ -2,6 +2,7 @@
     "version": "2.0",
     "id": "demo",
     "title": "Demo Config",
+    "url": "./config.json",
     "featured": [
         {
             "name": "Featured Link",

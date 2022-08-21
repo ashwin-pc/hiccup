@@ -1,5 +1,5 @@
 import Icon from 'components/common/Icon'
-import useConfigContext, { triggerConfigError } from 'components/ConfigContext'
+import useConfigContext from 'components/ConfigContext'
 import { triggerEdit } from 'components/EditLinkModal'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
 import {
@@ -9,6 +9,7 @@ import {
 import { validate } from 'modules/config'
 import { NewEntity } from 'modules/config/types'
 import { FC, DragEvent, useCallback, useRef } from 'react'
+import toast from 'react-hot-toast'
 import styles from './index.module.css'
 import { useDragging } from './useDragging'
 
@@ -104,7 +105,7 @@ export const FileUpload: FC = ({ children }) => {
           const [valid, error, path] = validateUpload(uploadedConfig)
 
           if (!valid) {
-            return triggerConfigError(
+            return toast.error(
               `Failed to upload config: \nError ${error}\nPath: ${path}`
             )
           }

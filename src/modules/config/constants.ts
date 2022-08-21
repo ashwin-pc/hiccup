@@ -6,7 +6,7 @@ import {
 } from './types'
 
 export const URL = `${process.env.PUBLIC_URL || '.'}/config.json`
-export const CONFIG_KEY = 'hiccup_config'
+export const CONFIG_KEY = 'hiccup_config_v2'
 export const DEFAULT_BG = '/assets/card.png'
 
 export const EMPTY_CONFIG: ConfigEntity = {

@@ -5,8 +5,8 @@ import schema from './schema.json'
 const ajv = new Ajv()
 const validator = ajv.compile(schema)
 
-function validate(config: ConfigEntity) {
-  if (!config) return [false, 'No config']
+function validate(config: ConfigEntity): [boolean, string | undefined, string] {
+  if (!config) return [false, 'No config', '']
 
   const valid = validator(config)
   if (!valid && validator.errors) {
@@ -15,7 +15,7 @@ function validate(config: ConfigEntity) {
     return [false, firstError.message, firstError.instancePath]
   }
 
-  return [true]
+  return [true, '', '']
 }
 
 const isValid = (config: ConfigEntity) => validate(config)[0]

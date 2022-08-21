@@ -1,3 +1,4 @@
+import { Toaster } from 'react-hot-toast'
 import { FeaturedSection } from './components/FeaturedSection'
 import { CategorySection } from './components/CategorySection'
 import { SearchProvider } from './components/SearchContext'
@@ -20,6 +21,7 @@ const App = () => (
         <ConnectedEditLinkModal />
         <ConfigEditor />
         <Hotkeys />
+        <Toaster />
       </FileUpload>
     </SearchProvider>
   </ConfigProvider>

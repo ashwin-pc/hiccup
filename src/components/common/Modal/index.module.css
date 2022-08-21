@@ -8,11 +8,12 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 90vw;
-  max-height: 90vh;
+  max-height: calc(100% - 100px);
+  max-width: calc(100% - 100px);
   background: var(--theme-bg-2);
   border-radius: 2px;
   color: var(--theme-color-1);
+  overflow: hidden;
 }
 
 .default {

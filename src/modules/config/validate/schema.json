@@ -15,6 +15,9 @@
                 "title": {
                     "type": "string"
                 },
+                "url": {
+                    "type": "string"
+                },
                 "featured": {
                     "type": "array",
                     "items": {
