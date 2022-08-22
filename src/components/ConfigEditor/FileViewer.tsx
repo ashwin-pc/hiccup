@@ -38,8 +38,13 @@ const JsonItem: FC<{ label: string; json: object; id: string }> = ({
 
 export const FileViewer: FC<{ configId: string }> = ({ configId }) => {
   const { store } = useConfigContext()
+  const previewConfig = store.configs[configId]
+
+  if (!previewConfig) return <div className={styles.fileViewer}></div>
+
   const { version, id, title, url, featured, categories, metadata } =
-    store.configs[configId]
+    previewConfig
+
   return (
     <div className={styles.fileViewer}>
       <TextItem

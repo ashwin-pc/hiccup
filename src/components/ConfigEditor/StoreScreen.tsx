@@ -3,7 +3,7 @@ import Icon, { Props as IconProps } from 'components/common/Icon'
 import { Input } from 'components/common/Input'
 import useConfigContext from 'components/ConfigContext'
 import { EMPTY_CONFIG, validateFile, ConfigEntity } from 'modules/config'
-import React, { FC, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import styles from './StoreScreen.module.css'
 import { delay } from 'modules/utils'
 import { UploadButton } from './UploadButton'
@@ -13,15 +13,22 @@ import {
   networkCall,
 } from 'modules/config/load'
 import { FileViewer } from './FileViewer'
+import { DownloadButton } from './DownloadButton'
 
 export const StoreScreen: FC = () => {
   const { config } = useConfigContext()
   const [previewId, setPreviewId] = useState(config.id)
+
+  useEffect(() => {
+    setPreviewId(config.id)
+  }, [config])
+
   return (
     <div className={styles.screen}>
       <ConfigList previewId={previewId} setPreviewId={setPreviewId} />
       <FileViewer configId={previewId} />
       <LoadFile />
+      <DownloadButton id={previewId} />
       <URLInput />
     </div>
   )

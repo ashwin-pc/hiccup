@@ -40,7 +40,7 @@ export const UploadButton: FC<Props> = ({
         onClick={() => hiddenFileInput.current?.click()}
       >
         <Icon size={size} icon="upload" />
-        Click to load config file
+        Load Config
       </button>
       <input
         type="file"

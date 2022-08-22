@@ -3,9 +3,9 @@
   width: 1000px;
   display: grid;
   grid-template:
-    'list fileViewer' 1fr
-    'fileLoader fileViewer'
-    'url url' / 50% 50%;
+    'list list fileViewer' 1fr
+    'fileLoader download fileViewer'
+    'url url url' / 25% 25% 50%;
   padding: 40px;
   gap: 10px;
 }
@@ -19,6 +19,7 @@
       'fileViewer' auto
       'list ' 1fr
       'fileLoader'
+      'download'
       'url' / 1fr;
   }
   .fileViewer {
@@ -77,10 +78,17 @@
 
 .fileLoader {
   grid-area: fileLoader;
+}
+.downloadButton {
+  grid-area: download;
+}
+
+.fileLoader,
+.downloadButton {
   display: flex;
   align-items: center;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: bold;
   gap: 20px;
   background-color: var(--theme-bg-3);
