@@ -43,7 +43,8 @@ export const load = async (url?: string): Promise<ConfigEntity> => {
 export const getCacheStrategy = () => {
   const searchParams = new URLSearchParams(window.location.search)
   const strategy =
-    (searchParams.get('cache') as CACHE_STRATEGIES | undefined) || 'cache-first'
+    (searchParams.get('cache') as CACHE_STRATEGIES | undefined) ||
+    'network-first'
   return strategy
 }
 
