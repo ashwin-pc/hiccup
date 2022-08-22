@@ -77,7 +77,9 @@ export const EditLinkModal: FC<{
 
   return (
     <Modal show={true} onClose={onCancel}>
-      <h1 className={modalStyles.title}>{title}</h1>
+      <h1 data-testid="edit-link-title" className={modalStyles.title}>
+        {title}
+      </h1>
       {inputs}
       <button onClick={handleSave} className={modalStyles.button}>
         Save

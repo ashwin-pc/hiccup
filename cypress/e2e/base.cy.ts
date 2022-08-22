@@ -31,4 +31,30 @@ describe('Basic tests', () => {
       .should('contain.text', 'Dummy Config')
       .should('contain.text', 'Active')
   })
+
+  it('should be able to use Hotkeys', () => {
+    cy.get('body').click(10, 10).type('{cmd+/}')
+    cy.findAllByTestId('hotkey-modal-title').should('exist')
+  })
+
+  it('should be able to edit a category', () => {
+    cy.get('body').click(10, 10).type('{cmd+e}')
+    cy.findAllByTestId('category').first().find('h1 button').eq(0).click()
+
+    cy.findAllByTestId('edit-link-title').parent().find('input').type(' Edited')
+    cy.findAllByTestId('edit-link-title')
+      .parent()
+      .find('button')
+      .first()
+      .click()
+
+    cy.get('body').type('{cmd+e}')
+    cy.findAllByTestId('category')
+      .first()
+      .should('contain', 'Category 1 Edited')
+
+    cy.clickSettings()
+
+    cy.getPreviewingConfig().should('contain', ' - Editing')
+  })
 })

@@ -1,3 +1,5 @@
+import path from 'path'
+
 describe('Config Manager', () => {
   beforeEach(() => {
     // TODO: gett app url dynamically
@@ -52,5 +54,14 @@ describe('Config Manager', () => {
     cy.getConfigPreview('dummy').should('exist')
     cy.getConfigDelete('dummy').click()
     cy.getConfigPreview('dummy').should('not.exist')
+  })
+
+  it('should download config', () => {
+    cy.findByTestId('download-button').click()
+    cy.getEditLinkModal().find('button').first().click()
+    const downloadsFolder = Cypress.config('downloadsFolder')
+    cy.readFile(path.join(downloadsFolder, 'config-default.json')).should(
+      'exist'
+    )
   })
 })

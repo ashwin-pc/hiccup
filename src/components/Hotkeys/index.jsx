@@ -15,7 +15,7 @@ export function Hotkeys() {
 
     return (
         <Modal show={isVisible} onClose={() => setIsVisible(false)}>
-            <h1 className={modalStyles.title}>Hotkeys</h1>
+            <h1 data-testid="hotkey-modal-title" className={modalStyles.title}>Hotkeys</h1>
             {Object.entries(HOTKEYS).map(([key, description], index) => (
                 <div
                     key={index}

@@ -11,6 +11,9 @@ declare namespace Cypress {
     getConfigActivate(configId: string): Chainable<null>
     getConfigSync(configId: string): Chainable<null>
     getConfigDelete(configId: string): Chainable<null>
+    getPreviewingConfig(): Chainable<null>
     submitUrlInput(url: string): Chainable<null>
+    getEditLinkModal(): Chainable<null>
+    getCachedConfigs(): Chainable<null>
   }
 }

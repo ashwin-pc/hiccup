@@ -118,6 +118,7 @@ export const DownloadButton: FC<{
         onClick={handleChange}
         className={`${disabled && 'disabled'} ${styles.downloadButton}`}
         onKeyUp={(e) => e.key === 'Enter' && handleChange(e)}
+        data-testid="download-button"
       >
         <Icon size={size} icon="download" />
         Download Preview

@@ -23,3 +23,15 @@ Cypress.Commands.add('getConfigDelete', (configId: string) => {
 Cypress.Commands.add('submitUrlInput', (url: string) => {
   cy.findByTestId('config-url-input').find('input').type(`${url}{Enter}`)
 })
+
+Cypress.Commands.add('getPreviewingConfig', () => {
+  cy.get('body').find('.previewing')
+})
+
+Cypress.Commands.add('getCachedConfigs', () => {
+  cy.get('div[data-testid^="cache"]')
+})
+
+Cypress.Commands.add('getEditLinkModal', () => {
+  cy.findByTestId('edit-link-title').parent()
+})
