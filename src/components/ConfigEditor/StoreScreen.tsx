@@ -142,7 +142,8 @@ const ConfigList: FC<{ previewId: string; setPreviewId: any }> = ({
               disabled={
                 !!(
                   config.id === EMPTY_CONFIG.id ||
-                  (config.url === './config.json' && !config.metadata?.editing)
+                  (config.url === './configs/config.json' &&
+                    !config.metadata?.editing)
                 )
               }
               onSubmit={() => {

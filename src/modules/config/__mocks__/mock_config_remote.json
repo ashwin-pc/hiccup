@@ -2,7 +2,7 @@
     "version": "2.0",
     "id": "mock_remote",
     "title": "Mock Remote",
-    "url": "http://localhost:3000/config.json",
+    "url": "http://localhost:3000/configs/config.json",
     "featured": [
         {
             "name": "Remote Featured Link",

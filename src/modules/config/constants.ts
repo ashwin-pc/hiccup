@@ -5,7 +5,7 @@ import {
   LinksEntity,
 } from './types'
 
-export const URL = `${process.env.PUBLIC_URL || '.'}/config.json`
+export const URL = `${process.env.PUBLIC_URL || '.'}/configs/config.json`
 export const CONFIG_KEY = 'hiccup_config_v2'
 export const DEFAULT_BG = '/assets/card.png'
 
