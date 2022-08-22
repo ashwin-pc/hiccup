@@ -140,11 +140,7 @@ const ConfigList: FC<{ previewId: string; setPreviewId: any }> = ({
             <IconButton
               icon="trash"
               disabled={
-                !!(
-                  config.id === EMPTY_CONFIG.id ||
-                  (config.url === './configs/config.json' &&
-                    !config.metadata?.editing)
-                )
+                !!(config.id === EMPTY_CONFIG.id || config.id === 'default')
               }
               onSubmit={() => {
                 try {

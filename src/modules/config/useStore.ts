@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { CONFIG_KEY, EMPTY_CONFIG } from './constants'
 import { fetchConfig, loadStoreFromCache } from './load'
+import { runMigrations } from './runMigrations'
 import { ConfigEntity, LocalConfigStore } from './types'
 import validate from './validate'
 
@@ -33,9 +34,12 @@ export const useStore = () => {
         const configURLParam = searchParams.get(configKey)
         const loadedConfig = await fetchConfig(configURLParam || undefined)
 
+        // Update active if the loaded config is not present in the store
         const updateActive = !localConfigStore?.configs[loadedConfig.id]
 
         dispatch.saveConfig(loadedConfig, updateActive)
+
+        runMigrations(dispatch)
       } catch (e) {
         toast.error((e as Error).message)
       } finally {
