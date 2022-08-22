@@ -33,7 +33,17 @@
 
 .config-actions-container {
   position: fixed;
+  display: flex;
   bottom: 10px;
   right: 10px;
   color: var(--theme-color-1);
+  gap: 20px;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: var(--theme-highlight-1);
 }

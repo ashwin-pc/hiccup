@@ -21,8 +21,8 @@ const ConnectedEditLinkModal = () => {
 
   const handleSave = useCallback(
     (newFields: EditModalField[]) => {
-      actionState?.onSave(newFields)
-      setActionState(undefined)
+      const saved = actionState?.onSave(newFields) ?? true
+      saved && setActionState(undefined)
     },
     [actionState]
   )

@@ -36,6 +36,9 @@
                     "properties": {
                         "readonly": {
                             "type": "boolean"
+                        },
+                        "editing": {
+                            "type": "boolean"
                         }
                     }
                 }

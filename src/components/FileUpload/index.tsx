@@ -6,8 +6,8 @@ import {
   transformEntityToFields,
   transformFieldsToEntity,
 } from 'components/EditLinkModal/transforms'
-import { validate } from 'modules/config'
-import { NewEntity } from 'modules/config/types'
+import { validateFile, NewEntity } from 'modules/config'
+import { addQuickLink } from 'modules/config/configHelpers'
 import { FC, DragEvent, useCallback, useRef } from 'react'
 import toast from 'react-hot-toast'
 import styles from './index.module.css'
@@ -32,10 +32,8 @@ window.addEventListener(
 const CATEGORY_KEY = 'category'
 
 export const FileUpload: FC = ({ children }) => {
-  const {
-    dispatch,
-    config: { categories },
-  } = useConfigContext()
+  const { storeActions, config } = useConfigContext()
+  const { categories } = config
   const dropTargetRef = useRef(null)
   const dragging = useDragging(document)
   const draggingOverDropTarget = useDragging(dropTargetRef.current)
@@ -47,11 +45,17 @@ export const FileUpload: FC = ({ children }) => {
   const onSave = useCallback(
     (modalData: EditModalField[]) => {
       const newLink = transformFieldsToEntity(modalData) as NewEntity
-      const category = newLink.category
+      const category = newLink.category || ''
       delete newLink.category
-      dispatch.addQuickLink(category || '', newLink)
+      const { config: newConfig, invalid } = addQuickLink(config, {
+        category,
+        link: newLink,
+      })
+
+      if (invalid) return false
+      storeActions.saveConfig(newConfig)
     },
-    [dispatch]
+    [config, storeActions]
   )
 
   const handleDrop = useCallback(
@@ -102,20 +106,20 @@ export const FileUpload: FC = ({ children }) => {
         const reader = new FileReader()
         reader.onload = (e) => {
           const uploadedConfig = e.target?.result
-          const [valid, error, path] = validateUpload(uploadedConfig)
+          const [valid, error] = validateFile(uploadedConfig)
 
           if (!valid) {
-            return toast.error(
-              `Failed to upload config: \nError ${error}\nPath: ${path}`
-            )
+            return toast.error(error)
           }
 
-          dispatch.setConfig(JSON.parse(uploadedConfig as string))
+          const config = JSON.parse(uploadedConfig as string)
+          storeActions.saveConfig(config)
+          toast.success(`Loaded Config "${config.title}"`)
         }
         reader.readAsText(file)
       }
     },
-    [categories, dispatch, onSave]
+    [categories, onSave, storeActions]
   )
 
   const highlightClass = draggingOverDropTarget ? styles.highlight : undefined
@@ -136,15 +140,4 @@ export const FileUpload: FC = ({ children }) => {
       )}
     </div>
   )
-}
-
-const validateUpload = (result: any) => {
-  if (typeof result !== 'string') return [false, 'Not a JSON file', 'filetype']
-
-  try {
-    const configText = JSON.parse(result)
-    return validate(configText)
-  } catch (error) {
-    return [false, 'Could not parse JSON', 'json']
-  }
 }

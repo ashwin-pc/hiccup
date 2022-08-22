@@ -74,18 +74,6 @@ const cacheCall = (noFallback = true): ConfigEntity | undefined => {
   }
 }
 
-export const networkCall = async (
-  url: string | undefined,
-  noFallback = true
-): Promise<ConfigEntity | undefined> => {
-  try {
-    const remoteConfig = await fetchConfig(url)
-    return remoteConfig
-  } catch (e) {
-    noFallback && toast.error((e as Error).message)
-  }
-}
-
 export const fetchConfig = async (url = URL): Promise<ConfigEntity> => {
   console.log('Fetching url: ', url)
   const configURL = url || URL
@@ -105,5 +93,18 @@ export const fetchConfig = async (url = URL): Promise<ConfigEntity> => {
         (error as Error).message
       }`
     )
+  }
+}
+
+// Same as fetchConfig but with error handling
+export const networkCall = async (
+  url = URL,
+  noFallback = true
+): Promise<ConfigEntity | undefined> => {
+  try {
+    const remoteConfig = await fetchConfig(url)
+    return remoteConfig
+  } catch (e) {
+    noFallback && toast.error((e as Error).message)
   }
 }

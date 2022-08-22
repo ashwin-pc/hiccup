@@ -19,6 +19,7 @@ export interface NewEntity extends LinksEntity {
 
 export interface Metadata {
   readonly?: boolean
+  editing?: boolean
 }
 
 export interface ConfigEntity {
@@ -32,8 +33,9 @@ export interface ConfigEntity {
 }
 
 export interface LocalConfigStore {
+  active: string
+  untouched: boolean
   configs: {
     [id: string]: ConfigEntity
   }
-  active: string
 }

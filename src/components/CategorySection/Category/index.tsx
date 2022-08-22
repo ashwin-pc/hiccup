@@ -5,6 +5,11 @@ import { AddCategory } from './AddCategory'
 import { CategoriesEntity } from 'modules/config/types'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
 import { transformFieldsToEntity } from 'components/EditLinkModal/transforms'
+import {
+  addCategory,
+  editCategory,
+  removeCategory,
+} from 'modules/config/configHelpers'
 
 interface Props extends CategoriesEntity {
   index: number
@@ -12,18 +17,29 @@ interface Props extends CategoriesEntity {
 
 const ConnectedCategory = (props: Props) => {
   const { index: categoryIndex } = props
-  const { editing, dispatch } = useConfigContext()
+  const { editing, config, storeActions } = useConfigContext()
 
   const onDelete = useCallback(() => {
-    dispatch.removeCategory(categoryIndex)
-  }, [categoryIndex, dispatch])
+    const { config: newConfig, invalid } = removeCategory(config, {
+      categoryIndex,
+    })
+
+    if (invalid) return false
+    storeActions.saveConfig(newConfig)
+  }, [categoryIndex, config, storeActions])
 
   const onEdit = useCallback(
     (fields: EditModalField[]) => {
       const { title } = transformFieldsToEntity(fields) as any
-      dispatch.editCategory(categoryIndex, title)
+      const { config: newConfig, invalid } = editCategory(config, {
+        categoryIndex,
+        title,
+      })
+
+      if (invalid) return false
+      storeActions.saveConfig(newConfig)
     },
-    [categoryIndex, dispatch]
+    [categoryIndex, config, storeActions]
   )
 
   return (
@@ -37,14 +53,17 @@ const ConnectedCategory = (props: Props) => {
 }
 
 const ConnectedAddCategory = () => {
-  const { editing, dispatch } = useConfigContext()
+  const { editing, config, storeActions } = useConfigContext()
 
   const onSave = useCallback(
     (fields: EditModalField[]) => {
-      const { title: categoryTitle } = transformFieldsToEntity(fields) as any
-      dispatch.addCategory(categoryTitle)
+      const { title } = transformFieldsToEntity(fields) as any
+      const { config: newConfig, invalid } = addCategory(config, { title })
+
+      if (invalid) return false
+      storeActions.saveConfig(newConfig)
     },
-    [dispatch]
+    [config, storeActions]
   )
 
   return editing ? <AddCategory onSave={onSave} /> : null

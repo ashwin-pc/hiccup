@@ -20,4 +20,17 @@ function validate(config: ConfigEntity): [boolean, string | undefined, string] {
 
 const isValid = (config: ConfigEntity) => validate(config)[0]
 
-export { validate as default, validate, isValid }
+const validateFile = (result: any): [boolean, string] => {
+  if (typeof result !== 'string')
+    return [false, 'Uploaded file format incorrect. Upload a correct JSON file']
+
+  try {
+    const configText = JSON.parse(result)
+    const [valid, message, path] = validate(configText)
+    return [valid, `Not a valid config. \nError: ${message}. \nPath: ${path}`]
+  } catch (error) {
+    return [false, 'Not a valid JSON']
+  }
+}
+
+export { validate as default, validate, validateFile, isValid }

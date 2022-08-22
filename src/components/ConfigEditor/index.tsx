@@ -4,16 +4,16 @@ import { Icon } from 'components/common/Icon'
 import { Modal } from 'components/common/Modal'
 import styles from './index.module.css'
 import { useHotkeys } from 'react-hotkeys-hook'
-import { fetchConfig } from 'modules/config/load'
-import { ConfigEntity } from 'modules/config/types'
+import { networkCall } from 'modules/config/load'
 import { MainScreen } from './MainScreen'
 import { AddScreen } from './AddScreen'
+import toast from 'react-hot-toast'
 
 type SCREENS = 'main' | 'add' | 'edit'
 export type ScreenHandler = React.Dispatch<React.SetStateAction<SCREENS>>
 
 const ConfigEditor = () => {
-  const { config, dispatch, setEditing } = useConfigContext()
+  const { config, setEditing, storeActions } = useConfigContext()
   const [show, setShow] = useState(false)
   const [screen, setScreen] = useState<SCREENS>('add')
 
@@ -30,22 +30,21 @@ const ConfigEditor = () => {
     }
   }, [screen])
 
-  const saveAndCloseModal = useCallback(
-    (configToSave: ConfigEntity) => {
-      dispatch.setConfig(configToSave)
-      setShow(false)
-    },
-    [dispatch]
-  )
-
   const handleSync = useCallback(async () => {
     try {
-      const remoteConfig = await fetchConfig()
-      saveAndCloseModal(remoteConfig)
+      if (!config.url)
+        return toast.error('Cannot sync config without the url param')
+
+      const remoteConfig = await networkCall(config.url)
+
+      if (remoteConfig) {
+        storeActions.saveConfig(remoteConfig)
+        toast.success('Sync success')
+      }
     } catch (error) {
       console.error(`Sync failed: \n${error}`)
     }
-  }, [saveAndCloseModal])
+  }, [config.url, storeActions])
 
   useHotkeys('ctrl+k,cmd+k', () => setShow((val) => !val))
 
@@ -59,30 +58,31 @@ const ConfigEditor = () => {
         {currentScreen}
       </Modal>
       <div className={styles['config-actions-container']}>
-        {config.metadata?.readonly ? (
-          <Icon
-            icon="sync"
-            as="button"
-            aria-label="sync"
-            className={styles['icon']}
-            onClick={() => handleSync()}
-          />
-        ) : (
-          <>
+        <>
+          {config.url && (
+            <Icon
+              icon="sync"
+              as="button"
+              aria-label="sync"
+              className={styles['icon']}
+              onClick={() => handleSync()}
+            />
+          )}
+          {!config.metadata?.readonly && (
             <Icon
               icon="edit"
               as="button"
               className={styles['icon']}
               onClick={() => setEditing((value) => !value)}
             />
-            <Icon
-              icon="cog"
-              as="button"
-              className={styles['icon']}
-              onClick={() => setShow(true)}
-            />
-          </>
-        )}
+          )}
+          <Icon
+            icon="cog"
+            as="button"
+            className={styles['icon']}
+            onClick={() => setShow(true)}
+          />
+        </>
       </div>
     </>
   )

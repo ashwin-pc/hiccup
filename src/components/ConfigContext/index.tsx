@@ -1,14 +1,10 @@
 import React, { createContext, useState, useContext, FC } from 'react'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { ConfigEntity, LocalConfigStore } from 'modules/config/types'
-import useMethods from 'modules/useMethods'
-import { methods } from './methods'
-import { EMPTY_CONFIG } from 'modules/config'
 import { StoreActions, useStore } from 'modules/config/useStore'
 
 interface IConfigContext {
   config: ConfigEntity
-  dispatch: ReturnType<typeof methods>
   editing: boolean
   setEditing: React.Dispatch<React.SetStateAction<boolean>>
   storeActions: StoreActions
@@ -19,7 +15,6 @@ const ConfigContext = createContext<IConfigContext | undefined>(undefined)
 
 const ConfigProvider: FC = ({ children }) => {
   const { config, dispatch: storeActions, store } = useStore()
-  const [_, dispatch] = useMethods(methods, EMPTY_CONFIG)
   const [editing, setEditing] = useState(false)
 
   // Keyboard shortcuts
@@ -28,7 +23,6 @@ const ConfigProvider: FC = ({ children }) => {
 
   const contextValue = {
     config,
-    dispatch,
     editing: config.metadata?.readonly ? false : editing,
     setEditing,
     storeActions,

@@ -76,11 +76,12 @@
   height: 30px;
   padding: 9px;
   align-items: center;
+  display: flex;
 }
 
 .listAction:global(.disabled) {
   cursor: not-allowed;
-  opacity: 0.5;
+  opacity: 0.2;
 }
 
 .listIcon {

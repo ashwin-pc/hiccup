@@ -1,5 +1,4 @@
 import useMethods from 'modules/useMethods'
-import { delay } from 'modules/utils'
 import { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { CONFIG_KEY, EMPTY_CONFIG } from './constants'
@@ -9,6 +8,7 @@ import validate from './validate'
 
 export const EMPTY_STATE: LocalConfigStore = {
   active: EMPTY_CONFIG.id,
+  untouched: true,
   configs: {
     [EMPTY_CONFIG.id]: EMPTY_CONFIG,
   },
@@ -62,8 +62,13 @@ export const useStore = () => {
 
 const methods = (state: LocalConfigStore) => ({
   setStore: (store: LocalConfigStore) => store,
+
   setActiveId: (id: string) => {
     state.active = id
+  },
+
+  setUntouched: (untouched: boolean) => {
+    state.untouched = untouched
   },
 
   saveConfig: (config: ConfigEntity, updateActive = true) => {

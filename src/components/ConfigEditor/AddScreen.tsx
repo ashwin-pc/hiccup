@@ -2,17 +2,16 @@ import { toast } from 'react-hot-toast'
 import Icon, { Props as IconProps } from 'components/common/Icon'
 import { Input } from 'components/common/Input'
 import useConfigContext from 'components/ConfigContext'
-import { EMPTY_CONFIG, validate } from 'modules/config'
+import { EMPTY_CONFIG, validateFile, ConfigEntity } from 'modules/config'
+import React, { FC, useState } from 'react'
+import styles from './AddScreen.module.css'
+import { delay } from 'modules/utils'
+import { UploadButton } from './UploadButton'
 import {
   fetchConfig,
   load as loadConfig,
   networkCall,
 } from 'modules/config/load'
-import { ConfigEntity } from 'modules/config/types'
-import React, { FC, useState } from 'react'
-import styles from './AddScreen.module.css'
-import { delay } from 'modules/utils'
-import { UploadButton } from './UploadButton'
 
 export const AddScreen: FC = () => {
   return (
@@ -30,27 +29,15 @@ const LoadFile = () => {
   const handleFile = (
     configString: string | ArrayBuffer | null | undefined
   ) => {
-    if (typeof configString !== 'string') {
-      return toast.error(
-        'Uploaded file format incorrect. Upload a correct JSON file'
-      )
+    const [valid, message] = validateFile(configString)
+
+    if (!valid) {
+      return toast.error(message)
     }
 
-    try {
-      const config: ConfigEntity = JSON.parse(configString)
-      const [valid, message, path] = validate(config)
-
-      if (!valid) {
-        return toast.error(
-          `Not a valid config. \nError: ${message}. \nPath: ${path}`
-        )
-      }
-
-      storeActions.saveConfig(config)
-      toast.success(`Loaded Config "${config.title}"`)
-    } catch (e) {
-      toast.error('Not a valid JSON')
-    }
+    const config = JSON.parse(configString as string)
+    storeActions.saveConfig(config)
+    toast.success(`Loaded Config "${config.title}"`)
   }
 
   return (
@@ -66,6 +53,10 @@ const URLInput = () => {
   const { storeActions } = useConfigContext()
   const [value, setValue] = useState('')
   const handleSubmit = async () => {
+    if (value === '') {
+      return
+    }
+
     try {
       const config = await fetchConfig(value)
       storeActions.saveConfig(config)
@@ -123,24 +114,23 @@ const ConfigList: FC = () => {
               }}
             />
 
-            {config.url && (
-              <IconButton
-                icon="sync"
-                onClick={async () => {
-                  const remoteConfig = await networkCall(config.url)
-                  if (!remoteConfig) return
+            <IconButton
+              icon="sync"
+              disabled={!config.url}
+              onClick={async () => {
+                const remoteConfig = await networkCall(config.url)
+                if (!remoteConfig) return
 
-                  toast.success(`Synced URL: ${config.url}`)
-                }}
-              />
-            )}
+                toast.success(`Synced URL: ${config.url}`)
+              }}
+            />
 
             <IconButton
               icon="trash"
               disabled={
                 !!(
                   config.id === EMPTY_CONFIG.id ||
-                  config.url === './config.json'
+                  (config.url === './config.json' && !config.metadata?.editing)
                 )
               }
               onClick={() => {
@@ -205,12 +195,3 @@ const IconButton: FC<ButtonProps> = ({
     </div>
   )
 }
-
-const LoadFileButton: FC<React.HTMLAttributes<HTMLDivElement>> = ({
-  ...props
-}) => (
-  <div className={styles.fileLoader} tabIndex={0} {...props}>
-    <Icon icon="upload" className={styles.load} size={40} />
-    <p>Click to load a config file</p>
-  </div>
-)
