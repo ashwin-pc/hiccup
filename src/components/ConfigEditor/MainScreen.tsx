@@ -23,7 +23,7 @@ export const MainScreen: FC<{ setScreen: ScreenHandler }> = ({ setScreen }) => {
       <MainButton
         label="Add Config"
         icon="plus"
-        onClick={() => setScreen('add')}
+        onClick={() => setScreen('store')}
       />
       <MainButton
         label="Edit Config"

@@ -6,24 +6,24 @@ import styles from './index.module.css'
 import { useHotkeys } from 'react-hotkeys-hook'
 import { networkCall } from 'modules/config/load'
 import { MainScreen } from './MainScreen'
-import { AddScreen } from './AddScreen'
+import { StoreScreen } from './StoreScreen'
 import toast from 'react-hot-toast'
 
-type SCREENS = 'main' | 'add' | 'edit'
+type SCREENS = 'main' | 'store' | 'edit'
 export type ScreenHandler = React.Dispatch<React.SetStateAction<SCREENS>>
 
 const ConfigEditor = () => {
   const { config, setEditing, storeActions } = useConfigContext()
   const [show, setShow] = useState(false)
-  const [screen, setScreen] = useState<SCREENS>('add')
+  const [screen, setScreen] = useState<SCREENS>('store')
 
   const currentScreen = useMemo(() => {
     switch (screen) {
       case 'main':
         return <MainScreen setScreen={setScreen} />
 
-      case 'add':
-        return <AddScreen />
+      case 'store':
+        return <StoreScreen />
 
       default:
         break

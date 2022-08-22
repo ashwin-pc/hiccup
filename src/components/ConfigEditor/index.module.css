@@ -6,6 +6,7 @@
 
 @media (max-width: 600px) {
   .modal {
+    border-radius: 0;
     width: 100%;
   }
 }

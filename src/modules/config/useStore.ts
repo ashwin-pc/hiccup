@@ -99,11 +99,14 @@ const methods = (state: LocalConfigStore) => ({
       state.active = Object.keys(state.configs)[0]
     }
   },
+
+  resetStore: () => EMPTY_STATE,
 })
 
 interface StoreActionMethods
-  extends Omit<ReturnType<typeof methods>, 'setStore'> {
+  extends Omit<ReturnType<typeof methods>, 'setStore' | 'resetStore'> {
   setStore: (store: LocalConfigStore) => void
+  resetStore: () => void
 }
 
 export type StoreActions = StoreActionMethods

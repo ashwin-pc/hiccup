@@ -23,7 +23,7 @@ export interface Metadata {
 }
 
 export interface ConfigEntity {
-  version?: string
+  version: string
   id: string
   title: string
   url?: string

@@ -4,7 +4,7 @@ import { Input } from 'components/common/Input'
 import useConfigContext from 'components/ConfigContext'
 import { EMPTY_CONFIG, validateFile, ConfigEntity } from 'modules/config'
 import React, { FC, useState } from 'react'
-import styles from './AddScreen.module.css'
+import styles from './StoreScreen.module.css'
 import { delay } from 'modules/utils'
 import { UploadButton } from './UploadButton'
 import {
@@ -12,13 +12,17 @@ import {
   load as loadConfig,
   networkCall,
 } from 'modules/config/load'
+import { FileViewer } from './FileViewer'
 
-export const AddScreen: FC = () => {
+export const StoreScreen: FC = () => {
+  const { config } = useConfigContext()
+  const [previewId, setPreviewId] = useState(config.id)
   return (
     <div className={styles.screen}>
+      <ConfigList previewId={previewId} setPreviewId={setPreviewId} />
+      <FileViewer configId={previewId} />
       <LoadFile />
       <URLInput />
-      <ConfigList />
     </div>
   )
 }
@@ -40,13 +44,7 @@ const LoadFile = () => {
     toast.success(`Loaded Config "${config.title}"`)
   }
 
-  return (
-    <UploadButton
-      className={styles.fileLoader}
-      size={40}
-      handleFile={handleFile}
-    />
-  )
+  return <UploadButton className={styles.fileLoader} handleFile={handleFile} />
 }
 
 const URLInput = () => {
@@ -77,34 +75,41 @@ const URLInput = () => {
       <IconButton
         icon="square-plus"
         className={styles.addBtn}
-        tabIndex={0}
         size={30}
-        onClick={handleSubmit}
+        onSubmit={handleSubmit}
       />
     </div>
   )
 }
 
-const ConfigList: FC = () => {
+const ConfigList: FC<{ previewId: string; setPreviewId: any }> = ({
+  previewId,
+  setPreviewId,
+}) => {
   const { config: currentConfig, storeActions, store } = useConfigContext()
   const availableConfigs: ConfigEntity[] = Object.values(store.configs || {})
 
   return (
     <div className={styles.list}>
       {availableConfigs.map((config) => {
-        const activeItem = config.id === currentConfig.id
+        const previewing = config.id === previewId
         return (
           <div
             key={config.id}
-            className={`${styles.listItem} ${activeItem && 'active'}`}
+            className={`${styles.listItem} ${previewing && 'previewing'}`}
+            data-id={config.id}
+            tabIndex={previewing ? -1 : 0}
+            onClick={() => setPreviewId(config.id)}
+            onKeyUp={({ key }) => key === 'Enter' && setPreviewId(config.id)}
+            role="button"
           >
             <span>{config.title}</span>
 
-            <label>Active</label>
+            <label>{config.id === currentConfig.id ? 'Active' : ''}</label>
 
             <IconButton
               icon="check"
-              onClick={async () => {
+              onSubmit={async () => {
                 storeActions.setActiveId(config.id)
 
                 // Use the caching strategy to load latest value
@@ -117,7 +122,7 @@ const ConfigList: FC = () => {
             <IconButton
               icon="sync"
               disabled={!config.url}
-              onClick={async () => {
+              onSubmit={async () => {
                 const remoteConfig = await networkCall(config.url)
                 if (!remoteConfig) return
 
@@ -133,7 +138,7 @@ const ConfigList: FC = () => {
                   (config.url === './config.json' && !config.metadata?.editing)
                 )
               }
-              onClick={() => {
+              onSubmit={() => {
                 try {
                   storeActions.deleteConfig(config.id)
                   toast.success(`Deleted config ${config.title}`)
@@ -151,13 +156,13 @@ const ConfigList: FC = () => {
   )
 }
 
-interface ButtonProps extends Omit<IconProps, 'onClick'> {
-  onClick: React.MouseEventHandler<HTMLDivElement>
+interface ButtonProps extends Omit<IconProps, 'onClick' | 'onKeyUp'> {
+  onSubmit: () => void
   disabled?: boolean
 }
 
 const IconButton: FC<ButtonProps> = ({
-  onClick,
+  onSubmit,
   disabled = false,
   size = 11,
   className,
@@ -165,16 +170,16 @@ const IconButton: FC<ButtonProps> = ({
   ...props
 }) => {
   const [loading, setLoading] = useState(false)
-  const handleClick = async (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
-  ) => {
+  const handleClick = async (e: any) => {
+    e.preventDefault()
+    e.stopPropagation()
     if (disabled || loading) return
 
     setLoading(true)
     try {
-      return await onClick(e)
+      return await onSubmit()
     } catch (error) {
-      throw e
+      throw error
     } finally {
       setLoading(false)
     }
@@ -183,8 +188,10 @@ const IconButton: FC<ButtonProps> = ({
   return (
     <div
       onClick={handleClick}
-      role="button"
       className={`${disabled && 'disabled'} ${styles.listAction} ${className}`}
+      tabIndex={disabled ? -1 : 0}
+      role="button"
+      onKeyUp={(e) => e.key === 'Enter' && handleClick(e)}
     >
       <Icon
         size={size}
