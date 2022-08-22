@@ -1,0 +1,81 @@
+{
+    "featured": [
+        {
+            "name": "V1 Config",
+            "background": "/assets/card.png",
+            "link": "http://google.com"
+        },
+        {
+            "name": "Another Feaured link",
+            "link": "http://google.com"
+        },
+        {
+            "name": "One more",
+            "link": "http://google.com"
+        },
+        {
+            "name": "Oh no!!!",
+            "link": "https://www.google.com/search?q=I%27m+Feeling+Curious&csf=b&ct=ifl&cad=2:curious&ei=iin8XpLlKJi80PEPi9GtyAo&ved=0ahUKEwiS0oCHs6vqAhUYHjQIHYtoC6kQnRsIDg&rct=j",
+            "tags": "space separated tags"
+        }
+    ],
+    "categories": [
+        {
+            "title": "Category 1",
+            "links": [
+                {
+                    "name": "Link 1",
+                    "link": "http://google.com"
+                },
+                {
+                    "name": "Link 2",
+                    "link": "http://google.com"
+                }
+            ]
+        },
+        {
+            "title": "Category 2",
+            "links": [
+                {
+                    "name": "Link 1",
+                    "link": "http://google.com"
+                },
+                {
+                    "name": "Link 2",
+                    "link": "http://google.com"
+                }
+            ]
+        },
+        {
+            "title": "Category 3",
+            "links": [
+                {
+                    "name": "Link 1",
+                    "link": "http://google.com",
+                    "tags": "more searchable tags"
+                }
+            ]
+        },
+        {
+            "title": "Category 4",
+            "links": [
+                {
+                    "name": "Link 1",
+                    "link": "http://google.com"
+                },
+                {
+                    "name": "Link 2",
+                    "link": "https://www.google.com/search?q=I%27m+Feeling+Curious&csf=b&ct=ifl&cad=2:curious&ei=iin8XpLlKJi80PEPi9GtyAo&ved=0ahUKEwiS0oCHs6vqAhUYHjQIHYtoC6kQnRsIDg&rct=j"
+                },
+                {
+                    "name": "Link 3",
+                    "link": "http://google.com"
+                },
+                {
+                    "name": "Just a long link name to make sure we are safe",
+                    "link": "http://google.com"
+                }
+            ]
+        }
+    ]
+}
