@@ -72,7 +72,7 @@ const URLInput = () => {
   }
 
   return (
-    <div className={styles.url}>
+    <div className={styles.url} data-testid="config-url-input">
       <Input
         label="Add Config URL"
         value={value}
@@ -109,6 +109,7 @@ const ConfigList: FC<{ previewId: string; setPreviewId: any }> = ({
             onClick={() => setPreviewId(config.id)}
             onKeyUp={({ key }) => key === 'Enter' && setPreviewId(config.id)}
             role="button"
+            data-testid={`cached-config-${config.id}`}
           >
             <span>{config.title}</span>
 
@@ -133,6 +134,7 @@ const ConfigList: FC<{ previewId: string; setPreviewId: any }> = ({
                 const remoteConfig = await networkCall(config.url)
                 if (!remoteConfig) return
 
+                storeActions.saveConfig(remoteConfig, false)
                 toast.success(`Synced URL: ${config.url}`)
               }}
             />
@@ -177,7 +179,7 @@ const IconButton: FC<ButtonProps> = ({
   const handleClick = async (e: any) => {
     e.preventDefault()
     e.stopPropagation()
-    if (disabled || loading) return
+    if (loading) return
 
     setLoading(true)
     try {
@@ -190,12 +192,11 @@ const IconButton: FC<ButtonProps> = ({
   }
 
   return (
-    <div
+    <button
       onClick={handleClick}
       className={`${disabled && 'disabled'} ${styles.listAction} ${className}`}
-      tabIndex={disabled ? -1 : 0}
-      role="button"
       onKeyUp={(e) => e.key === 'Enter' && handleClick(e)}
+      disabled={disabled}
     >
       <Icon
         size={size}
@@ -203,6 +204,6 @@ const IconButton: FC<ButtonProps> = ({
         icon={loading ? 'ellipsis' : icon}
         {...props}
       />
-    </div>
+    </button>
   )
 }

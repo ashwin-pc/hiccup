@@ -43,7 +43,7 @@ export const load = async (url?: string): Promise<ConfigEntity> => {
 export const getCacheStrategy = () => {
   const searchParams = new URLSearchParams(window.location.search)
   const strategy =
-    (searchParams.get('cache') as CACHE_STRATEGIES | undefined) || 'cache'
+    (searchParams.get('cache') as CACHE_STRATEGIES | undefined) || 'cache-first'
   return strategy
 }
 
@@ -75,7 +75,6 @@ const cacheCall = (noFallback = true): ConfigEntity | undefined => {
 }
 
 export const fetchConfig = async (url = URL): Promise<ConfigEntity> => {
-  console.log('Fetching url: ', url)
   const configURL = url || URL
   try {
     const response = await fetch(configURL, {

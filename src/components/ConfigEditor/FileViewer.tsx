@@ -46,7 +46,7 @@ export const FileViewer: FC<{ configId: string }> = ({ configId }) => {
     previewConfig
 
   return (
-    <div className={styles.fileViewer}>
+    <div className={styles.fileViewer} data-testid="file-viewer">
       <TextItem
         id="version"
         label="Version"

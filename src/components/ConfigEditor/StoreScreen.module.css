@@ -16,11 +16,10 @@
     width: 100%;
     padding: 20px;
     grid-template:
-      'fileViewer' auto
-      'list ' 1fr
-      'fileLoader'
-      'download'
-      'url' / 1fr;
+      'fileViewer fileViewer' auto
+      'list list ' 1fr
+      'fileLoader download'
+      'url url' / 1fr 1fr;
   }
   .fileViewer {
     margin-top: 20px;
@@ -100,12 +99,14 @@
   justify-content: center;
 }
 
-.fileLoader:hover {
+.fileLoader:hover,
+.downloadButton:hover {
   outline: none;
   opacity: 0.5;
 }
 
-.fileLoader:focus {
+.fileLoader:focus,
+.downloadButton:focus {
   outline: 2px solid var(--theme-highlight-1);
   outline-offset: -1px;
   background-color: var(--theme-bg-2);
@@ -157,6 +158,9 @@
   padding: 9px;
   align-items: center;
   display: flex;
+  background: inherit;
+  border: none;
+  color: inherit;
 }
 
 .listAction:global(.disabled) {

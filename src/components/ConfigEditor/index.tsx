@@ -64,6 +64,7 @@ const ConfigEditor = () => {
               icon="sync"
               as="button"
               aria-label="sync"
+              data-testid="global-sync"
               className={styles['icon']}
               onClick={() => handleSync()}
             />
@@ -72,6 +73,7 @@ const ConfigEditor = () => {
             <Icon
               icon="edit"
               as="button"
+              data-testid="global-edit"
               className={styles['icon']}
               onClick={() => setEditing((value) => !value)}
             />
@@ -79,6 +81,7 @@ const ConfigEditor = () => {
           <Icon
             icon="cog"
             as="button"
+            data-testid="global-settings"
             className={styles['icon']}
             onClick={() => setShow(true)}
           />

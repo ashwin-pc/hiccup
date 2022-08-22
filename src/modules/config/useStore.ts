@@ -53,8 +53,6 @@ export const useStore = () => {
 
   useEffect(() => {
     localStorage.setItem(CONFIG_KEY, JSON.stringify(store))
-
-    console.log(store)
   }, [store])
 
   return {
