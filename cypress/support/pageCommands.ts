@@ -1,5 +1,17 @@
 // Add all the page level commands
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+type ConfigAction = 'preview' | 'activate' | 'sync' | 'delete'
+
+const CONFIG_ACTIONS = {
+  preview: -1,
+  activate: 0,
+  sync: 1,
+  delete: 2,
+}
+
+// export type ConfigAction = keyof typeof CONFIG_ACTIONS
+
 Cypress.Commands.add('clickSettings', () => {
   cy.findByTestId('global-settings').click()
 })
@@ -19,30 +31,23 @@ Cypress.Commands.add('typeInSearchBar', (text) => {
   cy.findByTestId('search-bar').type(text)
 })
 
+Cypress.Commands.add('getManagedConfig', (id, action = 'preview') => {
+  if (action === 'preview') {
+    !!id
+      ? cy.findByTestId(`cached-config-${id}`)
+      : cy.get('body').find('.previewing')
+  } else {
+    const index = CONFIG_ACTIONS[action]
+    !!id
+      ? cy.findByTestId(`cached-config-${id}`).find('button').eq(index)
+      : cy.get('body').find('.previewing button').eq(index)
+  }
+})
+
 // Not happy with these, refactor to be more useful
-
-Cypress.Commands.add('getConfigPreview', (configId: string) => {
-  cy.findByTestId(`cached-config-${configId}`)
-})
-
-Cypress.Commands.add('getConfigActivate', (configId: string) => {
-  cy.findByTestId(`cached-config-${configId}`).find('button').eq(0)
-})
-
-Cypress.Commands.add('getConfigSync', (configId: string) => {
-  cy.findByTestId(`cached-config-${configId}`).find('button').eq(1)
-})
-
-Cypress.Commands.add('getConfigDelete', (configId: string) => {
-  cy.findByTestId(`cached-config-${configId}`).find('button').eq(2)
-})
 
 Cypress.Commands.add('submitUrlInput', (url: string) => {
   cy.findByTestId('config-url-input').find('input').type(`${url}{Enter}`)
-})
-
-Cypress.Commands.add('getPreviewingConfig', () => {
-  cy.get('body').find('.previewing')
 })
 
 Cypress.Commands.add('getCachedConfigs', () => {
@@ -54,5 +59,5 @@ Cypress.Commands.add('getEditLinkModal', () => {
 })
 
 Cypress.Commands.add('blurSearch', () => {
-  cy.get('body').click(5, 50)
+  cy.get('body').click(5, 5)
 })
