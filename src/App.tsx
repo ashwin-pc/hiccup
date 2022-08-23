@@ -1,4 +1,4 @@
-import { ConfigEntity } from 'modules/config/types'
+import { Toaster } from 'react-hot-toast'
 import { FeaturedSection } from './components/FeaturedSection'
 import { CategorySection } from './components/CategorySection'
 import { SearchProvider } from './components/SearchContext'
@@ -11,12 +11,8 @@ import { FileUpload } from 'components/FileUpload'
 
 export const ROOT_ID = 'root'
 
-interface Props {
-  config?: ConfigEntity
-}
-
-const App = ({ config }: Props) => (
-  <ConfigProvider config={config}>
+const App = () => (
+  <ConfigProvider>
     <SearchProvider>
       <FileUpload>
         <SearchBar />
@@ -25,6 +21,7 @@ const App = ({ config }: Props) => (
         <ConnectedEditLinkModal />
         <ConfigEditor />
         <Hotkeys />
+        <Toaster />
       </FileUpload>
     </SearchProvider>
   </ConfigProvider>

@@ -28,7 +28,7 @@ const Category = ({
   editing,
   ...editingProps
 }: CategoryProps) => (
-  <div className={styles.category}>
+  <div className={styles.category} data-testid="category">
     <h1 className={styles.title}>
       {title}
       {editing && <EditContainer {...editingProps} title={title} />}

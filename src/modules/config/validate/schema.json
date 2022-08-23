@@ -9,6 +9,15 @@
                 "version": {
                     "type": "string"
                 },
+                "id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                },
                 "featured": {
                     "type": "array",
                     "items": {
@@ -27,12 +36,17 @@
                     "properties": {
                         "readonly": {
                             "type": "boolean"
+                        },
+                        "editing": {
+                            "type": "boolean"
                         }
                     }
                 }
             },
             "required": [
                 "featured",
+                "id",
+                "title",
                 "categories"
             ],
             "title": "Config"

@@ -1,0 +1,17 @@
+{
+    "version": "2.0",
+    "id": "default",
+    "title": "Default Synced Config",
+    "url": "http://localhost:3000/configs/config.json",
+    "featured": [
+        {
+            "name": "First Default Synced Featured Link",
+            "background": "/assets/card.png",
+            "link": "http://google.com"
+        }
+    ],
+    "categories": [],
+    "metadata": {
+        "readonly": false
+    }
+}

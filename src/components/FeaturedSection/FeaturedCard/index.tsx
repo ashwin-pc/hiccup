@@ -5,6 +5,11 @@ import { AddFeaturedCard } from './AddFeaturedCard'
 import { FeaturedEntity } from 'modules/config/types'
 import { transformFieldsToEntity } from 'components/EditLinkModal/transforms'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
+import {
+  addFeaturedCard,
+  editFeaturedCard,
+  removeFeaturedCard,
+} from 'modules/config/configHelpers'
 
 interface Props {
   index: number
@@ -12,18 +17,29 @@ interface Props {
 }
 
 const ConnectedFeaturedCard = ({ index: cardIndex, link }: Props) => {
-  const { editing, dispatch } = useConfigContext()
+  const { editing, config, storeActions } = useConfigContext()
 
   const onDelete = useCallback(() => {
-    dispatch.removeFeaturedCard(cardIndex)
-  }, [cardIndex, dispatch])
+    const { config: newConfig, invalid } = removeFeaturedCard(config, {
+      cardIndex,
+    })
+
+    if (invalid) return false
+    storeActions.saveConfig(newConfig)
+  }, [cardIndex, config, storeActions])
 
   const onEdit = useCallback(
     (modalData: EditModalField[]) => {
       const newLink = transformFieldsToEntity(modalData) as FeaturedEntity
-      dispatch.editFeaturedCard(cardIndex, newLink)
+      const { config: newConfig, invalid } = editFeaturedCard(config, {
+        cardIndex,
+        link: newLink,
+      })
+
+      if (invalid) return false
+      storeActions.saveConfig(newConfig)
     },
-    [cardIndex, dispatch]
+    [cardIndex, config, storeActions]
   )
   return (
     <FeaturedCard
@@ -36,14 +52,19 @@ const ConnectedFeaturedCard = ({ index: cardIndex, link }: Props) => {
 }
 
 const ConnectedAddFeaturedCard = () => {
-  const { editing, dispatch } = useConfigContext()
+  const { editing, storeActions, config } = useConfigContext()
 
   const onSave = useCallback(
     (modalData: EditModalField[]) => {
       const newLink = transformFieldsToEntity(modalData) as FeaturedEntity
-      dispatch.addFeaturedCard(newLink)
+      const { config: newConfig, invalid } = addFeaturedCard(config, {
+        card: newLink,
+      })
+
+      if (invalid) return false
+      storeActions.saveConfig(newConfig)
     },
-    [dispatch]
+    [config, storeActions]
   )
 
   return editing ? <AddFeaturedCard onSave={onSave} /> : null

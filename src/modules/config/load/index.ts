@@ -1,36 +1,110 @@
 import { CONFIG_KEY, URL } from '../constants'
-import { ConfigEntity } from '../types'
+import { ConfigEntity, LocalConfigStore } from '../types'
 import { isValid, validate } from '../validate'
-import { triggerConfigError } from 'components/ConfigContext'
 import { EMPTY_CONFIG } from '..'
+import toast from 'react-hot-toast'
 
-export const load = async (
-  overridingConfig?: ConfigEntity
-): Promise<ConfigEntity> => {
-  // Pick the overriding connfig if it exists first
-  if (overridingConfig && isValid(overridingConfig)) return overridingConfig
+type CACHE_STRATEGIES = 'cache' | 'network' | 'cache-first' | 'network-first'
 
-  // Then check the local storage if we have one saved there
-  const localConfigString = localStorage.getItem(CONFIG_KEY)
-  const localConfig = !!localConfigString && JSON.parse(localConfigString)
-  if (isValid(localConfig)) return localConfig
+export const load = async (url?: string): Promise<ConfigEntity> => {
+  const strategy = getCacheStrategy()
+  let config: ConfigEntity | undefined
 
-  // Else fetch the default file.
-  try {
-    const remoteConfig = await sync()
-    return remoteConfig
-  } catch (e) {
-    console.error('Failed to load config from url: ', URL, e)
-    triggerConfigError(`Failed to load config from url: ${URL}\n${e}`)
+  switch (strategy) {
+    case 'cache':
+      config = cacheCall()
+      break
+
+    case 'cache-first':
+      config = cacheCall(false)
+      if (!config) {
+        config = await networkCall(url)
+      }
+      break
+
+    case 'network':
+      config = await networkCall(url)
+      break
+
+    case 'network-first':
+      config = await networkCall(url, false)
+      if (!config) {
+        config = cacheCall()
+      }
+      break
+
+    default:
+      break
   }
 
-  return EMPTY_CONFIG
+  return config || EMPTY_CONFIG
 }
 
-export const sync = async (): Promise<ConfigEntity> => {
-  const remoteConfig = await fetch(URL).then((response) => response.json())
-  const [valid, error, path] = validate(remoteConfig)
-  if (!valid) throw new Error(`${error}\nPath: ${path}`)
+export const getCacheStrategy = () => {
+  const searchParams = new URLSearchParams(window.location.search)
+  const strategy =
+    (searchParams.get('cache') as CACHE_STRATEGIES | undefined) ||
+    'network-first'
+  return strategy
+}
 
-  return remoteConfig
+export const loadStoreFromCache = (): LocalConfigStore | undefined => {
+  const localConfigString = localStorage.getItem(CONFIG_KEY)
+  if (!localConfigString) return
+  return JSON.parse(localConfigString)
+}
+
+const cacheCall = (noFallback = true): ConfigEntity | undefined => {
+  try {
+    const localConfigStore = loadStoreFromCache()
+    const localConfig = localConfigStore?.configs[
+      localConfigStore.active
+    ] as ConfigEntity
+
+    if (!isValid(localConfig)) {
+      noFallback &&
+        toast.error(
+          `Cached config is either invalid or missing for key : ${CONFIG_KEY}`
+        )
+      return
+    }
+
+    return localConfig
+  } catch (e) {
+    noFallback && toast.error(`Failed to load config cached config.\n${e}`)
+  }
+}
+
+export const fetchConfig = async (url = URL): Promise<ConfigEntity> => {
+  const configURL = url || URL
+  try {
+    const response = await fetch(configURL, {
+      mode: 'cors',
+      cache: 'no-cache',
+    })
+    const remoteConfig = await response.json()
+    const [valid, error, path] = validate(remoteConfig)
+    if (!valid) throw new Error(`${error}\nPath: ${path}`)
+
+    return { url: configURL, ...remoteConfig }
+  } catch (error) {
+    throw new Error(
+      `Failed to fetch config from url: ${url}. Error: ${
+        (error as Error).message
+      }`
+    )
+  }
+}
+
+// Same as fetchConfig but with error handling
+export const networkCall = async (
+  url = URL,
+  noFallback = true
+): Promise<ConfigEntity | undefined> => {
+  try {
+    const remoteConfig = await fetchConfig(url)
+    return remoteConfig
+  } catch (e) {
+    noFallback && toast.error((e as Error).message)
+  }
 }

@@ -61,12 +61,12 @@ I have hosted an instance of the app [here](https://test.designedbyashw.in/hiccu
 
 #### Docker
 
-To run the app using docker the image `bleckbeard/hiccup:latest`. You can use the command below or the `docker-compose.yaml` file from the repo. Be sure to change the volume to the location of your local config file. Use the one in `./public/config.json` for reference.
+To run the app using docker the image `bleckbeard/hiccup:latest`. You can use the command below or the `docker-compose.yaml` file from the repo. Be sure to change the volume to the location of your local config file. Use the one in `./public/configs/config.json` for reference.
 
 ```
 docker run \
     -p 8899:80 \
-    -v `pwd`/public/config.json:/usr/share/nginx/html/config.json \
+    -v `pwd`/public/configs/config.json:/usr/share/nginx/html/configs/config.json \
     bleckbeard/hiccup:latest
 ```
 
@@ -117,7 +117,7 @@ Since this is a static website, the only way to permanently update the links is 
 To update config on a local browser instance, use the online config editor using the ⚙️ icon. This will persist the config across sessions. The local editor allows to:
 
 - Edit the raw local config
-- Sync the configuration from `./config.json` file
+- Sync the configuration from `./configs/config.json` file
 - Download the latest valid config file
 - Upload a local config file. (psst.. if the file has issues, no problem! The editor will still load it and show you the errors until you can save it)
 - Save the config to **LocalStorage**

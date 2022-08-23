@@ -1,13 +1,12 @@
 {
-    "version": "1.0",
     "featured": [
         {
-            "name": "Featured Link",
+            "name": "V1 Config",
             "background": "/assets/card.png",
             "link": "http://google.com"
         },
         {
-            "name": "Another Featured link",
+            "name": "Another Feaured link",
             "link": "http://google.com"
         },
         {
@@ -78,8 +77,5 @@
                 }
             ]
         }
-    ],
-    "metadata": {
-        "readonly": false
-    }
+    ]
 }

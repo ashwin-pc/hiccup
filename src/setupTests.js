@@ -12,10 +12,5 @@ const localStorageMock = {
 };
 global.localStorage = localStorageMock;
 
-global.fetch = jest.fn(() =>
-    Promise.resolve({
-        json: () => Promise.resolve({ rates: { CAD: 1.42 } }),
-    })
-)
 
 global.URL.createObjectURL = jest.fn();

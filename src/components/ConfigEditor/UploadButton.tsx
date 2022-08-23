@@ -1,22 +1,23 @@
 import Icon from 'components/common/Icon'
-import { ChangeEvent, FC, useRef } from 'react'
-import styles from './index.module.css'
+import React, { ChangeEvent, FC, useRef } from 'react'
 
 interface HTMLInputEvent extends ChangeEvent {
   target: HTMLInputElement & EventTarget
 }
 
-export const UploadButton: FC<{
+interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   handleFile: (file: string | ArrayBuffer | null | undefined) => void
-}> = ({ handleFile }) => {
+  size?: number
+}
+
+export const UploadButton: FC<Props> = ({
+  handleFile,
+  className,
+  size = 14,
+}) => {
   // Create a reference to the hidden file input element
   const hiddenFileInput = useRef<HTMLInputElement>(null)
 
-  // Programatically click the hidden file input element
-  // when the Button component is clicked
-  const handleClick = () => {
-    hiddenFileInput.current?.click()
-  }
   // Call a function (passed as a prop from the parent component)
   // to handle the user-selected file
   const handleChange = (event: HTMLInputEvent) => {
@@ -24,18 +25,26 @@ export const UploadButton: FC<{
 
     if (fileUploaded) {
       const reader = new FileReader()
-      reader.onload = (e) => handleFile(e.target?.result)
+      reader.onload = (e) => {
+        handleFile(e.target?.result)
+        event.target.value = ''
+      }
       reader.readAsText(fileUploaded)
     }
   }
+
   return (
     <>
-      <button className={styles.upload} onClick={handleClick}>
-        Upload Config
-        <Icon size={14} icon="upload" />
+      <button
+        className={className}
+        onClick={() => hiddenFileInput.current?.click()}
+      >
+        <Icon size={size} icon="upload" />
+        Load Config
       </button>
       <input
         type="file"
+        accept=".json"
         ref={hiddenFileInput}
         onChange={handleChange}
         style={{ display: 'none' }}

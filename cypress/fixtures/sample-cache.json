@@ -1,0 +1,29 @@
+{
+    "active": "default",
+    "configs": {
+        "1": {
+            "version": "2.0",
+            "id": "1",
+            "title": "Config 1",
+            "url": "http://config.com",
+            "featured": [],
+            "categories": []
+        },
+        "2": {
+            "version": "2.0",
+            "id": "2",
+            "title": "Config 2",
+            "url": "http://config.com",
+            "featured": [],
+            "categories": []
+        },
+        "default": {
+            "version": "2.0",
+            "id": "default",
+            "title": "Config 3",
+            "url": "./configs/config.json",
+            "featured": [],
+            "categories": []
+        }
+    }
+}

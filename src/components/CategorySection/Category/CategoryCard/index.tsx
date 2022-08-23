@@ -10,6 +10,11 @@ import {
   transformEntityToFields,
   transformFieldsToEntity,
 } from 'components/EditLinkModal/transforms'
+import {
+  addCategoryLink,
+  editCategoryLink,
+  removeCategoryLink,
+} from 'modules/config/configHelpers'
 interface Props {
   index: number
   categoryIndex: number
@@ -26,20 +31,33 @@ const ConnectedCategoryCard = ({
 }
 
 const useCategoryCard = (cardIndex: number, categoryIndex: number) => {
-  const { editing, dispatch } = useConfigContext()
+  const { editing, config, storeActions } = useConfigContext()
 
   const onDelete = useCallback(() => {
-    dispatch.removeCategoryLink(categoryIndex, cardIndex)
-  }, [cardIndex, categoryIndex, dispatch])
+    const { config: newConfig, invalid } = removeCategoryLink(config, {
+      categoryIndex,
+      cardIndex,
+    })
+
+    if (invalid) return false
+    storeActions.saveConfig(newConfig)
+  }, [cardIndex, categoryIndex, config, storeActions])
 
   const onEdit = useCallback(
     (modalData: EditModalField[]) => {
       const updatedCategoryLink = transformFieldsToEntity(
         modalData
       ) as LinksEntity
-      dispatch.editCategoryLink(categoryIndex, cardIndex, updatedCategoryLink)
+      const { config: newConfig, invalid } = editCategoryLink(config, {
+        categoryIndex,
+        cardIndex,
+        link: updatedCategoryLink,
+      })
+
+      if (invalid) return false
+      storeActions.saveConfig(newConfig)
     },
-    [cardIndex, categoryIndex, dispatch]
+    [cardIndex, categoryIndex, config, storeActions]
   )
 
   return {
@@ -53,14 +71,20 @@ const ConnectedAddCategoryCard: FC<{
   categoryIndex: number
   title: string
 }> = ({ categoryIndex, title }) => {
-  const { editing, dispatch } = useConfigContext()
+  const { editing, config, storeActions } = useConfigContext()
 
   const onSave = useCallback(
     (modalData: EditModalField[]) => {
       const newCategoryLink = transformFieldsToEntity(modalData) as LinksEntity
-      dispatch.addCategoryLink(categoryIndex, newCategoryLink)
+      const { config: newConfig, invalid } = addCategoryLink(config, {
+        categoryIndex,
+        categorylink: newCategoryLink,
+      })
+
+      if (invalid) return false
+      storeActions.saveConfig(newConfig)
     },
-    [categoryIndex, dispatch]
+    [categoryIndex, config, storeActions]
   )
 
   return editing ? (

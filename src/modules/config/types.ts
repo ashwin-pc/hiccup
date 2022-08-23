@@ -19,11 +19,23 @@ export interface NewEntity extends LinksEntity {
 
 export interface Metadata {
   readonly?: boolean
+  editing?: boolean
 }
 
 export interface ConfigEntity {
-  version?: string
+  version: string
+  id: string
+  title: string
+  url?: string
   featured: FeaturedEntity[]
   categories: CategoriesEntity[]
   metadata?: Metadata
+}
+
+export interface LocalConfigStore {
+  active: string
+  untouched: boolean
+  configs: {
+    [id: string]: ConfigEntity
+  }
 }

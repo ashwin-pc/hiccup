@@ -1,0 +1,210 @@
+.screen {
+  height: 800px;
+  width: 1000px;
+  display: grid;
+  grid-template:
+    'list list fileViewer' 1fr
+    'fileLoader download fileViewer'
+    'url url url' / 25% 25% 50%;
+  padding: 40px;
+  gap: 10px;
+}
+
+@media (max-width: 1000px) {
+  .screen {
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    grid-template:
+      'fileViewer fileViewer' auto
+      'list list ' 1fr
+      'fileLoader download'
+      'url url' / 1fr 1fr;
+  }
+  .fileViewer {
+    margin-top: 20px;
+    max-height: 200px;
+    /* display: none; */
+  }
+}
+
+.fileViewer {
+  grid-area: fileViewer;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  padding-right: 10px;
+}
+
+.fileViewer::-webkit-scrollbar {
+  background-color: var(--theme-bg-2);
+  width: 3px;
+}
+
+.fileViewer::-webkit-scrollbar-thumb {
+  background-color: var(--theme-highlight-1);
+  border-radius: 10px;
+  outline: none;
+}
+
+.lineItem {
+  margin-bottom: 10px;
+}
+
+.lineItem > label {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.lineItem > p {
+  background: rgba(var(--theme-bg-1-rgb), 0.4);
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-family: monospace;
+  margin: 0;
+}
+
+.lineItem > pre {
+  background: rgba(var(--theme-bg-1-rgb), 0.4);
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-family: monospace;
+  overflow: hidden;
+  font-size: 0.7em;
+}
+
+.fileLoader {
+  grid-area: fileLoader;
+}
+.downloadButton {
+  grid-area: download;
+}
+
+.fileLoader,
+.downloadButton {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: bold;
+  gap: 20px;
+  background-color: var(--theme-bg-3);
+  border: none;
+  color: var(--theme-color-1);
+  cursor: pointer;
+  padding: 15px 20px;
+  text-transform: uppercase;
+  justify-content: center;
+}
+
+.fileLoader:hover,
+.downloadButton:hover {
+  outline: none;
+  opacity: 0.5;
+}
+
+.fileLoader:focus,
+.downloadButton:focus {
+  outline: 2px solid var(--theme-highlight-1);
+  outline-offset: -1px;
+  background-color: var(--theme-bg-2);
+}
+
+.list {
+  grid-area: list;
+  background-color: var(--theme-bg-1);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 5px;
+}
+
+.listItem {
+  background-color: var(--theme-bg-2);
+  border-radius: 5px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.listItem > span {
+  flex-grow: 1;
+}
+
+.listItem > label {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.7em;
+}
+
+:global(.previewing).listItem {
+  background-color: var(--theme-highlight-1);
+  color: var(--theme-bg-1);
+}
+
+.listItem:focus {
+  outline: 2px solid var(--theme-highlight-1);
+}
+
+.listAction {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  padding: 9px;
+  align-items: center;
+  display: flex;
+  background: inherit;
+  border: none;
+  color: inherit;
+}
+
+.listAction:global(.disabled) {
+  cursor: not-allowed;
+  opacity: 0.2;
+}
+
+.listAction:hover,
+.listAction:focus {
+  outline: 2px solid var(--theme-highlight-1);
+  border-radius: 3px;
+}
+
+:global(.previewing).listItem .listAction:hover,
+:global(.previewing).listItem .listAction:focus {
+  outline: 2px solid var(--theme-bg-1);
+  border-radius: 3px;
+}
+
+.listIcon {
+  /* background-color: red; */
+}
+
+.url {
+  grid-area: url;
+  margin-bottom: -10px;
+  display: flex;
+  width: 100%;
+  gap: 20px;
+}
+
+.url > div:first-child {
+  flex-grow: 1;
+}
+
+.url .addBtn {
+  color: var(--theme-color-1);
+  margin-top: 27px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.addBtn:hover,
+.addBtn:focus {
+  outline: none;
+  color: var(--theme-highlight-1);
+}

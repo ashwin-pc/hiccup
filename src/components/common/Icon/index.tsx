@@ -2,12 +2,15 @@ import { FunctionComponent, SVGProps, useMemo, MouseEventHandler } from 'react'
 import icons from './icons'
 import styles from './index.module.css'
 
-interface Props extends SVGProps<SVGSVGElement> {
-  icon: keyof typeof icons
+export type IconTypes = keyof typeof icons
+
+export interface Props extends SVGProps<SVGSVGElement> {
+  icon: IconTypes
   size?: number
   className?: string
   as?: 'button' | 'a'
   download?: string
+  'data-testid'?: string
 }
 
 const Icon: FunctionComponent<Props> = ({
@@ -18,6 +21,7 @@ const Icon: FunctionComponent<Props> = ({
   href,
   download,
   onClick,
+  'data-testid': testId,
   ...props
 }) => {
   const IconTag = icons[icon]
@@ -29,17 +33,19 @@ const Icon: FunctionComponent<Props> = ({
         style={{
           width: size + 'px',
         }}
+        {...(as !== 'button' && { 'data-testid': testId })}
         {...(as !== 'button' && onClick)}
         {...props}
       />
     ),
-    [IconTag, as, className, onClick, props, size]
+    [IconTag, as, className, onClick, props, size, testId]
   )
 
   if (as === 'button') {
     return (
       <button
         className={styles.button}
+        {...(as === 'button' && { 'data-testid': testId })}
         onClick={onClick as MouseEventHandler<HTMLButtonElement> | undefined}
       >
         {iconElement}

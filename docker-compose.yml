@@ -5,4 +5,4 @@ services:
     ports:
       - '8899:80'
     volumes:
-      - ./public/config.json:/usr/share/nginx/html/config.json
+      - ./public/configs/config.json:/usr/share/nginx/html/configs/config.json
