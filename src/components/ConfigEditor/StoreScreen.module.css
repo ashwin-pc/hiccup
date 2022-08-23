@@ -1,11 +1,9 @@
 .screen {
-  height: 800px;
-  width: 1000px;
   display: grid;
   grid-template:
     'list list fileViewer' 1fr
     'fileLoader download fileViewer'
-    'url url url' / 25% 25% 50%;
+    'url url url' / minmax(200px, 1fr) minmax(200px, 1fr) minmax(300px, 2fr);
   padding: 40px;
   gap: 10px;
 }
@@ -64,6 +62,8 @@
   border-radius: 5px;
   font-family: monospace;
   margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .lineItem > pre {

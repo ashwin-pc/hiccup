@@ -65,7 +65,7 @@ function stringSearch(string = '', fragment: string) {
     return false
   }
 
-  return string.toLowerCase().indexOf(fragment) >= 0
+  return string.toLowerCase().indexOf(fragment.toLowerCase()) >= 0
 }
 
 export default useSearch

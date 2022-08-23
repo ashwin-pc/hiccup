@@ -7,11 +7,11 @@ declare namespace Cypress {
      * @example cy.clickOnMyJourneyInCandidateCabinet()
      */
     clickSettings(): Chainable<null>
-    getConfigPreview(configId: string): Chainable<null>
-    getConfigActivate(configId: string): Chainable<null>
-    getConfigSync(configId: string): Chainable<null>
-    getConfigDelete(configId: string): Chainable<null>
-    getPreviewingConfig(): Chainable<null>
+    closeModal(): Chainable<null>
+    typeInSearchBar(test: string): Chainable<null>
+    screenshotPreviewImage(name: string): Chainable<null>
+    getManagedConfig(id?: string, action?: ConfigAction): Chainable<null>
+
     submitUrlInput(url: string): Chainable<null>
     getEditLinkModal(): Chainable<null>
     getCachedConfigs(): Chainable<null>

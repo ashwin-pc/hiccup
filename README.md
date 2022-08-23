@@ -19,28 +19,39 @@ A static start page to get to your most important links, **FAST**. You can use t
 - Quick link preview
 - Search (with search provider and tag support)
 - Docker support
-- Local Config management
+- Multiple profiles
+- Load remote profile
+- Caching strategies
 - PWA support
 - Keyboard shortcuts
+- Read Only mode
 - Full keyboard navigation support
 
 ## Screens
 
 Landing page
 
-![Landing Page](docs/assets/screen.png)
+| Desktop                                               | Mobile                                              |
+| ----------------------------------------------------- | --------------------------------------------------- |
+| ![Landing Page Desktop](docs/assets/main-desktop.png) | ![Landing Page Mobile](docs/assets/main-mobile.png) |
 
 Quickly find links
 
-![Quickly find links](docs/assets/screen-search.png)
+| Desktop                                                 | Mobile                                                |
+| ------------------------------------------------------- | ----------------------------------------------------- |
+| ![Landing Page Desktop](docs/assets/search-desktop.png) | ![Landing Page Mobile](docs/assets/search-mobile.png) |
 
 Easily edit links
 
-![Locally edit links](docs/assets/screen-edit.png)
+| Desktop                                               | Mobile                                              |
+| ----------------------------------------------------- | --------------------------------------------------- |
+| ![Landing Page Desktop](docs/assets/edit-desktop.png) | ![Landing Page Mobile](docs/assets/edit-mobile.png) |
 
 Locally manage config using JSON
 
-![Locally manage config using JSON](docs/assets/screen-config.png)
+| Desktop                                                         | Mobile                                                        |
+| --------------------------------------------------------------- | ------------------------------------------------------------- |
+| ![Landing Page Desktop](docs/assets/config-manager-desktop.png) | ![Landing Page Mobile](docs/assets/config-manager-mobile.png) |
 
 Drag & drop config file
 
@@ -112,116 +123,60 @@ e.g.:
 
 ### Using Config
 
-Since this is a static website, the only way to permanently update the links is to modify the `config.json` file. If using the pre built version, just update the `config.json` file in the release zip. During development, update the config in the `assets` folder since the build will override any other config file.
+Since this is a static website, all edits made are local and the new config must uploaded to a server from where the configs can be fetched. To make this process easier, Hiccup comes with a built in config manager. The config manager allows you to:
 
-To update config on a local browser instance, use the online config editor using the ⚙️ icon. This will persist the config across sessions. The local editor allows to:
+- Load a config file from either URL or local file
+- Manage multiple configs (Preview, Select, Sync, Delete)
+- Download config file
 
-- Edit the raw local config
-- Sync the configuration from `./configs/config.json` file
-- Download the latest valid config file
-- Upload a local config file. (psst.. if the file has issues, no problem! The editor will still load it and show you the errors until you can save it)
-- Save the config to **LocalStorage**
+you can also additionally share hiccup with a preloaded config using the `config` url parameter.
+
+e.g.
+
+```
+http://designedbyashw.in/test/hiccup?config=http://your-url.com/config.json
+```
+
+> Since this is a CORS request, the server should allow requests from the source domain. Github Gists are an easy way to save remote config's
+
+#### Using with github gists
+
+To save a config on github gists.
+
+1. Create the hiccup view you want and download the config.
+1. Copy the contents of the file to the gist
+1. Click Creat a **Public** Gist
+1. Copy the url and add `/raw` to the end. This is now your config URL
+
+Share the config with anyone to load in their instance of hiccup
+
+#### Migrations
+
+If you were using an older version of Hiccup (< v0.4.x), the config manager will automatically recover the old cached config and promt you to save it using the new version. download the recovered config and redistribute it as needed.
+
+All the config information is stored in **LocalStorage** and never sent to a server anywhere!
 
 #### Config structure
 
-```js
-{
-    // Uses semantic versioning
-    "version": "1.0",
-    // featured and catagories are optional sections. Remove them to use the page without it.
-    "featured": [{
-        "name": "Link name as seen on the card", // required
-        "link": "link", // required
-        "background": "path to background image", // optional
-        "tags": "space spearated tags for searching" //optional
-    }, {
-        // ... Other featured links
-    }],
-    "catagories": [{
-        "name": "Category name", // required
-        "links": [{
-            "name": "Link name as seen on the card", // required
-            "link": "link", // required
-            "tags": "space spearated tags for searching" //optional
-        }, {
-            // ... Other category links
-        }]
-    }, {
-        // ... Other categorys
-    }],
-    "metadata": {
-        "readonly": false // default
-    }
-}
-```
-
 Refer to the [JSON Scheme file](src/modules/validateConfig/schema.json) for the latest schema.
 
-#### Sample config
+### Caching
+
+The app now supports 4 caching strategies, these are useful if you dont want to frequently update your configs or run it completely offine
+
+Strategies:
+
+- `cache`: Use only the local cache to save and fetch data
+- `network`: Use only the network values and fail if you cannot get it
+- `cache-first`: If not found in the cache, fallback to the remote URL
+- `network-first`: (Default) If not found in the remote server, fallback to the cached value
+
+You can set this value using the URL parameter `cache`
+
+e.g.
 
 ```
-{
-    "version": "1.0".
-    "featured": [{
-        "name": "Featured Link",
-        "link": "http://google.com",
-        "background": "/assets/card.png"
-    }, {
-        "name": "Another Feaured link",
-        "link": "http://google.com"
-    }, {
-        "name": "One more",
-        "link": "http://google.com"
-    }, {
-        "name": "Oh no!!!",
-        "link": "http://google.com",
-        "tags": "space separated tags"
-    }],
-    "categories": [{
-        "title": "Category 1",
-        "links": [{
-            "name": "Link 1",
-            "link": "http://google.com"
-        }, {
-            "name": "Link 2",
-            "link": "http://google.com"
-        }]
-    }, {
-        "title": "Category 2",
-        "links": [{
-            "name": "Link 1",
-            "link": "http://google.com"
-        }, {
-            "name": "Link 2",
-            "link": "http://google.com"
-        }]
-    }, {
-        "title": "Category 3",
-        "links": [{
-            "name": "Link 1",
-            "link": "http://google.com",
-            "tags": "more searchable tags"
-        }]
-    }, {
-        "title": "Category 4",
-        "links": [{
-            "name": "Link 1",
-            "link": "http://google.com"
-        }, {
-            "name": "Link 2",
-            "link": "http://google.com"
-        }, {
-            "name": "Link 3",
-            "link": "http://google.com"
-        }, {
-            "name": "Link 4",
-            "link": "http://google.com"
-        }]
-    }],
-    "metadata": {
-        "readonly": false
-    }
-}
+http://designedbyashw.in/test/hiccup?cache=network
 ```
 
 ## Available Scripts for development

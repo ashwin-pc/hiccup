@@ -50,6 +50,13 @@ body::-webkit-scrollbar-thumb {
   place-items: center;
   align-content: center;
   background-color: var(--theme-bg-1);
+  padding-top: 15px;
+}
+
+@media (max-width: 600px) {
+  #root {
+    padding: 0;
+  }
 }
 
 a {

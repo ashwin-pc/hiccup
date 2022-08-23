@@ -14,7 +14,7 @@ describe('Basic tests', () => {
       .contains('First Default Featured Link')
 
     cy.clickSettings()
-    cy.getConfigPreview('default')
+    cy.getManagedConfig('default', 'preview')
       .should('contain.text', 'Default Config')
       .should('contain.text', 'Active')
   })
@@ -27,7 +27,7 @@ describe('Basic tests', () => {
       .contains('This is a dummy config')
 
     cy.clickSettings()
-    cy.getConfigPreview('dummy')
+    cy.getManagedConfig('dummy', 'preview')
       .should('contain.text', 'Dummy Config')
       .should('contain.text', 'Active')
   })
@@ -55,6 +55,6 @@ describe('Basic tests', () => {
 
     cy.clickSettings()
 
-    cy.getPreviewingConfig().should('contain', ' - Editing')
+    cy.getManagedConfig().should('contain', ' - Editing')
   })
 })

@@ -10,21 +10,21 @@ describe('Config Manager', () => {
 
   it('should be able to preview configs', () => {
     cy.findByTestId('file-viewer').find('#id').should('not.contain', 'empty')
-    cy.getConfigPreview('empty').click()
+    cy.getManagedConfig('empty').click()
     cy.findByTestId('file-viewer').find('#id').should('contain', 'empty')
   })
 
   it('should be able to switch configs', () => {
     cy.findByTestId('file-viewer').find('#id').should('not.contain', 'empty')
-    cy.getConfigActivate('empty').click()
-    cy.getConfigPreview('empty').should('contain.text', 'Active')
+    cy.getManagedConfig('empty', 'activate').click()
+    cy.getManagedConfig('empty').should('contain.text', 'Active')
   })
 
   it('should be able to load remote config', () => {
     cy.intercept('GET', 'http://dummyconfig.com', { fixture: 'dummy' })
     cy.submitUrlInput('http://dummyconfig.com')
     cy.findByTestId('file-viewer').find('#id').should('contain', 'dummy')
-    cy.getConfigPreview('dummy').should('contain.text', 'Active')
+    cy.getManagedConfig('dummy', 'preview').should('contain.text', 'Active')
   })
 
   it('should be able to sync config', () => {
@@ -34,7 +34,7 @@ describe('Config Manager', () => {
     cy.intercept('GET', '**/configs/config.json', {
       fixture: 'default-after-sync',
     }).as('sync')
-    cy.getConfigSync('default').click()
+    cy.getManagedConfig('default', 'sync').click()
     cy.findByTestId('file-viewer')
       .find('#title')
       .should('contain', 'Default Synced Config')
@@ -44,16 +44,16 @@ describe('Config Manager', () => {
     cy.intercept('GET', 'http://dummyconfig.com', { fixture: 'dummy' })
     cy.submitUrlInput('http://dummyconfig.com')
     cy.findByTestId('file-viewer').find('#id').should('contain', 'dummy')
-    cy.getConfigPreview('dummy').should('contain.text', 'Active')
+    cy.getManagedConfig('dummy', 'preview').should('contain.text', 'Active')
 
     // disabled delete default config
-    cy.getConfigDelete('default').should('be.disabled')
-    cy.getConfigPreview('default').should('exist')
+    cy.getManagedConfig('default', 'delete').should('be.disabled')
+    cy.getManagedConfig('default', 'preview').should('exist')
 
     // Delete dummy config
-    cy.getConfigPreview('dummy').should('exist')
-    cy.getConfigDelete('dummy').click()
-    cy.getConfigPreview('dummy').should('not.exist')
+    cy.getManagedConfig('dummy', 'preview').should('exist')
+    cy.getManagedConfig('dummy', 'delete').click()
+    cy.getManagedConfig('dummy', 'preview').should('not.exist')
   })
 
   it('should download config', () => {

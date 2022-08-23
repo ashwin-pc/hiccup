@@ -60,7 +60,11 @@ const ModalPopup: FunctionComponent<IModalPopup> = ({
 }) => (
   <div className={[styles.modal, className || styles.default].join(' ')}>
     {children}
-    <button className={styles.close} onClick={onClose}>
+    <button
+      className={styles.close}
+      onClick={onClose}
+      data-testid="close-modal"
+    >
       <CloseIcon />
     </button>
   </div>
