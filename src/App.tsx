@@ -21,7 +21,23 @@ const App = () => (
         <ConnectedEditLinkModal />
         <ConfigEditor />
         <Hotkeys />
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            className: 'toast',
+            style: {
+              boxShadow: '0 5px 20px var(--theme-bg-1)',
+              padding: '10px',
+              backgroundColor: 'var(--theme-bg-2)',
+              color: 'var(--theme-color-1)',
+            },
+            success: {
+              iconTheme: {
+                primary: 'var(--theme-bg-3)',
+                secondary: 'var(--theme-highlight-1)',
+              },
+            },
+          }}
+        />
       </FileUpload>
     </SearchProvider>
   </ConfigProvider>

@@ -5,7 +5,9 @@
 }
 
 .a:focus,
-.button:focus {
+.button:focus,
+.a:hover,
+.button:hover {
   outline: none;
   color: var(--theme-highlight-1);
 }

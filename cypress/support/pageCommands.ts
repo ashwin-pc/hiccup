@@ -4,6 +4,23 @@ Cypress.Commands.add('clickSettings', () => {
   cy.findByTestId('global-settings').click()
 })
 
+Cypress.Commands.add('closeModal', () => {
+  cy.findByTestId('close-modal').click()
+})
+
+Cypress.Commands.add('screenshotPreviewImage', (name) => {
+  cy.screenshot(`preview/${name}`, {
+    overwrite: true,
+    capture: 'viewport',
+  })
+})
+
+Cypress.Commands.add('typeInSearchBar', (text) => {
+  cy.findByTestId('search-bar').type(text)
+})
+
+// Not happy with these, refactor to be more useful
+
 Cypress.Commands.add('getConfigPreview', (configId: string) => {
   cy.findByTestId(`cached-config-${configId}`)
 })

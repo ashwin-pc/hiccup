@@ -197,7 +197,6 @@ const IconButton: FC<ButtonProps> = ({
     <button
       onClick={handleClick}
       className={`${disabled && 'disabled'} ${styles.listAction} ${className}`}
-      onKeyUp={(e) => e.key === 'Enter' && handleClick(e)}
       disabled={disabled}
     >
       <Icon
