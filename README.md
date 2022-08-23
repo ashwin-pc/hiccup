@@ -9,7 +9,7 @@
 
 A static start page to get to your most important links, **FAST**. You can use this for your home server, new tab using browser extentions, use the **demo page** directly or basically anywhere you can server a static webpage from!
 
-### [Live Demo](https://test.designedbyashw.in/hiccup/)
+### [Live Demo](https://designedbyashw.in/test/hiccup/)
 
 ## Features
 
@@ -178,6 +178,32 @@ e.g.
 ```
 http://designedbyashw.in/test/hiccup?cache=network
 ```
+
+### Docker
+
+**Building an image**
+
+```sh
+docker build -t TAG .
+```
+
+**Running the image**
+
+edit the `./docker-compose.yml` file image to the `TAG` and run
+
+```
+docker compose up
+```
+
+And visit the URL
+
+```
+http://localhost:8899
+```
+
+**Deploying to docker-hub**
+
+Run the release script `./release.sh`
 
 ## Available Scripts for development
 
