@@ -21,7 +21,7 @@
             "version": "2.0",
             "id": "default",
             "title": "Config 3",
-            "url": "http://config.com",
+            "url": "./configs/config.json",
             "featured": [],
             "categories": []
         }

@@ -122,8 +122,10 @@ const ConfigList: FC<{ previewId: string; setPreviewId: any }> = ({
 
                 // Use the caching strategy to load latest value
                 await delay()
-                const loadedConfig = await loadConfig(config.url)
-                storeActions.saveConfig(loadedConfig)
+                if (config.url) {
+                  const loadedConfig = await loadConfig(config.url)
+                  storeActions.saveConfig(loadedConfig)
+                }
               }}
             />
 

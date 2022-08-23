@@ -15,5 +15,6 @@ declare namespace Cypress {
     submitUrlInput(url: string): Chainable<null>
     getEditLinkModal(): Chainable<null>
     getCachedConfigs(): Chainable<null>
+    blurSearch(): Chainable<null>
   }
 }

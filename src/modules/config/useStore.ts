@@ -32,7 +32,11 @@ export const useStore = () => {
         const configKey = 'config'
         const searchParams = new URLSearchParams(window.location.search)
         const configURLParam = searchParams.get(configKey)
-        const loadedConfig = await loadConfig(configURLParam || undefined)
+        const cachedActiveURL =
+          localConfigStore?.configs[localConfigStore.active].url
+        const loadedConfig = await loadConfig(
+          configURLParam || cachedActiveURL || undefined
+        )
 
         // Update active if the loaded config is not present in the store
         const updateActive = !localConfigStore?.configs[loadedConfig.id]

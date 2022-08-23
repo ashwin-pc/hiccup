@@ -35,3 +35,7 @@ Cypress.Commands.add('getCachedConfigs', () => {
 Cypress.Commands.add('getEditLinkModal', () => {
   cy.findByTestId('edit-link-title').parent()
 })
+
+Cypress.Commands.add('blurSearch', () => {
+  cy.get('body').click(5, 50)
+})
