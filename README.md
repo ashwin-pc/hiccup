@@ -2,7 +2,7 @@
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/ashwin-pc/hiccup)
 ![GitHub](https://img.shields.io/github/license/ashwin-pc/hiccup)
-[![Tests](https://github.com/ashwin-pc/hiccup/actions/workflows/tests.yml/badge.svg)](https://github.com/ashwin-pc/hiccup/actions/workflows/tests.yml)
+[![Tests](https://github.com/ashwin-pc/hiccup/actions/workflows/tests.yml/badge.svg?branch=master&event=push)](https://github.com/ashwin-pc/hiccup/actions/workflows/tests.yml/badge.svg?branch=master&event=push)
 [![CI](https://github.com/ashwin-pc/hiccup/actions/workflows/deploy_to_server.yml/badge.svg)](https://github.com/ashwin-pc/hiccup/actions/workflows/deploy_to_server.yml)
 
 ![](public/logo192.png)
