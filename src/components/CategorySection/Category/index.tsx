@@ -53,7 +53,7 @@ const ConnectedCategory = (props: Props) => {
 }
 
 const ConnectedAddCategory = () => {
-  const { editing, config, storeActions } = useConfigContext()
+  const { editing, config, storeActions, store } = useConfigContext()
 
   const onSave = useCallback(
     (fields: EditModalField[]) => {
@@ -66,7 +66,8 @@ const ConnectedAddCategory = () => {
     [config, storeActions]
   )
 
-  return editing ? <AddCategory onSave={onSave} /> : null
+  // return editing ? <AddCategory onSave={onSave} /> : null
+  return editing ? <AddCategory onSave={onSave} /> : <div>{store.dragging}</div>
 }
 
 export {

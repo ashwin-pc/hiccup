@@ -35,6 +35,7 @@ export interface ConfigEntity {
 export interface LocalConfigStore {
   active: string
   untouched: boolean
+  dragging?: boolean
   configs: {
     [id: string]: ConfigEntity
   }

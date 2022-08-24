@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { useConfigContext } from 'components/ConfigContext'
 import { FeaturedCard } from './FeaturedCard'
 import { AddFeaturedCard } from './AddFeaturedCard'
@@ -10,6 +10,7 @@ import {
   editFeaturedCard,
   removeFeaturedCard,
 } from 'modules/config/configHelpers'
+import { useDrop } from 'components/common/Drop'
 
 interface Props {
   index: number
@@ -53,6 +54,7 @@ const ConnectedFeaturedCard = ({ index: cardIndex, link }: Props) => {
 
 const ConnectedAddFeaturedCard = () => {
   const { editing, storeActions, config } = useConfigContext()
+  const { draggingOverDocument, ...dropProps } = useDrop<HTMLButtonElement>()
 
   const onSave = useCallback(
     (modalData: EditModalField[]) => {
@@ -67,7 +69,9 @@ const ConnectedAddFeaturedCard = () => {
     [config, storeActions]
   )
 
-  return editing ? <AddFeaturedCard onSave={onSave} /> : null
+  const hidden = !(editing || draggingOverDocument)
+
+  return <AddFeaturedCard onSave={onSave} hidden={hidden} {...dropProps} />
 }
 
 export {

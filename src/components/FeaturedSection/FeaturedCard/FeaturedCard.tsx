@@ -15,7 +15,6 @@ interface EditContainerProps {
   link: FeaturedEntity
 }
 interface Props extends EditContainerProps {
-  link: FeaturedEntity
   editing: boolean
 }
 
