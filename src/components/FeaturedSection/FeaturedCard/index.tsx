@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react'
+import { useCallback } from 'react'
 import { useConfigContext } from 'components/ConfigContext'
 import { FeaturedCard } from './FeaturedCard'
 import { AddFeaturedCard } from './AddFeaturedCard'
@@ -11,6 +11,7 @@ import {
   removeFeaturedCard,
 } from 'modules/config/configHelpers'
 import { useDrop } from 'components/common/Drop'
+import { DEFAULT_FEATURED_LINK } from 'modules/config'
 
 interface Props {
   index: number
@@ -42,19 +43,33 @@ const ConnectedFeaturedCard = ({ index: cardIndex, link }: Props) => {
     },
     [cardIndex, config, storeActions]
   )
+
+  const newLink = {
+    ...DEFAULT_FEATURED_LINK,
+    ...link,
+  }
+
+  const dropEditBg = useDrop<HTMLDivElement, FeaturedEntity>(
+    newLink,
+    onEdit,
+    'background'
+  )
+  const dropEditLink = useDrop<HTMLDivElement, FeaturedEntity>(newLink, onEdit)
+
   return (
     <FeaturedCard
       link={link}
       editing={editing}
       onEdit={onEdit}
       onDelete={onDelete}
+      dropEditBg={dropEditBg}
+      dropEditLink={dropEditLink}
     />
   )
 }
 
 const ConnectedAddFeaturedCard = () => {
   const { editing, storeActions, config } = useConfigContext()
-  const { draggingOverDocument, ...dropProps } = useDrop<HTMLButtonElement>()
 
   const onSave = useCallback(
     (modalData: EditModalField[]) => {
@@ -68,6 +83,11 @@ const ConnectedAddFeaturedCard = () => {
     },
     [config, storeActions]
   )
+
+  const { draggingOverDocument, ...dropProps } = useDrop<
+    HTMLButtonElement,
+    FeaturedEntity
+  >(DEFAULT_FEATURED_LINK, onSave)
 
   const hidden = !(editing || draggingOverDocument)
 

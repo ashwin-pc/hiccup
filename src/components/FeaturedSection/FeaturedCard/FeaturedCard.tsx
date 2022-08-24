@@ -8,37 +8,56 @@ import styles from './index.module.css'
 import { FeaturedEntity } from 'modules/config/types'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
 import { transformEntityToFields } from 'components/EditLinkModal/transforms'
+import { DropProps } from 'components/common/Drop'
+import { classNames } from 'modules/utils'
 
 interface EditContainerProps {
   onEdit: (modalData: EditModalField[]) => void
   onDelete: () => void
   link: FeaturedEntity
+  editing: boolean
+  dropEditLink: DropProps<HTMLDivElement>
+  dropEditBg: DropProps<HTMLDivElement>
 }
 interface Props extends EditContainerProps {
   editing: boolean
+  dropEditLink: DropProps<HTMLDivElement>
+  dropEditBg: DropProps<HTMLDivElement>
 }
 
 const FeaturedCard: FC<Props> = ({ link, editing, ...editingProps }) => {
   const { name, link: linkUrl, background = DEFAULT_BG } = link || {}
+
   const backgroundUrl = isAbsoluteURL(background)
     ? background
     : (process.env.PUBLIC_URL || '.') + background
 
+  const cardProps = {
+    background: backgroundUrl,
+    link,
+  }
+
   return (
     <Card
       href={!editing && linkUrl}
-      className={styles.container}
-      background={backgroundUrl}
-      link={link}
+      className={classNames([styles.container])}
       data-testid="featured-card"
+      {...cardProps}
     >
-      {editing && <EditContainer {...editingProps} link={link} />}
+      <EditContainer {...editingProps} link={link} editing={editing} />
       {name}
     </Card>
   )
 }
 
-const EditContainer: FC<EditContainerProps> = ({ onEdit, onDelete, link }) => {
+const EditContainer: FC<EditContainerProps> = ({
+  onEdit,
+  onDelete,
+  link,
+  editing,
+  dropEditBg,
+  dropEditLink,
+}) => {
   const linkFields = useMemo(
     () => ({
       ...DEFAULT_FEATURED_LINK,
@@ -47,12 +66,35 @@ const EditContainer: FC<EditContainerProps> = ({ onEdit, onDelete, link }) => {
     [link]
   )
 
+  const {
+    dragging: highlightBg,
+    dropRef: refBg,
+    draggingOverDocument: draggingBg,
+    ...dropEditBgProps
+  } = dropEditBg
+  const {
+    dragging: highlightLink,
+    dropRef: refLink,
+    draggingOverDocument: draggingLink,
+    ...dropEditLinkProps
+  } = dropEditLink
+
+  const dragging = draggingBg || draggingLink
+  const hidden = !(editing || dragging)
+
   return (
-    <>
-      <div className={styles['edit-container']}>
+    <div className={classNames([styles['edit-container'], [hidden, 'hide']])}>
+      <div
+        className={classNames([
+          styles['edit-icon'],
+          [dragging, 'dragging'],
+          [highlightBg, 'highlight'],
+        ])}
+        ref={refBg}
+        {...dropEditBgProps}
+      >
         <Icon
-          icon="edit"
-          className={styles['edit-icon']}
+          icon={dragging ? 'image' : 'edit'}
           as="button"
           onClick={() =>
             triggerEdit({
@@ -62,14 +104,23 @@ const EditContainer: FC<EditContainerProps> = ({ onEdit, onDelete, link }) => {
             })
           }
         />
+      </div>
+      <div
+        className={classNames([
+          styles['delete-icon'],
+          [dragging, 'dragging'],
+          [highlightLink, 'highlight'],
+        ])}
+        ref={refLink}
+        {...dropEditLinkProps}
+      >
         <Icon
-          icon="trash"
-          className={styles['delete-icon']}
+          icon={dragging ? 'earth' : 'trash'}
           as="button"
           onClick={onDelete}
         />
       </div>
-    </>
+    </div>
   )
 }
 

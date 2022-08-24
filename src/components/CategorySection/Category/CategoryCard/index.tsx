@@ -15,6 +15,7 @@ import {
   editCategoryLink,
   removeCategoryLink,
 } from 'modules/config/configHelpers'
+import { useDrop } from 'components/common/Drop'
 interface Props {
   index: number
   categoryIndex: number
@@ -26,11 +27,15 @@ const ConnectedCategoryCard = ({
   link,
   categoryIndex,
 }: Props) => {
-  const hookProps = useCategoryCard(cardIndex, categoryIndex)
+  const hookProps = useCategoryCard(cardIndex, categoryIndex, link)
   return <CategoryCard {...hookProps} link={link} />
 }
 
-const useCategoryCard = (cardIndex: number, categoryIndex: number) => {
+const useCategoryCard = (
+  cardIndex: number,
+  categoryIndex: number,
+  link: LinksEntity
+) => {
   const { editing, config, storeActions } = useConfigContext()
 
   const onDelete = useCallback(() => {
@@ -60,10 +65,18 @@ const useCategoryCard = (cardIndex: number, categoryIndex: number) => {
     [cardIndex, categoryIndex, config, storeActions]
   )
 
+  const newLink = {
+    ...DEFAULT_LINK,
+    ...link,
+  }
+
+  const dropProps = useDrop<HTMLDivElement, LinksEntity>(newLink, onEdit)
+
   return {
     onEdit,
     onDelete,
     editing,
+    ...dropProps,
   }
 }
 

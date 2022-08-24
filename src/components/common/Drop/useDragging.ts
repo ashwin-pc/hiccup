@@ -1,13 +1,11 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export type DropElementTypes = HTMLElement | HTMLButtonElement | Document | null
 
 export const useDragging = <T extends DropElementTypes>(ele: T) => {
   const [dragging, setDragging] = useState(0)
-  // const eleRef = useRef<T>(null)
 
   useEffect(() => {
-    // const ele = eleRef.current
     const showDropZone: EventListener = (e) => {
       e.preventDefault()
 

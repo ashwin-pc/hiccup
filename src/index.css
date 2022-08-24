@@ -78,3 +78,7 @@ textarea {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.hide {
+  display: none !important;
+}

@@ -1,3 +1,4 @@
+import { classNames } from 'modules/utils'
 import React, { FC, HTMLAttributes } from 'react'
 import styles from './index.module.css'
 
@@ -16,18 +17,20 @@ const Card: FC<Props> = ({
   className = '',
   ...props
 }) => {
-  const highlightClass = highlight ? styles.highlight : undefined
-
   const cardContent = (
-    <li
-      className={[styles.card, className, highlightClass].join(' ')}
+    <div
+      className={classNames([
+        styles.card,
+        className,
+        [highlight, styles.highlight],
+      ])}
       style={{
         backgroundImage: background && `url(${background})`,
       }}
       {...props}
     >
       {children}
-    </li>
+    </div>
   )
 
   return href ? (

@@ -16,7 +16,7 @@ A static start page to get to your most important links, **FAST**. You can use t
 - Static Webpage
 - Featured Links
 - Categories
-- Quick link preview
+- Drag to add links and images
 - Search (with search provider and tag support)
 - Docker support
 - Multiple profiles
@@ -53,7 +53,7 @@ Locally manage config using JSON
 | --------------------------------------------------------------- | ------------------------------------------------------------- |
 | ![Landing Page Desktop](docs/assets/config-manager-desktop.png) | ![Landing Page Mobile](docs/assets/config-manager-mobile.png) |
 
-Drag & drop config file
+Drag & drop config file (Old, to update)
 
 ![Drag & drop config file](docs/assets/screen-drop.png)
 
@@ -100,6 +100,12 @@ The purpose of the search is to get to you link as easily as possible.
 - Hit `Enter` to open the first highlighted link amongst search results. (Featured cards have a star and the Search provider is marked by a globe)
 
 Search looks at the `name`, `link` and `tags` field of each link in the config to find a match.
+
+### Dragging your links/images/configs to add them
+
+You cann now add/edit the links and background images of each of the cards by simply dragging that link or image from another browser window onto Hiccups link cards. The featured cards have two drop boxes, a link dropbox and image dropbox. To quickly update the background image, use the image dropbox.
+
+You can also uplad a config by dropping a config file onto anny droppable card. Hiccup will be able to load it.
 
 ### Using Edit mode
 
