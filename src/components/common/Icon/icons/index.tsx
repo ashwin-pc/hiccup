@@ -7,6 +7,7 @@ import { ReactComponent as File } from './file-alt-solid.svg'
 import { ReactComponent as Download } from './file-download-solid.svg'
 import { ReactComponent as FolderPlus } from './folder-plus-solid.svg'
 import { ReactComponent as Earth } from './globe-americas-solid.svg'
+import { ReactComponent as Image } from './image-solid.svg'
 import { ReactComponent as Edit } from './pen-solid.svg'
 import { ReactComponent as Add } from './plus-circle-solid.svg'
 import { ReactComponent as Plus } from './plus-solid.svg'
@@ -23,21 +24,22 @@ const icons = {
   check: Check,
   cog: Cog,
   ellipsis: Ellipsis,
+  file: File,
+  download: Download,
+  'folder-plus': FolderPlus,
+  earth: Earth,
+  image: Image,
   save: Save,
   trash: Trash,
   undo: Undo,
   edit: Edit,
   add: Add,
   plus: Plus,
-  'folder-plus': FolderPlus,
   star: Star,
   search: Search,
   'square-plus': SquarePlus,
-  earth: Earth,
   sync: Sync,
-  download: Download,
   upload: Upload,
-  file: File,
 }
 
 export { icons, icons as default }

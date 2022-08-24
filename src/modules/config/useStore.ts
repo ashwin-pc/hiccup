@@ -10,6 +10,7 @@ import validate from './validate'
 export const EMPTY_STATE: LocalConfigStore = {
   active: EMPTY_CONFIG.id,
   untouched: true,
+  dragging: false,
   configs: {
     [EMPTY_CONFIG.id]: EMPTY_CONFIG,
   },
@@ -75,6 +76,10 @@ const methods = (state: LocalConfigStore) => ({
 
   setUntouched: (untouched: boolean) => {
     state.untouched = untouched
+  },
+
+  setDragging: (dragging: boolean) => {
+    state.dragging = dragging
   },
 
   saveConfig: (config: ConfigEntity, updateActive = true) => {

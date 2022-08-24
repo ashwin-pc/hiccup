@@ -5,13 +5,32 @@ import styles from './index.module.css'
 import { DEFAULT_FEATURED_LINK } from 'modules/config'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
 import { transformEntityToFields } from 'components/EditLinkModal/transforms'
+import { DropProps } from 'components/common/Drop'
+import { classNames } from 'modules/utils'
 
-const AddFeaturedCard: FC<{
+interface Props
+  extends Omit<DropProps<HTMLButtonElement>, 'draggingOverDocument'> {
   onSave: (modalData: EditModalField[]) => void
-}> = ({ onSave }) => {
+  hidden: boolean
+}
+
+// const AddFeaturedCard =
+const AddFeaturedCard: FC<Props> = ({
+  onSave,
+  hidden,
+  dragging,
+  dropRef,
+  ...dropProps
+}) => {
   return (
     <button
-      className={[styles.container, styles['add-card']].join(' ')}
+      ref={dropRef}
+      className={classNames([
+        styles.container,
+        styles['add-card'],
+        [dragging, 'highlight'],
+        [hidden, 'hidden'],
+      ])}
       onClick={() =>
         triggerEdit({
           fields: transformEntityToFields(DEFAULT_FEATURED_LINK),
@@ -19,8 +38,9 @@ const AddFeaturedCard: FC<{
           title: 'Add Featured Link',
         })
       }
+      {...dropProps}
     >
-      <Icon icon="add" className={styles['add-icon']} />
+      <Icon icon={dragging ? 'earth' : 'add'} className={styles['add-icon']} />
     </button>
   )
 }

@@ -55,6 +55,16 @@ button:focus > .delete-icon {
   color: var(--theme-warning-1);
 }
 
+.edit-icon:global(.dragging),
+.delete-icon:global(.dragging) {
+  opacity: 1;
+  border: 2px dashed var(--theme-highlight-1);
+  width: 80%;
+  height: 80%;
+  display: flex;
+  justify-content: center;
+}
+
 .add-card {
   display: grid;
   place-items: center;
@@ -67,9 +77,16 @@ button:focus > .delete-icon {
   cursor: pointer;
 }
 
+.edit-icon:global(.highlight),
+.delete-icon:global(.highlight),
+.add-card:global(.highlight),
 .add-card:hover,
 .add-card:focus {
   outline: none;
   border-style: solid;
   background-color: rgba(var(--theme-highlight-1-rgb), 0.3);
+}
+
+.add-card:global(.hidden) {
+  display: none;
 }
