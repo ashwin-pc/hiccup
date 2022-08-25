@@ -53,7 +53,7 @@ Locally manage config using JSON
 | --------------------------------------------------------------- | ------------------------------------------------------------- |
 | ![Landing Page Desktop](docs/assets/config-manager-desktop.png) | ![Landing Page Mobile](docs/assets/config-manager-mobile.png) |
 
-Drag & drop config file (Old, to update)
+Drag & drop config file
 
 ![Drag & drop config file](docs/assets/screen-drop.png)
 
