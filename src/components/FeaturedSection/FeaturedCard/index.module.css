@@ -86,7 +86,3 @@ button:focus > .delete-icon {
   border-style: solid;
   background-color: rgba(var(--theme-highlight-1-rgb), 0.3);
 }
-
-.add-card:global(.hidden) {
-  display: none;
-}

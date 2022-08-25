@@ -1,15 +1,11 @@
-import React, { useCallback, FC } from 'react'
+import { useCallback, FC } from 'react'
 import { useConfigContext } from 'components/ConfigContext'
 import { CategoryCard } from './CategoryCard'
 import { AddCategoryCard } from './AddCategoryCard'
 import { LinksEntity } from 'modules/config/types'
-import { triggerEdit } from 'components/EditLinkModal'
 import { DEFAULT_LINK } from 'modules/config'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
-import {
-  transformEntityToFields,
-  transformFieldsToEntity,
-} from 'components/EditLinkModal/transforms'
+import { transformFieldsToEntity } from 'components/EditLinkModal/transforms'
 import {
   addCategoryLink,
   editCategoryLink,
@@ -100,17 +96,13 @@ const ConnectedAddCategoryCard: FC<{
     [categoryIndex, config, storeActions]
   )
 
-  return editing ? (
-    <AddCategoryCard
-      onClick={() =>
-        triggerEdit({
-          fields: transformEntityToFields(DEFAULT_LINK),
-          onSave,
-          title: `${title}: Add link`,
-        })
-      }
-    />
-  ) : null
+  const { draggingOverDocument, ...dropProps } = useDrop<
+    HTMLButtonElement,
+    LinksEntity
+  >(DEFAULT_LINK, onSave)
+  const hidden = !(editing || draggingOverDocument)
+
+  return <AddCategoryCard onSave={onSave} hidden={hidden} {...dropProps} />
 }
 
 export {
