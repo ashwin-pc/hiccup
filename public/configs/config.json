@@ -7,15 +7,15 @@
         {
             "name": "Featured Link",
             "background": "/assets/card.png",
-            "link": "http://google.com"
+            "link": "https://designedbyashw.in/test/hiccup"
         },
         {
             "name": "Another Featured link",
-            "link": "http://google.com"
+            "link": "https://designedbyashw.in/test/hiccup"
         },
         {
             "name": "One more",
-            "link": "http://google.com"
+            "link": "https://designedbyashw.in/test/hiccup"
         },
         {
             "name": "Oh no!!!",
@@ -29,11 +29,11 @@
             "links": [
                 {
                     "name": "Link 1",
-                    "link": "http://google.com"
+                    "link": "https://designedbyashw.in/test/hiccup"
                 },
                 {
                     "name": "Link 2",
-                    "link": "http://google.com"
+                    "link": "https://designedbyashw.in/test/hiccup"
                 }
             ]
         },
@@ -42,11 +42,11 @@
             "links": [
                 {
                     "name": "Link 1",
-                    "link": "http://google.com"
+                    "link": "https://designedbyashw.in/test/hiccup"
                 },
                 {
                     "name": "Link 2",
-                    "link": "http://google.com"
+                    "link": "https://designedbyashw.in/test/hiccup"
                 }
             ]
         },
@@ -55,7 +55,7 @@
             "links": [
                 {
                     "name": "Link 1",
-                    "link": "http://google.com",
+                    "link": "https://designedbyashw.in/test/hiccup",
                     "tags": "more searchable tags"
                 }
             ]
@@ -65,7 +65,7 @@
             "links": [
                 {
                     "name": "Link 1",
-                    "link": "http://google.com"
+                    "link": "https://designedbyashw.in/test/hiccup"
                 },
                 {
                     "name": "Link 2",
@@ -73,11 +73,11 @@
                 },
                 {
                     "name": "Link 3",
-                    "link": "http://google.com"
+                    "link": "https://designedbyashw.in/test/hiccup"
                 },
                 {
                     "name": "Just a long link name to make sure we are safe",
-                    "link": "http://google.com"
+                    "link": "https://designedbyashw.in/test/hiccup"
                 }
             ]
         }
