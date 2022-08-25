@@ -72,6 +72,7 @@ button:focus > .delete-icon {
 }
 
 .edit-container:global(.highlight),
+.add-card:global(.highlight),
 .add-card:hover,
 .add-card:focus {
   outline: none;

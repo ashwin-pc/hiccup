@@ -29,7 +29,7 @@ const AddFeaturedCard: FC<Props> = ({
         styles.container,
         styles['add-card'],
         [dragging, 'highlight'],
-        [hidden, 'hidden'],
+        [hidden, 'hide'],
       ])}
       onClick={() =>
         triggerEdit({
