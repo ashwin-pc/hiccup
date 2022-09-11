@@ -11,6 +11,9 @@ export const transformEntityToFields = (link: Entities): EditModalField[] =>
 
 export const transformFieldsToEntity = (fields: EditModalField[]): Entities => {
   return fields.reduce((acc, field) => {
+    // Clear empty values from the form
+    if (field.value === '') return acc
+
     let fieldValue = field.value
 
     return {

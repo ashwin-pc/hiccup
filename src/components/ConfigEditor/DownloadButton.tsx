@@ -66,6 +66,7 @@ export const DownloadButton: FC<{
 
         delete draft.metadata?.editing
       })
+
       const [valid, message, path] = validate(newConfig)
 
       if (!valid)
