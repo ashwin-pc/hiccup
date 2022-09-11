@@ -10,16 +10,12 @@ describe('Caching', () => {
   it('should use network-first by default', () => {
     cy.visit('http://localhost:3000')
     // Since loaded cache has
-    cy.findAllByTestId('featured-card')
-      .first()
-      .contains('First Default Featured Link')
+    cy.findAllByTestId('featured-card').first().contains('Featured Link')
   })
 
   it('should use network when set', () => {
     cy.visit('http://localhost:3000?cache=network')
-    cy.findAllByTestId('featured-card')
-      .first()
-      .contains('First Default Featured Link')
+    cy.findAllByTestId('featured-card').first().contains('Featured Link')
   })
 
   it('should use cache when set', () => {
@@ -35,8 +31,6 @@ describe('Caching', () => {
 
   it('should use network-first when set', () => {
     cy.visit('http://localhost:3000?cache=network-first')
-    cy.findAllByTestId('featured-card')
-      .first()
-      .contains('First Default Featured Link')
+    cy.findAllByTestId('featured-card').first().contains('Featured Link')
   })
 })

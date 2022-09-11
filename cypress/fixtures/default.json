@@ -5,12 +5,11 @@
     "url": "http://localhost:3000/configs/config.json",
     "featured": [
         {
-            "name": "First Default Featured Link",
-            "background": "/assets/card.png",
+            "name": "Featured Link",
             "link": "https://designedbyashw.in/test/hiccup"
         },
         {
-            "name": "Another Feaured link",
+            "name": "Another Featured link",
             "link": "https://designedbyashw.in/test/hiccup"
         },
         {
@@ -18,8 +17,9 @@
             "link": "https://designedbyashw.in/test/hiccup"
         },
         {
-            "name": "Oh no!!!",
-            "link": "https://www.google.com/search?q=I%27m+Feeling+Curious&csf=b&ct=ifl&cad=2:curious&ei=iin8XpLlKJi80PEPi9GtyAo&ved=0ahUKEwiS0oCHs6vqAhUYHjQIHYtoC6kQnRsIDg&rct=j",
+            "name": "welcome to hiccup",
+            "background": "/assets/card.png",
+            "link": "https://github.com/ashwin-pc/hiccup",
             "tags": "space separated tags"
         }
     ],

@@ -9,9 +9,7 @@ describe('Basic tests', () => {
     cy.findAllByTestId('featured-card').should('have.length', 4)
     cy.findAllByTestId('category-card').should('have.length', 9)
     cy.findByTestId('search-bar').should('exist')
-    cy.findAllByTestId('featured-card')
-      .first()
-      .contains('First Default Featured Link')
+    cy.findAllByTestId('featured-card').first().contains('Featured Link')
 
     cy.clickSettings()
     cy.getManagedConfig('default', 'preview')

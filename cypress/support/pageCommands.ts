@@ -44,6 +44,10 @@ Cypress.Commands.add('getManagedConfig', (id, action = 'preview') => {
   }
 })
 
+Cypress.Commands.add('blurSearch', () => {
+  cy.get('body').type(`{esc}`)
+})
+
 // Not happy with these, refactor to be more useful
 
 Cypress.Commands.add('submitUrlInput', (url: string) => {
@@ -56,8 +60,4 @@ Cypress.Commands.add('getCachedConfigs', () => {
 
 Cypress.Commands.add('getEditLinkModal', () => {
   cy.findByTestId('edit-link-title').parent()
-})
-
-Cypress.Commands.add('blurSearch', () => {
-  cy.get('body').click(5, 5)
 })
