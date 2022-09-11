@@ -11,10 +11,10 @@ declare namespace Cypress {
     typeInSearchBar(test: string): Chainable<null>
     screenshotPreviewImage(name: string): Chainable<null>
     getManagedConfig(id?: string, action?: ConfigAction): Chainable<null>
+    blurSearch(): Chainable<null>
 
     submitUrlInput(url: string): Chainable<null>
     getEditLinkModal(): Chainable<null>
     getCachedConfigs(): Chainable<null>
-    blurSearch(): Chainable<null>
   }
 }

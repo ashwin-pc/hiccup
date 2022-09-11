@@ -26,7 +26,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run --browser chrome"
+    "cypress:run": "cypress run --browser chrome",
+    "cypress:screenshot": "cypress run --browser chrome --spec cypress/e2e/visual.cy.ts"
   },
   "eslintConfig": {},
   "browserslist": {

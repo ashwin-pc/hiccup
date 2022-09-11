@@ -4,53 +4,49 @@ import toast from 'react-hot-toast'
 import { ConfigEntity, FeaturedEntity, LinksEntity } from './types'
 import validate from './validate'
 
-interface BaseEdit {
-  editing?: boolean
-}
-
-interface AddFeaturedCard extends BaseEdit {
+interface AddFeaturedCard {
   card: FeaturedEntity
 }
 
-interface RemoveFeaturedCard extends BaseEdit {
+interface RemoveFeaturedCard {
   cardIndex: number
 }
 
-interface EditFeaturedCard extends BaseEdit {
+interface EditFeaturedCard {
   cardIndex: number
   link: FeaturedEntity
 }
 
-interface AddCategory extends BaseEdit {
+interface AddCategory {
   title: string
 }
 
-interface RemoveCategory extends BaseEdit {
+interface RemoveCategory {
   categoryIndex: number
 }
 
-interface EditCategory extends BaseEdit {
+interface EditCategory {
   categoryIndex: number
   title: string
 }
 
-interface AddCategoryLink extends BaseEdit {
+interface AddCategoryLink {
   categoryIndex: number
   categorylink: LinksEntity
 }
 
-interface RemoveCategoryLink extends BaseEdit {
+interface RemoveCategoryLink {
   categoryIndex: number
   cardIndex: number
 }
 
-interface EditCategoryLink extends BaseEdit {
+interface EditCategoryLink {
   categoryIndex: number
   cardIndex: number
   link: LinksEntity
 }
 
-interface QuickLick extends BaseEdit {
+interface QuickLick {
   category: string
   link: LinksEntity
 }
@@ -62,9 +58,9 @@ interface ActionResponse {
 
 const preProcess =
   <T>(fn: (arg0: ConfigEntity, arg1: T) => ConfigEntity) =>
-  (config: ConfigEntity, props: T): ActionResponse => {
+  (config: ConfigEntity, payload: T): ActionResponse => {
     try {
-      const newConfig = fn(config, props)
+      const newConfig = fn(config, payload)
       const [valid, message, path] = validate(newConfig)
 
       if (!valid) {
@@ -87,82 +83,72 @@ const preProcess =
 
 export const addFeaturedCard = preProcess<AddFeaturedCard>(
   produce((draft: ConfigEntity, props: AddFeaturedCard) => {
-    const { card, editing } = props
+    const { card } = props
     if (!draft.featured) draft.featured = []
     if (draft.featured.length >= 4) return
 
     draft.featured.push(card)
-    process({ editing, draft })
+    process({ draft })
   })
 )
 
 export const removeFeaturedCard = preProcess<RemoveFeaturedCard>(
   produce((draft: ConfigEntity, props: RemoveFeaturedCard) => {
-    const { cardIndex, editing } = props
+    const { cardIndex } = props
     draft.featured?.splice(cardIndex, 1)
-    process({ editing, draft })
+    process({ draft })
   })
 )
 
 export const editFeaturedCard = preProcess<EditFeaturedCard>(
-  produce(
-    (draft: ConfigEntity, { cardIndex, link, editing }: EditFeaturedCard) => {
-      if (!draft.featured?.[cardIndex]) return
-      draft.featured[cardIndex] = link
-      process({ editing, draft })
-    }
-  )
+  produce((draft: ConfigEntity, { cardIndex, link }: EditFeaturedCard) => {
+    if (!draft.featured?.[cardIndex]) return
+    draft.featured[cardIndex] = link
+    process({ draft })
+  })
 )
 
 export const addCategory = preProcess<AddCategory>(
-  produce((draft: ConfigEntity, { title, editing }: AddCategory) => {
+  produce((draft: ConfigEntity, { title }: AddCategory) => {
     if (!draft.categories) draft.categories = []
 
     draft.categories.push({ title, links: [] })
-    process({ editing, draft })
+    process({ draft })
   })
 )
 
 export const removeCategory = preProcess<RemoveCategory>(
-  produce((draft: ConfigEntity, { editing, categoryIndex }: RemoveCategory) => {
+  produce((draft: ConfigEntity, { categoryIndex }: RemoveCategory) => {
     draft.categories?.splice(categoryIndex, 1)
-    process({ editing, draft })
+    process({ draft })
   })
 )
 
 export const editCategory = preProcess<EditCategory>(
-  produce(
-    (draft: ConfigEntity, { categoryIndex, title, editing }: EditCategory) => {
-      if (!draft.categories?.[categoryIndex]) return
+  produce((draft: ConfigEntity, { categoryIndex, title }: EditCategory) => {
+    if (!draft.categories?.[categoryIndex]) return
 
-      draft.categories[categoryIndex].title = title
-      process({ editing, draft })
-    }
-  )
+    draft.categories[categoryIndex].title = title
+    process({ draft })
+  })
 )
 
 export const addCategoryLink = preProcess<AddCategoryLink>(
   produce(
-    (
-      draft: ConfigEntity,
-      { categoryIndex, categorylink, editing }: AddCategoryLink
-    ) => {
+    (draft: ConfigEntity, { categoryIndex, categorylink }: AddCategoryLink) => {
       draft.categories?.[categoryIndex].links?.push(categorylink)
-      process({ editing, draft })
+      process({ draft })
     }
   )
 )
 
 export const removeCategoryLink = preProcess<RemoveCategoryLink>(
   produce(
-    (
-      draft: ConfigEntity,
-      { cardIndex, categoryIndex, editing }: RemoveCategoryLink
-    ) => {
+    (draft: ConfigEntity, { cardIndex, categoryIndex }: RemoveCategoryLink) => {
       if (!draft.categories?.[categoryIndex]) return
 
       draft.categories[categoryIndex].links.splice(cardIndex, 1)
-      process({ editing, draft })
+      process({ draft })
     }
   )
 )
@@ -171,19 +157,19 @@ export const editCategoryLink = preProcess<EditCategoryLink>(
   produce(
     (
       draft: ConfigEntity,
-      { cardIndex, categoryIndex, link, editing }: EditCategoryLink
+      { cardIndex, categoryIndex, link }: EditCategoryLink
     ) => {
       if (!draft.categories?.[categoryIndex].links[cardIndex]) return
 
       draft.categories[categoryIndex].links[cardIndex] = link
-      process({ editing, draft })
+      process({ draft })
     }
   )
 )
 
 export const addQuickLink = preProcess<QuickLick>(
   produce((draft: ConfigEntity, props: QuickLick) => {
-    const { category, link, editing } = props
+    const { category, link } = props
     const categoryIndex = draft.categories.findIndex(
       ({ title }) => title === category
     )
@@ -197,23 +183,23 @@ export const addQuickLink = preProcess<QuickLick>(
     }
 
     draft.categories[categoryIndex].links.push(link)
-    process({ editing, draft })
+    process({ draft })
   })
 )
 
-interface ProcessProps extends BaseEdit {
+interface ProcessProps {
   draft: ConfigEntity
 }
 
-const process = ({ draft, editing = true }: ProcessProps): void => {
+const process = ({ draft }: ProcessProps): void => {
   // If this is not a edit
-  if (!editing || draft.metadata?.editing) return
+  if (draft.metadata?.editing) return
 
   if (!draft.metadata) {
     draft.metadata = {}
   }
 
-  draft.metadata.editing = editing
+  draft.metadata.editing = true
 
   draft.title = `${draft.title} - Editing`
   draft.id = uuid()

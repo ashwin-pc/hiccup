@@ -2,7 +2,7 @@ import { FC } from 'react'
 import { Icon } from 'components/common/Icon'
 import { triggerEdit } from 'components/EditLinkModal'
 import styles from './index.module.css'
-import { DEFAULT_FEATURED_LINK } from 'modules/config'
+import { getEmptyFeaturedLink } from 'modules/config'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
 import { transformEntityToFields } from 'components/EditLinkModal/transforms'
 import { DropProps } from 'components/common/Drop'
@@ -33,7 +33,7 @@ const AddFeaturedCard: FC<Props> = ({
       ])}
       onClick={() =>
         triggerEdit({
-          fields: transformEntityToFields(DEFAULT_FEATURED_LINK),
+          fields: transformEntityToFields(getEmptyFeaturedLink()),
           onSave,
           title: 'Add Featured Link',
         })
