@@ -3,7 +3,7 @@ import process from 'process'
 import { Card } from 'components/Card'
 import { Icon } from 'components/common/Icon'
 import { triggerEdit } from 'components/EditLinkModal'
-import { DEFAULT_BG, DEFAULT_FEATURED_LINK } from 'modules/config'
+import { DEFAULT_FEATURED_LINK, getRandomBg } from 'modules/config'
 import styles from './index.module.css'
 import { FeaturedEntity } from 'modules/config/types'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
@@ -26,7 +26,7 @@ interface Props extends EditContainerProps {
 }
 
 const FeaturedCard: FC<Props> = ({ link, editing, ...editingProps }) => {
-  const { name, link: linkUrl, background = DEFAULT_BG } = link || {}
+  const { name, link: linkUrl, background = getRandomBg() } = link || {}
 
   const backgroundUrl = isAbsoluteURL(background)
     ? background
