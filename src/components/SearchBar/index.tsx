@@ -1,25 +1,28 @@
-import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react'
+import { useState, useRef, useMemo, useCallback, useEffect } from 'react'
 import { useConfigContext } from 'components/ConfigContext'
 import { Icon } from 'components/common/Icon'
 import { useWindowSize } from 'modules/useWindowSize'
 import styles from './index.module.css'
-import { SEARCH_PROVIDERS } from './constants'
+import { HydratedProvider } from './constants'
 import useSearch from './useSearch'
+import { getHydratedProviders } from './utils'
+import { EditModal } from './EditModal'
 
 const SearchBar = () => {
-  const { config } = useConfigContext()
+  const { config, editing } = useConfigContext()
   const [searchTerm, setSearchTerm] = useState('')
+  const [showEditModal, setShowEditModal] = useState(false)
   const [currentHighlight, setCurrentHighlight] = useState(0)
   const { results } = useSearch(searchTerm, config)
-  const { url: providerUrl, name: providerName } = useMemo(
-    () => SEARCH_PROVIDERS.google,
-    []
-  )
   const [placeholder, setPlaceholder] = useState('')
   const { innerWidth } = useWindowSize()
   const resultsRef = useRef<HTMLElement[]>([])
-
   const searching = searchTerm.length > 0
+
+  const providers: HydratedProvider[] = useMemo(
+    () => getHydratedProviders(config.metadata?.search ?? [{ type: 'google' }]),
+    [config.metadata?.search]
+  )
 
   useEffect(() => {
     resultsRef.current = resultsRef.current.slice(0, results.length + 2)
@@ -54,22 +57,30 @@ const SearchBar = () => {
     resultsRef.current[currentHighlight].focus()
   }, [currentHighlight])
 
-  const handleSearchProvider = useCallback(
+  const handleDefaultSearch = useCallback(
     (event) => {
+      const { url } = providers[0]
       if (event.key === 'Enter') {
-        window.location.href = `${providerUrl}${event.target.value}`
+        window.location.href = `${url}${event.target.value}`
       }
     },
-    [providerUrl]
+    [providers]
   )
 
   useEffect(() => {
-    setPlaceholder(
-      innerWidth < 600
-        ? 'Search'
-        : 'Search   ...... or use Shift + Tab for URL bar'
-    )
-  }, [innerWidth])
+    let searchText = innerWidth < 600
+      ? 'Search'
+      : 'Search   ...... or use Shift + Tab for URL bar'
+
+    if (editing) {
+      searchText = 'Edit Search Provider'
+    }
+    setPlaceholder(searchText)
+  }, [editing, innerWidth])
+
+  const searchIcon = editing
+    ? <Icon icon="edit" size={10} as="button" onClick={() => setShowEditModal(true)} />
+    : <Icon icon="search" size={10} className={styles['search-icon']} />
 
   return (
     <div
@@ -83,24 +94,25 @@ const SearchBar = () => {
         className={styles.search}
         value={searchTerm}
         onChange={handleChange}
-        onKeyPress={handleSearchProvider}
+        onKeyPress={handleDefaultSearch}
         placeholder={placeholder}
         autoComplete="off"
         autoFocus={true}
+        disabled={editing}
         ref={(el) => el && (resultsRef.current[0] = el)}
       />
-      <Icon icon="search" size={10} className={styles['search-icon']} />
+      {searchIcon}
       <div className={styles.results}>
-        {searching && (
+        {searching && providers.map(({ name, url }) => (
           <a
-            href={`${providerUrl}${searchTerm}`}
+            href={`${url}${searchTerm}`}
             className={styles.result}
             ref={(el) => el && (resultsRef.current[1] = el)}
           >
             <Icon icon="earth" size={10} className={styles['web-icon']} />
-            <span className={styles.provider}>{providerName}</span> {searchTerm}
+            <span className={styles.provider}>{name}</span> {searchTerm}
           </a>
-        )}
+        ))}
         {results.map(({ name, url, featured }, index) => (
           <a
             key={index}
@@ -120,6 +132,7 @@ const SearchBar = () => {
       {searching && (
         <div className={styles.backdrop} onClick={handleExit}></div>
       )}
+      <EditModal show={showEditModal} onClose={() => setShowEditModal(false)} />
     </div>
   )
 }

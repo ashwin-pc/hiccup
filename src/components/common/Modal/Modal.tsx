@@ -5,8 +5,8 @@ import React, {
   FunctionComponent,
   MouseEventHandler,
 } from 'react'
-import { ReactComponent as CloseIcon } from './times-solid.svg'
 import styles from './index.module.css'
+import Icon from '../Icon'
 
 export interface ModalProps {
   show?: boolean
@@ -65,7 +65,7 @@ const ModalPopup: FunctionComponent<IModalPopup> = ({
       onClick={onClose}
       data-testid="close-modal"
     >
-      <CloseIcon />
+      <Icon icon='times' size={15} />
     </button>
   </div>
 )

@@ -1,85 +1,132 @@
 .search-container {
-    width: 100%;
-    max-width: 1000px;
-    opacity: 1;
-    color: var( --theme-color-1);
-    position: relative;
-    z-index: 10;
+  width: 100%;
+  max-width: 1000px;
+  opacity: 1;
+  color: var(--theme-color-1);
+  position: relative;
+  z-index: 10;
 }
 
 .search {
-    background-color: #19191938;
-    border-radius: 2px;
-    backdrop-filter: blur(2px);
-    border: 1px solid var(--theme-bg-2);
-    font-size: 1rem;
-    padding: 13px 20px 13px 40px;
-    width: 100%;
-    color: var( --theme-color-1);
+  background-color: #19191938;
+  border-radius: 2px;
+  backdrop-filter: blur(2px);
+  border: 1px solid var(--theme-bg-2);
+  font-size: 1rem;
+  padding: 13px 20px 13px 40px;
+  width: 100%;
+  color: var(--theme-color-1);
 }
 
 .search:active,
 .search:focus {
-    outline: 1px solid var(--theme-highlight-1);
+  outline: 1px solid var(--theme-highlight-1);
 }
 
 .results {
-    position: absolute;
-    width: 100%;
-    background: #000000e8;
-    z-index: 10;
+  position: absolute;
+  width: 100%;
+  background: #000000e8;
+  z-index: 10;
 }
 
 .result {
-    display: block;
-    padding: 10px 20px;
-    backdrop-filter: blur(4px);
-    border: 1px solid var(--theme-bg-2);
-    margin-top: 2px;
-    border-radius: 3px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  display: block;
+  padding: 10px 20px;
+  backdrop-filter: blur(4px);
+  border: 1px solid var(--theme-bg-2);
+  margin-top: 2px;
+  border-radius: 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .result:focus,
 .result:active {
-    outline: 1px solid var(--theme-highlight-1);
+  outline: 1px solid var(--theme-highlight-1);
 }
 
 .url {
-    color: var(--theme-color-disabled);
-    margin-left: 15px;
-    font-size: .8em;
+  color: var(--theme-color-disabled);
+  margin-left: 15px;
+  font-size: 0.8em;
 }
 
+.search-container > button,
 .search-icon {
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    transform: translateY(-50%);
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  transform: translateY(-50%);
+  padding: 0;
 }
 
 .web-icon {
-    margin-right: 10px;
+  margin-right: 10px;
 }
 
 .featured-icon {
-    color: var(--theme-highlight-1);
-    margin-right: 10px;
+  color: var(--theme-highlight-1);
+  margin-right: 10px;
 }
 
 .placeholder,
 .provider {
-    color: var(--theme-color-disabled);
+  color: var(--theme-color-disabled);
 }
 
 .backdrop {
-    position: fixed;
-    background: #00000091;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: -1;
+  position: fixed;
+  background: #00000091;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.modal-section {
+  padding: 10px;
+  background: var(--theme-bg-1);
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.modal-section .modal-section-title {
+  color: var(--theme-color-disabled);
+}
+
+.modal-section-title {
+  font-size: 0.8rem;
+  margin: 0 0 10px;
+}
+
+.modal-section > div {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.modal-provider {
+  padding: 7px 4px 7px 10px;
+  background: var(--theme-bg-3);
+  display: grid;
+  border-radius: 5px;
+  grid-template-columns: 1fr auto;
+}
+
+.modal-provider > button {
+  margin-left: 10px;
+}
+
+.add-provider,
+.delete-provider {
+  top: 1px;
+  position: relative;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
 }

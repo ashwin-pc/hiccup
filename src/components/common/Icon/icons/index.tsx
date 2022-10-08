@@ -17,6 +17,7 @@ import { ReactComponent as SquarePlus } from './square-plus-regular.svg'
 import { ReactComponent as Star } from './star-regular.svg'
 import { ReactComponent as Sync } from './sync-alt-solid.svg'
 import { ReactComponent as Trash } from './trash-solid.svg'
+import { ReactComponent as Times } from './times-solid.svg'
 import { ReactComponent as Undo } from './undo-solid.svg'
 import { ReactComponent as Upload } from './upload-solid.svg'
 
@@ -31,6 +32,7 @@ const icons = {
   image: Image,
   save: Save,
   trash: Trash,
+  times: Times,
   undo: Undo,
   edit: Edit,
   add: Add,

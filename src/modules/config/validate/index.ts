@@ -1,6 +1,5 @@
 import Ajv from 'ajv'
-import { ConfigEntity } from '../types'
-import schema from './schema.json'
+import { ConfigEntity, schema } from '../types'
 
 const ajv = new Ajv()
 const validator = ajv.compile(schema)
