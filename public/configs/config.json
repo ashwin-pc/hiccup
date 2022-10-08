@@ -83,6 +83,11 @@
         }
     ],
     "metadata": {
-        "readonly": false
+        "readonly": false,
+        "search": [
+            {
+                "type": "youtube"
+            }
+        ]
     }
 }

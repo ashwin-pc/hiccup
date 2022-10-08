@@ -1,3 +1,5 @@
+import { JSONSchemaType } from "ajv"
+
 export interface LinksEntity {
   name: string
   link: string
@@ -20,6 +22,11 @@ export interface NewEntity extends LinksEntity {
 export interface Metadata {
   readonly?: boolean
   editing?: boolean
+  search?: {
+    type: string,
+    name?: string,
+    url?: string,
+  }[]
 }
 
 export interface ConfigEntity {
@@ -39,4 +46,66 @@ export interface LocalConfigStore {
   configs: {
     [id: string]: ConfigEntity
   }
+}
+
+export const schema: JSONSchemaType<ConfigEntity> = {
+  type: "object",
+  properties: {
+    version: { type: 'string' },
+    id: { type: 'string' },
+    title: { type: 'string' },
+    url: { type: 'string', nullable: true },
+    featured: {
+      type: 'array', items: {
+        type: 'object',
+        properties: {
+          name: { type: 'string' },
+          link: { type: 'string' },
+          tags: { type: 'string', nullable: true },
+          background: { type: 'string', nullable: true },
+        },
+        required: ['link', 'name']
+      }
+    },
+    categories: {
+      type: 'array', items: {
+        type: 'object',
+        properties: {
+          title: { type: 'string' },
+          links: {
+            type: 'array', items: {
+              type: 'object',
+              properties: {
+                name: { type: 'string' },
+                link: { type: 'string' },
+                tags: { type: 'string', nullable: true },
+              },
+              required: ['link', 'name']
+            }
+          },
+        },
+        required: ['links', 'title']
+      }
+    },
+    metadata: {
+      type: 'object', properties: {
+        readonly: { type: "boolean", nullable: true },
+        editing: { type: "boolean", nullable: true },
+        search: {
+          type: 'array', items: {
+            type: 'object',
+            properties: {
+              type: { type: 'string' },
+              name: { type: 'string', nullable: true },
+              url: { type: 'string', nullable: true },
+            },
+            required: ['type']
+          }, nullable: true
+        }
+      },
+      nullable: true
+    }
+  },
+  required: ['id', 'title', 'version', 'featured', 'categories'],
+  additionalProperties: false
 }

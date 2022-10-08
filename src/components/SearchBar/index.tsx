@@ -7,13 +7,28 @@ import { SEARCH_PROVIDERS } from './constants'
 import useSearch from './useSearch'
 
 const SearchBar = () => {
-  const { config } = useConfigContext()
+  const { config, editing } = useConfigContext()
   const [searchTerm, setSearchTerm] = useState('')
   const [currentHighlight, setCurrentHighlight] = useState(0)
   const { results } = useSearch(searchTerm, config)
-  const { url: providerUrl, name: providerName } = useMemo(
-    () => SEARCH_PROVIDERS.google,
-    []
+  const providers = useMemo(
+    () => {
+      const allProviders = config.metadata?.search || [{ type: 'google' }]
+      const filteredProviders = allProviders.map(({ type, ...rest }) => {
+        let provider = {}
+        if (type in SEARCH_PROVIDERS) {
+          provider = { ...SEARCH_PROVIDERS[type] }
+        }
+
+        return {
+          ...provider,
+          ...rest
+        }
+      }).filter(({ name, url }) => (!!name && !!url))
+
+      return filteredProviders;
+    },
+    [config.metadata?.search]
   )
   const [placeholder, setPlaceholder] = useState('')
   const { innerWidth } = useWindowSize()
@@ -54,13 +69,14 @@ const SearchBar = () => {
     resultsRef.current[currentHighlight].focus()
   }, [currentHighlight])
 
-  const handleSearchProvider = useCallback(
+  const handleDefaultSearch = useCallback(
     (event) => {
+      const { url } = providers[0]
       if (event.key === 'Enter') {
-        window.location.href = `${providerUrl}${event.target.value}`
+        window.location.href = `${url}${event.target.value}`
       }
     },
-    [providerUrl]
+    [providers]
   )
 
   useEffect(() => {
@@ -83,7 +99,7 @@ const SearchBar = () => {
         className={styles.search}
         value={searchTerm}
         onChange={handleChange}
-        onKeyPress={handleSearchProvider}
+        onKeyPress={handleDefaultSearch}
         placeholder={placeholder}
         autoComplete="off"
         autoFocus={true}
@@ -91,16 +107,16 @@ const SearchBar = () => {
       />
       <Icon icon="search" size={10} className={styles['search-icon']} />
       <div className={styles.results}>
-        {searching && (
+        {searching && providers.map(({ name, url }) => (
           <a
-            href={`${providerUrl}${searchTerm}`}
+            href={`${url}${searchTerm}`}
             className={styles.result}
             ref={(el) => el && (resultsRef.current[1] = el)}
           >
             <Icon icon="earth" size={10} className={styles['web-icon']} />
-            <span className={styles.provider}>{providerName}</span> {searchTerm}
+            <span className={styles.provider}>{name}</span> {searchTerm}
           </a>
-        )}
+        ))}
         {results.map(({ name, url, featured }, index) => (
           <a
             key={index}
