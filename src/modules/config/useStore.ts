@@ -39,8 +39,9 @@ export const useStore = () => {
           configURLParam || cachedActiveURL || undefined
         )
 
-        // Update active if the loaded config is not present in the store
-        const updateActive = !localConfigStore?.configs[loadedConfig.id]
+        // Update active if the config param exists in the url
+        // or if the loaded config is not present in the store
+        const updateActive = !!configURLParam || !localConfigStore?.configs[loadedConfig.id]
 
         dispatch.saveConfig(loadedConfig, updateActive)
 
