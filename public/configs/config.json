@@ -81,13 +81,5 @@
                 }
             ]
         }
-    ],
-    "metadata": {
-        "readonly": false,
-        "search": [
-            {
-                "type": "youtube"
-            }
-        ]
-    }
+    ]
 }

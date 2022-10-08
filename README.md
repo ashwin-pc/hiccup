@@ -17,7 +17,9 @@ A static start page to get to your most important links, **FAST**. You can use t
 - Featured Links
 - Categories
 - Drag to add links and images
-- Search (with search provider and tag support)
+- Search
+  - Supports various search providers and custom ones too
+  - Links and tag support
 - Docker support
 - Multiple profiles
 - Load remote profile
@@ -93,7 +95,7 @@ The app has a few hotkeys to help you easily navigate around. To quickly view th
 
 ### Using Search
 
-The purpose of the search is to get to you link as easily as possible.
+The purpose of the search is to get to you link as easily as possible. The search bar is a powerful tool to search across many search providers e.g. Google, Amazon, Duck Duck Go and Links (including tags)
 
 - Press `UpArrow` and `DownArrow` to navigate the search
 - Press `Esc` to quit the search
@@ -101,11 +103,13 @@ The purpose of the search is to get to you link as easily as possible.
 
 Search looks at the `name`, `link` and `tags` field of each link in the config to find a match.
 
+To edit the search providers, toggle the edit mode, click on the edit icon on the search bar to add your desired search provider. You can add multiple search providers
+
 ### Dragging your links/images/configs to add them
 
 You cann now add/edit the links and background images of each of the cards by simply dragging that link or image from another browser window onto Hiccups link cards. The featured cards have two drop boxes, a link dropbox and image dropbox. To quickly update the background image, use the image dropbox.
 
-You can also uplad a config by dropping a config file onto anny droppable card. Hiccup will be able to load it.
+You can also upload a config by dropping a config file onto any droppable card. Hiccup will be able to load it.
 
 ### Using Edit mode
 
