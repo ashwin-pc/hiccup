@@ -1,40 +1,28 @@
-import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react'
+import { useState, useRef, useMemo, useCallback, useEffect } from 'react'
 import { useConfigContext } from 'components/ConfigContext'
 import { Icon } from 'components/common/Icon'
 import { useWindowSize } from 'modules/useWindowSize'
 import styles from './index.module.css'
-import { SEARCH_PROVIDERS } from './constants'
+import { HydratedProvider } from './constants'
 import useSearch from './useSearch'
+import { getHydratedProviders } from './utils'
+import { EditModal } from './EditModal'
 
 const SearchBar = () => {
   const { config, editing } = useConfigContext()
   const [searchTerm, setSearchTerm] = useState('')
+  const [showEditModal, setShowEditModal] = useState(false)
   const [currentHighlight, setCurrentHighlight] = useState(0)
   const { results } = useSearch(searchTerm, config)
-  const providers = useMemo(
-    () => {
-      const allProviders = config.metadata?.search || [{ type: 'google' }]
-      const filteredProviders = allProviders.map(({ type, ...rest }) => {
-        let provider = {}
-        if (type in SEARCH_PROVIDERS) {
-          provider = { ...SEARCH_PROVIDERS[type] }
-        }
-
-        return {
-          ...provider,
-          ...rest
-        }
-      }).filter(({ name, url }) => (!!name && !!url))
-
-      return filteredProviders;
-    },
-    [config.metadata?.search]
-  )
   const [placeholder, setPlaceholder] = useState('')
   const { innerWidth } = useWindowSize()
   const resultsRef = useRef<HTMLElement[]>([])
-
   const searching = searchTerm.length > 0
+
+  const providers: HydratedProvider[] = useMemo(
+    () => getHydratedProviders(config.metadata?.search ?? [{ type: 'google' }]),
+    [config.metadata?.search]
+  )
 
   useEffect(() => {
     resultsRef.current = resultsRef.current.slice(0, results.length + 2)
@@ -80,12 +68,19 @@ const SearchBar = () => {
   )
 
   useEffect(() => {
-    setPlaceholder(
-      innerWidth < 600
-        ? 'Search'
-        : 'Search   ...... or use Shift + Tab for URL bar'
-    )
-  }, [innerWidth])
+    let searchText = innerWidth < 600
+      ? 'Search'
+      : 'Search   ...... or use Shift + Tab for URL bar'
+
+    if (editing) {
+      searchText = 'Edit Search Provider'
+    }
+    setPlaceholder(searchText)
+  }, [editing, innerWidth])
+
+  const searchIcon = editing
+    ? <Icon icon="edit" size={10} as="button" onClick={() => setShowEditModal(true)} />
+    : <Icon icon="search" size={10} className={styles['search-icon']} />
 
   return (
     <div
@@ -103,9 +98,10 @@ const SearchBar = () => {
         placeholder={placeholder}
         autoComplete="off"
         autoFocus={true}
+        disabled={editing}
         ref={(el) => el && (resultsRef.current[0] = el)}
       />
-      <Icon icon="search" size={10} className={styles['search-icon']} />
+      {searchIcon}
       <div className={styles.results}>
         {searching && providers.map(({ name, url }) => (
           <a
@@ -136,6 +132,7 @@ const SearchBar = () => {
       {searching && (
         <div className={styles.backdrop} onClick={handleExit}></div>
       )}
+      <EditModal show={showEditModal} onClose={() => setShowEditModal(false)} />
     </div>
   )
 }

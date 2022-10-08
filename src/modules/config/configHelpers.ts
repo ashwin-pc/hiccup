@@ -1,7 +1,7 @@
 import produce from 'immer'
 import uuid from 'modules/uuid'
 import toast from 'react-hot-toast'
-import { ConfigEntity, FeaturedEntity, LinksEntity } from './types'
+import { ConfigEntity, FeaturedEntity, LinksEntity, SearchProvider } from './types'
 import validate from './validate'
 
 interface AddFeaturedCard {
@@ -58,28 +58,28 @@ interface ActionResponse {
 
 const preProcess =
   <T>(fn: (arg0: ConfigEntity, arg1: T) => ConfigEntity) =>
-  (config: ConfigEntity, payload: T): ActionResponse => {
-    try {
-      const newConfig = fn(config, payload)
-      const [valid, message, path] = validate(newConfig)
+    (config: ConfigEntity, payload: T): ActionResponse => {
+      try {
+        const newConfig = fn(config, payload)
+        const [valid, message, path] = validate(newConfig)
 
-      if (!valid) {
-        toast.error(`${path}. \n${message}`)
+        if (!valid) {
+          toast.error(`${path}. \n${message}`)
+          return {
+            config,
+            invalid: true,
+          }
+        }
+
+        return { config: newConfig }
+      } catch (error) {
+        toast.error((error as Error).message)
         return {
           config,
           invalid: true,
         }
       }
-
-      return { config: newConfig }
-    } catch (error) {
-      toast.error((error as Error).message)
-      return {
-        config,
-        invalid: true,
-      }
     }
-  }
 
 export const addFeaturedCard = preProcess<AddFeaturedCard>(
   produce((draft: ConfigEntity, props: AddFeaturedCard) => {
@@ -183,6 +183,19 @@ export const addQuickLink = preProcess<QuickLick>(
     }
 
     draft.categories[categoryIndex].links.push(link)
+    process({ draft })
+  })
+)
+
+export const setSearchProviders = preProcess<SearchProvider[]>(
+  produce((draft: ConfigEntity, props: SearchProvider[]) => {
+    const providers = props
+
+    if (!draft.metadata) {
+      draft.metadata = {}
+    }
+
+    draft.metadata.search = providers
     process({ draft })
   })
 )

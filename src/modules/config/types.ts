@@ -1,5 +1,11 @@
 import { JSONSchemaType } from "ajv"
 
+export interface SearchProvider {
+  type: string,
+  name?: string,
+  url?: string,
+}
+
 export interface LinksEntity {
   name: string
   link: string
@@ -22,11 +28,7 @@ export interface NewEntity extends LinksEntity {
 export interface Metadata {
   readonly?: boolean
   editing?: boolean
-  search?: {
-    type: string,
-    name?: string,
-    url?: string,
-  }[]
+  search?: SearchProvider[]
 }
 
 export interface ConfigEntity {
