@@ -40,7 +40,7 @@ const SearchBar = () => {
   const handleNavigation = useCallback(
     (event) => {
       if (event.key === 'ArrowDown') {
-        const focussableCardsCount = results.length + (searching ? 1 : 0) + 1
+        const focussableCardsCount = results.length + providers.length + 1
         setCurrentHighlight((highlight) =>
           highlight < focussableCardsCount - 1 ? highlight + 1 : highlight
         )
@@ -50,7 +50,7 @@ const SearchBar = () => {
         handleExit()
       }
     },
-    [handleExit, results.length, searching]
+    [handleExit, providers.length, results.length]
   )
 
   useEffect(() => {
@@ -103,11 +103,11 @@ const SearchBar = () => {
       />
       {searchIcon}
       <div className={styles.results}>
-        {searching && providers.map(({ name, url }) => (
+        {searching && providers.map(({ name, url }, index) => (
           <a
             href={`${url}${searchTerm}`}
             className={styles.result}
-            ref={(el) => el && (resultsRef.current[1] = el)}
+            ref={(el) => el && (resultsRef.current[index + 1] = el)}
           >
             <Icon icon="earth" size={10} className={styles['web-icon']} />
             <span className={styles.provider}>{name}</span> {searchTerm}
@@ -119,7 +119,7 @@ const SearchBar = () => {
             href={url}
             target="__blank"
             className={styles.result}
-            ref={(el) => el && (resultsRef.current[index + 2] = el)}
+            ref={(el) => el && (resultsRef.current[index + providers.length + 1] = el)}
           >
             {featured && (
               <Icon icon="star" size={10} className={styles['featured-icon']} />
