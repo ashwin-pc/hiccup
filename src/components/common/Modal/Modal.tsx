@@ -5,8 +5,8 @@ import React, {
   FunctionComponent,
   MouseEventHandler,
 } from 'react'
+import { Icon } from '../Icon'
 import styles from './index.module.css'
-import Icon from '../Icon'
 
 export interface ModalProps {
   show?: boolean
