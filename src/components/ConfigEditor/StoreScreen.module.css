@@ -2,9 +2,10 @@
   display: grid;
   grid-template:
     'list list fileViewer' 1fr
-    'fileLoader download fileViewer'
+    'fileLoader fileLoader fileViewer'
     'url url url' / minmax(200px, 1fr) minmax(200px, 1fr) minmax(300px, 2fr);
   padding: 40px;
+  width: 100%;
   gap: 10px;
 }
 
@@ -112,78 +113,6 @@
   background-color: var(--theme-bg-2);
 }
 
-.list {
-  grid-area: list;
-  background-color: var(--theme-bg-1);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  gap: 5px;
-}
-
-.listItem {
-  background-color: var(--theme-bg-2);
-  border-radius: 5px;
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
-
-.listItem > span {
-  flex-grow: 1;
-}
-
-.listItem > label {
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 0.7em;
-}
-
-:global(.previewing).listItem {
-  background-color: var(--theme-highlight-1);
-  color: var(--theme-bg-1);
-}
-
-.listItem:focus {
-  outline: 2px solid var(--theme-highlight-1);
-}
-
-.listAction {
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  padding: 9px;
-  align-items: center;
-  display: flex;
-  background: inherit;
-  border: none;
-  color: inherit;
-}
-
-.listAction:global(.disabled) {
-  cursor: not-allowed;
-  opacity: 0.2;
-}
-
-.listAction:hover,
-.listAction:focus {
-  outline: 2px solid var(--theme-highlight-1);
-  border-radius: 3px;
-}
-
-:global(.previewing).listItem .listAction:hover,
-:global(.previewing).listItem .listAction:focus {
-  outline: 2px solid var(--theme-bg-1);
-  border-radius: 3px;
-}
-
-.listIcon {
-  /* background-color: red; */
-}
-
 .url {
   grid-area: url;
   margin-bottom: -10px;
@@ -198,7 +127,7 @@
 
 .url .addBtn {
   color: var(--theme-color-1);
-  margin-top: 27px;
+  margin-top: 31px;
   cursor: pointer;
   padding: 0;
 }

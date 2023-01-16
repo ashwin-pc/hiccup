@@ -1,4 +1,4 @@
-import Icon, { IconTypes } from 'components/common/Icon'
+import { Icon, IconTypes } from 'components/common/Icon'
 import React, { FC, HTMLAttributes } from 'react'
 import { ScreenHandler } from '.'
 import styles from './MainScreen.module.css'

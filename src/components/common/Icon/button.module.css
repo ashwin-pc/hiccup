@@ -1,0 +1,22 @@
+.button {
+  cursor: pointer;
+  width: 30px;
+  height: 30px;
+  padding: 9px;
+  align-items: center;
+  display: flex;
+  background: inherit;
+  border: none;
+  color: inherit;
+}
+
+.button:global(.disabled) {
+  cursor: not-allowed;
+  opacity: 0.2;
+}
+
+.button:hover,
+.button:focus {
+  outline: 2px solid var(--theme-highlight-1);
+  border-radius: 3px;
+}
