@@ -26,7 +26,7 @@ interface Props extends EditContainerProps {
 }
 
 const FeaturedCard: FC<Props> = ({ link, editing, ...editingProps }) => {
-  const { name, link: linkUrl, background = getRandomBg() } = link || {}
+  const { name, link: linkUrl, background = getRandomBg('medium') } = link || {}
 
   const backgroundUrl = isAbsoluteURL(background)
     ? background

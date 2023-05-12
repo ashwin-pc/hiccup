@@ -29,31 +29,39 @@ A static start page to get to your most important links, **FAST**. You can use t
 - Read Only mode
 - Full keyboard navigation support
 
+![Main screen](docs/assets/main-desktop.png)
+
 ## Screens
 
-Landing page
-
-| Desktop                                               | Mobile                                              |
-| ----------------------------------------------------- | --------------------------------------------------- |
-| ![Landing Page Desktop](docs/assets/main-desktop.png) | ![Landing Page Mobile](docs/assets/main-mobile.png) |
-
-Quickly find links
-
-| Desktop                                                 | Mobile                                                |
-| ------------------------------------------------------- | ----------------------------------------------------- |
-| ![Landing Page Desktop](docs/assets/search-desktop.png) | ![Landing Page Mobile](docs/assets/search-mobile.png) |
-
-Easily edit links
-
-| Desktop                                               | Mobile                                              |
-| ----------------------------------------------------- | --------------------------------------------------- |
-| ![Landing Page Desktop](docs/assets/edit-desktop.png) | ![Landing Page Mobile](docs/assets/edit-mobile.png) |
-
-Locally manage config using JSON
-
-| Desktop                                                         | Mobile                                                        |
-| --------------------------------------------------------------- | ------------------------------------------------------------- |
-| ![Landing Page Desktop](docs/assets/config-manager-desktop.png) | ![Landing Page Mobile](docs/assets/config-manager-mobile.png) |
+<div align="center">
+<table style="width:100%; border: none;">
+  <tr>
+    <td></td>
+    <td><b>Desktop</b></td>
+    <td><b>Mobile</b></td>
+  </tr>
+  <tr>
+    <td><b>Landing Page</b></td>
+    <td><img src="docs/assets/main-desktop.png" alt="Landing Page Desktop"></td>
+    <td><img src="docs/assets/main-mobile.png" alt="Landing Page Mobile"></td>
+  </tr>
+  <tr>
+    <td><b>Quickly find links</b></td>
+    <td><img src="docs/assets/search-desktop.png" alt="Landing Page Desktop"></td>
+    <td><img src="docs/assets/search-mobile.png" alt="Landing Page Mobile"></td>
+  </tr>
+  <tr>
+    <td><b>Easily edit links</b></td>
+    <td><img src="docs/assets/edit-desktop.png" alt="Landing Page Desktop"></td>
+    <td><img src="docs/assets/edit-mobile.png" alt="Landing Page Mobile"></td>
+  </tr>
+  <tr>
+    <td><b>Locally manage config using JSON</b></td>
+    <td><img src="docs/assets/config-manager-desktop.png" alt="Landing Page Desktop"></td>
+    <td><img src="docs/assets/config-manager-mobile.png" alt="Landing Page Mobile"></td>
+  </tr>
+</table>
+</div>
 
 Drag & drop config file
 
