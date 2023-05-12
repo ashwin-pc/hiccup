@@ -1,0 +1,100 @@
+.list {
+  grid-area: list;
+  background-color: var(--theme-bg-1);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  gap: 5px;
+}
+
+.listItem {
+  background-color: var(--theme-bg-2);
+  border-radius: 5px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.listItem > span {
+  flex-grow: 1;
+}
+
+.listItem > label {
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.7em;
+}
+
+:global(.previewing).listItem {
+  background-color: var(--theme-highlight-1);
+  color: var(--theme-bg-1);
+}
+
+.listItem:focus,
+.listAction:focus {
+  outline: 2px solid var(--theme-highlight-1);
+}
+
+:global(.previewing).listItem .listButton:hover,
+:global(.previewing).listItem .listButton:focus {
+  outline: 2px solid var(--theme-bg-1);
+  border-radius: 3px;
+}
+
+.listActiveIndicator {
+  margin: 5px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: var(--theme-success-1);
+  border: 3px solid var(--theme-bg-1);
+}
+
+.listActionContainer {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  gap: 1px;
+  margin: -2px;
+  padding: 2px;
+  border-radius: 5px;
+  overflow: hidden;
+  animation: accordion-open 0.5s ease-in-out;
+}
+
+.listAction {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  gap: 20px;
+  font-size: 1rem;
+  background: var(--theme-bg-3);
+  border: none;
+  color: var(--theme-color-1);
+  padding: 10px 20px;
+}
+
+.listAction:first-child {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.listAction:last-child {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+/* Animate the accordion panel */
+@keyframes accordion-open {
+  from {
+    max-height: 0;
+  }
+  to {
+    max-height: 500px;
+  } /* Adjust this value to the desired max-height */
+}

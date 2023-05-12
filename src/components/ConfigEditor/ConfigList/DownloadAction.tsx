@@ -1,6 +1,4 @@
-import Icon from 'components/common/Icon'
 import useConfigContext from 'components/ConfigContext'
-import styles from './StoreScreen.module.css'
 import { FC, useRef } from 'react'
 import toast from 'react-hot-toast'
 import { triggerEdit } from 'components/EditLinkModal'
@@ -8,6 +6,7 @@ import produce from 'immer'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
 import { ConfigEntity, validate } from 'modules/config'
 import { transformFieldsToEntity } from 'components/EditLinkModal/transforms'
+import { ListAction } from './ListAction'
 
 type EditingConfigEntity = Pick<ConfigEntity, 'id' | 'title' | 'url'>
 
@@ -35,11 +34,9 @@ const EDITING_FIELDS: EditingField[] = [
   },
 ]
 
-export const DownloadButton: FC<{
-  id?: string
-  disabled?: boolean
-  size?: number
-}> = ({ id, disabled, size = 14 }) => {
+export const DownloadAction: FC<{
+  id: string
+}> = ({ id, children }) => {
   const linkRef = useRef<HTMLAnchorElement>(null)
   const { store } = useConfigContext()
   const configId = id ?? store.active
@@ -93,7 +90,6 @@ export const DownloadButton: FC<{
   const handleChange = async (e: any) => {
     e.preventDefault()
     e.stopPropagation()
-    if (disabled) return
 
     try {
       const configId = id ?? store.active
@@ -114,19 +110,16 @@ export const DownloadButton: FC<{
 
   return (
     <>
-      <button
-        disabled={disabled}
-        onClick={handleChange}
-        className={`${disabled && 'disabled'} ${styles.downloadButton}`}
+      <ListAction
+        text="Download"
+        onClick={(e) => handleChange(e)}
         onKeyUp={(e) => e.key === 'Enter' && handleChange(e)}
         data-testid="download-button"
-      >
-        <Icon size={size} icon="download" />
-        Download Preview
-        {/** eslint-disable-next-line jsx-a11y/anchor-has-content */}
-      </button>
+        icon="download"
+      />
+      {/** eslint-disable-next-line jsx-a11y/anchor-has-content */}
       <a style={{ display: 'none' }} ref={linkRef} href="./">
-        Test
+        Download link
       </a>
     </>
   )

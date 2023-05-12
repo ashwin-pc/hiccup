@@ -1,4 +1,4 @@
-import Icon from 'components/common/Icon'
+import { Icon } from 'components/common/Icon'
 import useConfigContext from 'components/ConfigContext'
 import { triggerEdit } from 'components/EditLinkModal'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'

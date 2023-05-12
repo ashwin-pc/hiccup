@@ -1,4 +1,4 @@
-import Icon from "components/common/Icon"
+import { Icon } from "components/common/Icon"
 import { Input } from "components/common/Input"
 import Modal, { styles as modalStyles } from "components/common/Modal"
 import useConfigContext from "components/ConfigContext"

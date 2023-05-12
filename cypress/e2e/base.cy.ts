@@ -12,9 +12,10 @@ describe('Basic tests', () => {
     cy.findAllByTestId('featured-card').first().contains('Featured Link')
 
     cy.clickSettings()
-    cy.getManagedConfig('default', 'preview')
+    cy.findByTestId(`cached-config-default`)
       .should('contain.text', 'Default Config')
-      .should('contain.text', 'Active')
+      .findByTestId('active-indicator')
+      .should('exist')
   })
 
   it('should be able to able to load a remote config', () => {
@@ -25,9 +26,10 @@ describe('Basic tests', () => {
       .contains('This is a dummy config')
 
     cy.clickSettings()
-    cy.getManagedConfig('dummy', 'preview')
+    cy.findByTestId(`cached-config-dummy`)
       .should('contain.text', 'Dummy Config')
-      .should('contain.text', 'Active')
+      .findByTestId('active-indicator')
+      .should('exist')
   })
 
   it('should be able to use Hotkeys', () => {

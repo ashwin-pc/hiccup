@@ -1,4 +1,4 @@
-import Icon from 'components/common/Icon'
+import { Icon } from 'components/common/Icon'
 import React, { ChangeEvent, FC, useRef } from 'react'
 
 interface HTMLInputEvent extends ChangeEvent {

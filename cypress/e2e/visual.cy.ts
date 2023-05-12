@@ -1,6 +1,6 @@
 // Run this only when you need updated screenshots
 // Run on a reasonably large monitor so that scrollbars dont appear. This seesm to be a bug with cypress screenshot
-describe.skip('Screenshots', () => {
+describe('Screenshots', () => {
   const screens: {
     type: string
     orientation?: Cypress.ViewportOrientation

@@ -6,10 +6,80 @@ export const getEmptyFeaturedLink = (): FeaturedEntity => ({
   background: getRandomBg(),
 })
 
-export const getRandomBg = () => `/assets/card_${getRandomIntInclusive(8)}.png`
+function getRandomArray(n: number): number[] {
+  // Define an empty array to hold the results
+  let result: number[] = []
 
-function getRandomIntInclusive(max: number, min = 0) {
-  min = Math.ceil(min)
-  max = Math.floor(max)
-  return Math.floor(Math.random() * (max - min + 1) + min) // The maximum is inclusive and the minimum is inclusive
+  // Create an array from 0 to n-1
+  let arr: number[] = Array.from({ length: n }, (_, i) => i)
+
+  // Randomly shuffle the array
+  arr.sort(() => Math.random() - 0.5)
+
+  // Create a function to find a non-consecutive number
+  function findNonConsecutive(arr: number[], last: number): number {
+    for (let i = 0; i < arr.length; i++) {
+      if (Math.abs(arr[i] - last) > 1) {
+        return i
+      }
+    }
+    return -1
+  }
+
+  // Set the first element
+  result.push(arr.pop() as number)
+
+  while (arr.length > 0) {
+    let i = findNonConsecutive(arr, result[result.length - 1])
+    if (i === -1) {
+      // If no suitable number is found, reshuffle and start over
+      return getRandomArray(n)
+    } else {
+      // If a suitable number is found, remove it from the array and add it to the result
+      result.push(arr.splice(i, 1)[0])
+    }
+  }
+
+  // Return the result
+  return result
+}
+
+function generateCombinations(colors: string[], size: number): Set<string> {
+  // Initialize an empty set
+  let combinations: Set<string> = new Set()
+
+  // Iterate over each color
+  for (let color of colors) {
+    // For each color, iterate over each size from 1 to the given size
+    for (let i = 1; i <= size; i++) {
+      // Add the combination to the set
+      combinations.add(`${color}_${i}`)
+    }
+  }
+
+  // Return the set of combinations
+  return combinations
+}
+
+let count = 0
+
+// Define the colors
+let colors = ['White', 'Red', 'Blue']
+
+// Define the size
+let size = 3
+
+// Generate the combinations
+let combinations = generateCombinations(colors, size)
+
+// Get random array
+let randomArray = getRandomArray(combinations.size)
+export function getRandomBg() {
+  // every time we call this function, we get a new combination from the random array from count and then increment count
+  let combination =
+    Array.from(combinations)[randomArray[count++ % randomArray.length]]
+
+  // get url from combination
+  let url = `/assets/${combination}.png`
+  return url
 }
