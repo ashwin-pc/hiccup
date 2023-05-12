@@ -38,7 +38,10 @@ export const ConfigList: FC<{ previewId: string; setPreviewId: any }> = ({
               <span>{config.title}</span>
 
               {active ? (
-                <div className={styles.listActiveIndicator}></div>
+                <div
+                  className={styles.listActiveIndicator}
+                  data-testid="active-indicator"
+                ></div>
               ) : (
                 <IconButton
                   icon="check"
@@ -64,6 +67,7 @@ export const ConfigList: FC<{ previewId: string; setPreviewId: any }> = ({
                     ? setSeeListActions(undefined)
                     : setSeeListActions(config.id)
                 }
+                data-testid="ellipsis-button"
               />
             </div>
             {seeListActions === config.id && (
@@ -80,6 +84,7 @@ export const ConfigList: FC<{ previewId: string; setPreviewId: any }> = ({
                       storeActions.saveConfig(remoteConfig, false)
                       toast.success(`Synced URL: ${config.url}`)
                     }}
+                    data-testid="sync-button"
                   />
                 )}
                 {!(
@@ -100,6 +105,7 @@ export const ConfigList: FC<{ previewId: string; setPreviewId: any }> = ({
                         )
                       }
                     }}
+                    data-testid="delete-button"
                   />
                 )}
               </div>

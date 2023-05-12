@@ -17,14 +17,20 @@ describe('Config Manager', () => {
   it('should be able to switch configs', () => {
     cy.findByTestId('file-viewer').find('#id').should('not.contain', 'empty')
     cy.getManagedConfig('empty', 'activate').click()
-    cy.getManagedConfig('empty').should('contain.text', 'Active')
+    cy.findByTestId(`cached-config-empty`)
+      .should('contain.text', 'Empty config')
+      .findByTestId('active-indicator')
+      .should('exist')
   })
 
   it('should be able to load remote config', () => {
     cy.intercept('GET', 'http://dummyconfig.com', { fixture: 'dummy' })
     cy.submitUrlInput('http://dummyconfig.com')
     cy.findByTestId('file-viewer').find('#id').should('contain', 'dummy')
-    cy.getManagedConfig('dummy', 'preview').should('contain.text', 'Active')
+    cy.findByTestId(`cached-config-dummy`)
+      .should('contain.text', 'Dummy Config')
+      .findByTestId('active-indicator')
+      .should('exist')
   })
 
   it('should be able to sync config', () => {
@@ -34,7 +40,14 @@ describe('Config Manager', () => {
     cy.intercept('GET', '**/configs/config.json', {
       fixture: 'default-after-sync',
     }).as('sync')
-    cy.getManagedConfig('default', 'sync').click()
+
+    // Sync default config
+    cy.findByTestId(`cached-config-default`)
+      .findByTestId('ellipsis-button')
+      .click()
+    cy.findByTestId('sync-button').click()
+
+    // Check if sync was successful
     cy.findByTestId('file-viewer')
       .find('#title')
       .should('contain', 'Default Synced Config')
@@ -44,19 +57,29 @@ describe('Config Manager', () => {
     cy.intercept('GET', 'http://dummyconfig.com', { fixture: 'dummy' })
     cy.submitUrlInput('http://dummyconfig.com')
     cy.findByTestId('file-viewer').find('#id').should('contain', 'dummy')
-    cy.getManagedConfig('dummy', 'preview').should('contain.text', 'Active')
+    cy.findByTestId(`cached-config-dummy`)
+      .should('contain.text', 'Dummy Config')
+      .findByTestId('active-indicator')
+      .should('exist')
 
     // disabled delete default config
-    cy.getManagedConfig('default', 'delete').should('be.disabled')
-    cy.getManagedConfig('default', 'preview').should('exist')
+    cy.findByTestId(`cached-config-default`)
+      .findByTestId('ellipsis-button')
+      .click()
+    cy.findByTestId('delete-button').should('not.exist')
 
     // Delete dummy config
-    cy.getManagedConfig('dummy', 'preview').should('exist')
-    cy.getManagedConfig('dummy', 'delete').click()
-    cy.getManagedConfig('dummy', 'preview').should('not.exist')
+    cy.findByTestId(`cached-config-dummy`)
+      .findByTestId('ellipsis-button')
+      .click()
+    cy.findByTestId('delete-button').click()
+    cy.findByTestId(`cached-config-dummy`).should('not.exist')
   })
 
   it('should download config', () => {
+    cy.findByTestId(`cached-config-default`)
+      .findByTestId('ellipsis-button')
+      .click()
     cy.findByTestId('download-button').click()
     cy.getEditLinkModal().find('button').first().click()
     const downloadsFolder = Cypress.config('downloadsFolder')
