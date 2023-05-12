@@ -1,15 +1,24 @@
-.hotkey {
-
+.hotkeyContainer {
+  padding: 10px;
+  background-color: var(--theme-bg-1);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .key {
-    background: black;
-    padding: 10px;
-    display: inline-block;
-    margin-right: 10px;
-    border-radius: 4px;
+  background: var(--theme-bg-2);
+  padding: 10px;
+  display: inline-block;
+  margin-right: 10px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  font-weight: bolder;
+  font-size: 0.8rem;
 }
 
 .description {
-    display: inline-block;
+  display: inline-block;
+  margin: 0;
 }
