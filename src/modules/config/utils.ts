@@ -74,12 +74,12 @@ let combinations = generateCombinations(colors, size)
 
 // Get random array
 let randomArray = getRandomArray(combinations.size)
-export function getRandomBg() {
+export function getRandomBg(size = 'normal') {
   // every time we call this function, we get a new combination from the random array from count and then increment count
   let combination =
     Array.from(combinations)[randomArray[count++ % randomArray.length]]
 
   // get url from combination
-  let url = `/assets/${combination}.png`
+  let url = `/assets/${combination}${size === 'medium' ? '_medium' : ''}.jpeg`
   return url
 }
