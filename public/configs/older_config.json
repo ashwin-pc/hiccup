@@ -1,0 +1,88 @@
+{
+  "version": "2.0",
+  "id": "default",
+  "title": "Default Config",
+  "url": "http://localhost:3000/configs/config.json",
+  "featured": [
+    {
+      "name": "Featured Link",
+      "link": "https://designedbyashw.in/test/hiccup"
+    },
+    {
+      "name": "Another Featured link",
+      "link": "https://designedbyashw.in/test/hiccup"
+    },
+    {
+      "name": "One more",
+      "link": "https://designedbyashw.in/test/hiccup"
+    },
+    {
+      "name": "welcome to hiccup",
+      "background": "/assets/card.png",
+      "link": "https://github.com/ashwin-pc/hiccup",
+      "tags": "space separated tags"
+    }
+  ],
+  "categories": [
+    {
+      "title": "Category 1",
+      "links": [
+        {
+          "name": "Link 1",
+          "link": "https://designedbyashw.in/test/hiccup"
+        },
+        {
+          "name": "Link 2",
+          "link": "https://designedbyashw.in/test/hiccup"
+        }
+      ]
+    },
+    {
+      "title": "Category 2",
+      "links": [
+        {
+          "name": "Link 1",
+          "link": "https://designedbyashw.in/test/hiccup"
+        },
+        {
+          "name": "Link 2",
+          "link": "https://designedbyashw.in/test/hiccup"
+        }
+      ]
+    },
+    {
+      "title": "Category 3",
+      "links": [
+        {
+          "name": "Link 1",
+          "link": "https://designedbyashw.in/test/hiccup",
+          "tags": "more searchable tags"
+        }
+      ]
+    },
+    {
+      "title": "Category 4",
+      "links": [
+        {
+          "name": "Link 1",
+          "link": "https://designedbyashw.in/test/hiccup"
+        },
+        {
+          "name": "Link 2",
+          "link": "https://www.google.com/search?q=I%27m+Feeling+Curious&csf=b&ct=ifl&cad=2:curious&ei=iin8XpLlKJi80PEPi9GtyAo&ved=0ahUKEwiS0oCHs6vqAhUYHjQIHYtoC6kQnRsIDg&rct=j"
+        },
+        {
+          "name": "Link 3",
+          "link": "https://designedbyashw.in/test/hiccup"
+        },
+        {
+          "name": "Just a long link name to make sure we are safe",
+          "link": "https://designedbyashw.in/test/hiccup"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "readonly": false
+  }
+}

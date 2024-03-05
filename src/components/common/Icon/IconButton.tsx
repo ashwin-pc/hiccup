@@ -7,6 +7,7 @@ interface ButtonProps extends Omit<IconProps, 'onClick' | 'onKeyUp'> {
   disabled?: boolean
   buttonClassname?: string
   'data-testid'?: string
+  text?: string
 }
 
 export const IconButton: FC<ButtonProps> = ({
@@ -16,6 +17,7 @@ export const IconButton: FC<ButtonProps> = ({
   icon,
   buttonClassname,
   'data-testid': testId,
+  text,
   ...props
 }) => {
   const [loading, setLoading] = useState(false)
@@ -44,6 +46,7 @@ export const IconButton: FC<ButtonProps> = ({
       data-testid={testId}
     >
       <Icon size={size} icon={loading ? 'ellipsis' : icon} {...props} />
+      {text}
     </button>
   )
 }

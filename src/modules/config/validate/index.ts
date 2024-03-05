@@ -1,10 +1,11 @@
 import Ajv from 'ajv'
-import { ConfigEntity, schema } from '../types'
+import { ConfigEntity } from '../types'
+import { CONFIG_ENTITY_SCHEMA } from '../constants'
 
 const ajv = new Ajv()
-const validator = ajv.compile(schema)
+const validator = ajv.compile(CONFIG_ENTITY_SCHEMA)
 
-function validate(config: ConfigEntity): [boolean, string | undefined, string] {
+function validate(config: any): [boolean, string | undefined, string] {
   if (!config) return [false, 'No config', '']
 
   const valid = validator(config)

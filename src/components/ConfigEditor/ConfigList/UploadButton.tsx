@@ -1,17 +1,19 @@
 import { Icon } from 'components/common/Icon'
+import { ConfigEntity } from 'modules/config'
 import React, { ChangeEvent, FC, useRef } from 'react'
+import toast from 'react-hot-toast'
 
 interface HTMLInputEvent extends ChangeEvent {
   target: HTMLInputElement & EventTarget
 }
 
 interface Props extends React.HTMLAttributes<HTMLButtonElement> {
-  handleFile: (file: string | ArrayBuffer | null | undefined) => void
+  addConfig: (config: ConfigEntity) => Promise<void>
   size?: number
 }
 
 export const UploadButton: FC<Props> = ({
-  handleFile,
+  addConfig,
   className,
   size = 14,
 }) => {
@@ -25,8 +27,20 @@ export const UploadButton: FC<Props> = ({
 
     if (fileUploaded) {
       const reader = new FileReader()
-      reader.onload = (e) => {
-        handleFile(e.target?.result)
+      reader.onload = async (e) => {
+        const uploadedConfig = e.target?.result
+
+        try {
+          const config = JSON.parse(uploadedConfig as string) as ConfigEntity
+
+          await addConfig(config)
+          toast.success(
+            `Loaded Config "${config.defaultTitle || 'Uploaded Config'}"`
+          )
+        } catch (e) {
+          toast.error(`Invalid config: ${(e as Error).message}`)
+          return
+        }
         event.target.value = ''
       }
       reader.readAsText(fileUploaded)

@@ -3,19 +3,13 @@ import { useConfigContext } from '../ConfigContext'
 import { FeaturedSection } from './FeaturedSection'
 
 const ConnectedFeaturedSection = () => {
-    const { config } = useConfigContext()
+  const { config } = useConfigContext()
 
-    if (!config.featured) {
-        return null
-    }
+  if (!config?.data?.featured) {
+    return null
+  }
 
-    return (
-        <FeaturedSection featured={config.featured} />
-    )
+  return <FeaturedSection featured={config.data.featured} />
 }
 
-export {
-    ConnectedFeaturedSection,
-    ConnectedFeaturedSection as FeaturedSection,
-    ConnectedFeaturedSection as default
-}
+export { ConnectedFeaturedSection, ConnectedFeaturedSection as FeaturedSection }

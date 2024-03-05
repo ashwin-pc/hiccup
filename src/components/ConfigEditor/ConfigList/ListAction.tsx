@@ -1,29 +1,23 @@
+import { Icon, IconTypes } from 'components/common/Icon'
 import styles from './index.module.css'
-import { Icon, Props as IconProps } from 'components/common/Icon'
-import { FC, HTMLAttributes } from 'react'
 
-interface Props extends HTMLAttributes<HTMLButtonElement> {
+export interface Action {
+  icon: IconTypes
+  onClick: () => void
   text: string
-  icon?: IconProps['icon']
-  disabled?: boolean
-  onClick: React.MouseEventHandler<HTMLButtonElement>
+  color?: string
 }
 
-export const ListAction: FC<Props> = ({
-  text,
-  icon,
-  disabled,
-  onClick,
-  ...props
-}) => {
+export const ListAction = ({ icon, onClick, text, color }: Action) => {
   return (
     <button
-      className={styles.listAction}
-      disabled={disabled}
+      className={styles['action']}
       onClick={onClick}
-      {...props}
+      style={{
+        color: color,
+      }}
     >
-      {icon && <Icon size={10} icon={icon} />}
+      <Icon size={10} icon={icon} className={styles['action-icon']} />
       <span>{text}</span>
     </button>
   )

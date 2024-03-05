@@ -1,0 +1,13 @@
+{
+  "version": "0.1.0",
+  "configs": [
+    {
+      "id": "default",
+      "title": "Default",
+      "remote": {
+        "type": "url",
+        "url": "./configs/config.json"
+      }
+    }
+  ]
+}

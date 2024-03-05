@@ -2,7 +2,7 @@ import { useCallback } from 'react'
 import { useConfigContext } from 'components/ConfigContext'
 import { FeaturedCard } from './FeaturedCard'
 import { AddFeaturedCard } from './AddFeaturedCard'
-import { FeaturedEntity } from 'modules/config/types'
+import { AppState, FeaturedEntity } from 'modules/config/types'
 import { transformFieldsToEntity } from 'components/EditLinkModal/transforms'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
 import {
@@ -19,19 +19,27 @@ interface Props {
 }
 
 const ConnectedFeaturedCard = ({ index: cardIndex, link }: Props) => {
-  const { editing, config, storeActions } = useConfigContext()
+  const { editing, config, updateConfig } = useConfigContext(
+    ({ config, store, updateConfig }) => ({
+      editing: store.state === AppState.EDITING,
+      config: config?.data,
+      updateConfig,
+    })
+  )
 
   const onDelete = useCallback(() => {
+    if (!config) return
     const { config: newConfig, invalid } = removeFeaturedCard(config, {
       cardIndex,
     })
 
     if (invalid) return false
-    storeActions.saveConfig(newConfig)
-  }, [cardIndex, config, storeActions])
+    updateConfig(newConfig)
+  }, [cardIndex, config, updateConfig])
 
   const onEdit = useCallback(
     (modalData: EditModalField[]) => {
+      if (!config) return
       const newLink = transformFieldsToEntity(modalData) as FeaturedEntity
       const { config: newConfig, invalid } = editFeaturedCard(config, {
         cardIndex,
@@ -39,9 +47,9 @@ const ConnectedFeaturedCard = ({ index: cardIndex, link }: Props) => {
       })
 
       if (invalid) return false
-      storeActions.saveConfig(newConfig)
+      updateConfig(newConfig)
     },
-    [cardIndex, config, storeActions]
+    [cardIndex, config, updateConfig]
   )
 
   const newLink = {
@@ -69,19 +77,26 @@ const ConnectedFeaturedCard = ({ index: cardIndex, link }: Props) => {
 }
 
 const ConnectedAddFeaturedCard = () => {
-  const { editing, storeActions, config } = useConfigContext()
+  const { editing, config, updateConfig } = useConfigContext(
+    ({ config, store, updateConfig }) => ({
+      editing: store.state === AppState.EDITING,
+      config: config?.data,
+      updateConfig,
+    })
+  )
 
   const onSave = useCallback(
     (modalData: EditModalField[]) => {
+      if (!config) return
       const newLink = transformFieldsToEntity(modalData) as FeaturedEntity
       const { config: newConfig, invalid } = addFeaturedCard(config, {
         card: newLink,
       })
 
       if (invalid) return false
-      storeActions.saveConfig(newConfig)
+      updateConfig(newConfig)
     },
-    [config, storeActions]
+    [config, updateConfig]
   )
 
   const { draggingOverDocument, ...dropProps } = useDrop<

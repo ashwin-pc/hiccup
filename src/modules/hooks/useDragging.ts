@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react'
 
-export const useDragging = (ele: HTMLElement | Document | null) => {
+export type DropElementTypes = HTMLElement | HTMLButtonElement | Document | null
+
+export const useDragging = <T extends DropElementTypes>(ele: T) => {
   const [dragging, setDragging] = useState(0)
 
   useEffect(() => {
     const showDropZone: EventListener = (e) => {
       e.preventDefault()
+
       setDragging((count) => count + 1)
     }
     const hideDropZone: EventListener = (e) => {
       e.preventDefault()
+
       setDragging((count) => count - 1)
     }
 
@@ -22,5 +26,6 @@ export const useDragging = (ele: HTMLElement | Document | null) => {
       ele?.removeEventListener('drop', hideDropZone, false)
     }
   }, [ele])
-  return dragging
+
+  return dragging > 0
 }

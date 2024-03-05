@@ -1,14 +1,13 @@
 {
-    "version": "2.0",
-    "id": "dummy",
-    "title": "Dummy Config",
-    "url": "http://dummyconfig.com",
-    "featured": [
-        {
-            "name": "This is a dummy config",
-            "background": "/assets/card.png",
-            "link": "https://designedbyashw.in/test/hiccup"
-        }
-    ],
-    "categories": []
+  "version": "3.0.0",
+  "defaultTitle": "Dummy Config",
+  "url": "http://dummyconfig.com",
+  "featured": [
+    {
+      "name": "This is a dummy config",
+      "background": "/assets/card.png",
+      "link": "https://designedbyashw.in/test/hiccup"
+    }
+  ],
+  "categories": []
 }

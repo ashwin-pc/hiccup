@@ -1,9 +1,8 @@
 import { useMemo, FC } from 'react'
-import process from 'process'
 import { Card } from 'components/Card'
 import { Icon } from 'components/common/Icon'
 import { triggerEdit } from 'components/EditLinkModal'
-import { DEFAULT_FEATURED_LINK, getRandomBg } from 'modules/config'
+import { DEFAULT_FEATURED_LINK, getBgURL } from 'modules/config'
 import styles from './index.module.css'
 import { FeaturedEntity } from 'modules/config/types'
 import { EditModalField } from 'components/EditLinkModal/EditLinkModal'
@@ -26,11 +25,9 @@ interface Props extends EditContainerProps {
 }
 
 const FeaturedCard: FC<Props> = ({ link, editing, ...editingProps }) => {
-  const { name, link: linkUrl, background = getRandomBg('medium') } = link || {}
+  const { name, link: linkUrl, background } = link || {}
 
-  const backgroundUrl = isAbsoluteURL(background)
-    ? background
-    : (process.env.PUBLIC_URL || '.') + background
+  const backgroundUrl = getBgURL(background)
 
   const cardProps = {
     background: backgroundUrl,
@@ -122,11 +119,6 @@ const EditContainer: FC<EditContainerProps> = ({
       </div>
     </div>
   )
-}
-
-function isAbsoluteURL(url: string) {
-  const pat = /^https?:\/\//i
-  return pat.test(url)
 }
 
 export { FeaturedCard, FeaturedCard as default }

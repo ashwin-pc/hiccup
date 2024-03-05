@@ -1,0 +1,23 @@
+.container {
+  grid-area: details;
+  background-color: var(--theme-bg-1);
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.container > h3 {
+  margin: 0;
+  font-size: 1em;
+  font-weight: bold;
+  color: var(--theme-color-1);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: monospace;
+}

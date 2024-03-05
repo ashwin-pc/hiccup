@@ -7,14 +7,13 @@ import { SearchBar } from './components/SearchBar'
 import { ConfigEditor } from './components/ConfigEditor'
 import { Hotkeys } from './components/Hotkeys'
 import { ConnectedEditLinkModal } from 'components/EditLinkModal'
-// import { FileUpload } from 'components/FileUpload'
-
-export const ROOT_ID = 'root'
+import { StatusCard } from 'components/StatusCard'
 
 const App = () => (
   <ConfigProvider>
     <SearchProvider>
       <SearchBar />
+      <StatusCard />
       <FeaturedSection />
       <CategorySection />
       <ConnectedEditLinkModal />

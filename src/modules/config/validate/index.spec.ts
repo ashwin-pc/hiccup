@@ -1,6 +1,6 @@
 import { isValid, validate } from '.'
 import { ConfigEntity } from '../types'
-import mockConfig from '../__mocks__/mock_config_local.json'
+import mockConfig from '../__mocks__/mock_latest_config.json'
 
 let config: ConfigEntity
 
@@ -29,7 +29,6 @@ describe('validate', () => {
     )
   })
   test('should return false for empty config', () => {
-    // @ts-expect-error
     const [valid, reason] = validate(undefined)
     expect(valid).toBe(false)
     expect(reason).toMatchInlineSnapshot(`"No config"`)

@@ -1,115 +1,30 @@
-import useMethods from 'modules/useMethods'
-import { useEffect } from 'react'
-import toast from 'react-hot-toast'
-import { CONFIG_KEY, EMPTY_CONFIG } from './constants'
-import { load as loadConfig, loadStoreFromCache } from './load'
-import { runMigrations } from './runMigrations'
-import { ConfigEntity, LocalConfigStore } from './types'
-import validate from './validate'
+import { useMethods } from 'modules/hooks'
+import { AppState, AppStore } from './types'
 
-export const EMPTY_STATE: LocalConfigStore = {
-  active: EMPTY_CONFIG.id,
-  untouched: true,
-  dragging: false,
-  configs: {
-    [EMPTY_CONFIG.id]: EMPTY_CONFIG,
-  },
+const EMPTY_STATE: AppStore = {
+  state: AppState.UNINITIALIZED,
 }
 
 export const useStore = () => {
   const [store, dispatch] = useMethods(methods, EMPTY_STATE)
 
-  // Load the latest config on app start
-  useEffect(() => {
-    const hydrate = async () => {
-      try {
-        // Load config store from memory if it exists
-        const localConfigStore = loadStoreFromCache()
-        if (localConfigStore) {
-          dispatch.setStore(localConfigStore)
-        }
-
-        // Load default config
-        const configKey = 'config'
-        const searchParams = new URLSearchParams(window.location.search)
-        const configURLParam = searchParams.get(configKey)
-        const cachedActiveURL =
-          localConfigStore?.configs[localConfigStore.active].url
-        const loadedConfig = await loadConfig(
-          configURLParam || cachedActiveURL || undefined
-        )
-
-        // Update active if the config param exists in the url
-        // or if the loaded config is not present in the store
-        const updateActive = !!configURLParam || !localConfigStore?.configs[loadedConfig.id]
-
-        dispatch.saveConfig(loadedConfig, updateActive)
-
-        runMigrations(dispatch)
-      } catch (e) {
-        toast.error((e as Error).message)
-      } finally {
-        toast.success('All set!')
-      }
-    }
-
-    hydrate()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  useEffect(() => {
-    localStorage.setItem(CONFIG_KEY, JSON.stringify(store))
-  }, [store])
-
   return {
     store,
-    config: store.configs[store.active],
     dispatch,
   }
 }
 
-const methods = (state: LocalConfigStore) => ({
-  setStore: (store: LocalConfigStore) => store,
+const methods = (state: AppStore) => ({
+  setStore: (store: AppStore) => store,
 
-  setActiveId: (id: string) => {
-    state.active = id
+  setAppState: (appState: AppState) => {
+    state.state = appState
   },
 
-  setUntouched: (untouched: boolean) => {
-    state.untouched = untouched
-  },
-
-  setDragging: (dragging: boolean) => {
-    state.dragging = dragging
-  },
-
-  saveConfig: (config: ConfigEntity, updateActive = true) => {
-    const [valid, errorMessage, path] = validate(config)
-    if (!valid)
-      throw new Error(
-        `Failed to save config: \nError: ${errorMessage}\nPath: ${path}`
-      )
-
-    const { id } = config
-
-    state.active = updateActive ? id : state.active
-
-    state.configs[id] = config
-  },
-
-  deleteConfig: (id: string) => {
-    delete state.configs[id]
-
-    // If there are no more configs, load the empty one
-    if (Object.keys(state.configs).length <= 1) {
-      state.configs[EMPTY_CONFIG.id] = EMPTY_CONFIG
-      state.active = EMPTY_CONFIG.id
-    }
-
-    // If the  confiog you deleted was the active one, get the next config from the list
-    if (state.active === id) {
-      state.active = Object.keys(state.configs)[0]
-    }
+  toggleEditing: () => {
+    if (state.state === AppState.LOADING) return
+    state.state =
+      state.state === AppState.EDITING ? AppState.READY : AppState.EDITING
   },
 
   resetStore: () => EMPTY_STATE,
@@ -117,7 +32,7 @@ const methods = (state: LocalConfigStore) => ({
 
 interface StoreActionMethods
   extends Omit<ReturnType<typeof methods>, 'setStore' | 'resetStore'> {
-  setStore: (store: LocalConfigStore) => void
+  setStore: (store: AppStore) => void
   resetStore: () => void
 }
 

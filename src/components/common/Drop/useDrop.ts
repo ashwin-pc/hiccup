@@ -5,10 +5,10 @@ import {
   Entities,
 } from 'components/EditLinkModal/EditLinkModal'
 import { transformEntityToFields } from 'components/EditLinkModal/transforms'
-import { validateFile } from 'modules/config'
+import { ConfigEntity } from 'modules/config'
+import { DropElementTypes, useDragging } from 'modules/hooks'
 import { useCallback, useRef, DragEvent, MutableRefObject } from 'react'
 import toast from 'react-hot-toast'
-import { DropElementTypes, useDragging } from './useDragging'
 
 export interface DropProps<T extends DropElementTypes> {
   draggingOverDocument: boolean
@@ -23,7 +23,7 @@ export const useDrop = <T extends DropElementTypes, E extends Entities>(
   onSave: (fields: EditModalField[]) => void,
   type: 'link' | 'background' = 'link'
 ): DropProps<T> => {
-  const { dragging: draggingOverDocument, storeActions } = useConfigContext()
+  const { dragging: draggingOverDocument, addConfig } = useConfigContext()
   const dropTargetRef = useRef<T>(null)
   const isDragging = useDragging<T | null>(dropTargetRef.current)
   const handleDragOver = useCallback((evt: DragEvent) => {
@@ -66,22 +66,24 @@ export const useDrop = <T extends DropElementTypes, E extends Entities>(
 
       if (file) {
         const reader = new FileReader()
-        reader.onload = (e) => {
+        reader.onload = async (e) => {
           const uploadedConfig = e.target?.result
-          const [valid, error] = validateFile(uploadedConfig)
+          try {
+            const config = JSON.parse(uploadedConfig as string) as ConfigEntity
 
-          if (!valid) {
-            return toast.error(error)
+            await addConfig(config, true)
+            toast.success(
+              `Loaded Config "${config.defaultTitle || 'Uploaded Config'}"`
+            )
+          } catch (e) {
+            toast.error(`Invalid config: ${(e as Error).message}`)
+            return
           }
-
-          const config = JSON.parse(uploadedConfig as string)
-          storeActions.saveConfig(config)
-          toast.success(`Loaded Config "${config.title}"`)
         }
         reader.readAsText(file)
       }
     },
-    [entity, onSave, storeActions, type]
+    [addConfig, entity, onSave, type]
   )
 
   return {

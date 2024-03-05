@@ -1,100 +1,141 @@
-.list {
-  grid-area: list;
+.list-container {
   background-color: var(--theme-bg-1);
-  border-radius: 10px;
+  grid-area: list;
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  gap: 5px;
+  gap: 10px;
+  border-radius: 10px;
+  justify-content: space-between;
+  border: 2px solid var(--theme-bg-1);
+  overflow: hidden;
 }
 
-.listItem {
+.list {
+  /* padding: 10px; */
+  overflow-y: auto;
+}
+
+.list::-webkit-scrollbar {
   background-color: var(--theme-bg-2);
-  border-radius: 5px;
-  padding: 10px 20px;
-  display: flex;
+  width: 3px;
+}
+
+.list::-webkit-scrollbar-thumb {
+  background-color: var(--theme-highlight-1);
+  border-radius: 10px;
+  outline: none;
+}
+
+.list-item {
+  background-color: var(--theme-bg-3);
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
   align-items: center;
-  gap: 10px;
+  grid-template-areas:
+    'listRemote listTitle listAlert listCTA listAtionToggle'
+    'listActions listActions listActions listActions listActions';
+}
+.list-item:hover,
+.list-item:focus {
+  outline: none;
+}
+
+.list-item:hover .list-item-title,
+.list-item:focus .list-item-title {
+  color: var(--theme-highlight-1);
+}
+
+.list-item-remote {
+  grid-area: listRemote;
+  font-weight: bold;
+  font-size: smaller;
+}
+
+.list-item-title {
+  grid-area: listTitle;
+}
+
+.list-item-alert {
+  grid-area: listAlert;
+}
+
+.list-item-cta {
+  grid-area: listCTA;
+}
+
+.list-item-remote,
+.list-item-title,
+.list-item-alert,
+.list-item-cta {
+  padding: 10px;
+}
+
+.list-item-remote.active {
+  background-color: var(--theme-highlight-1);
+  color: var(--theme-bg-1);
+  border-radius: 3px;
+  margin: 2px;
+  padding: 8px;
+}
+
+.list-item-actions {
+  grid-area: listActions;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  background-color: var(--theme-bg-2);
+  border: 1px 0px 0px 1px solid var(--theme-bg-1);
+}
+
+.list-item-action-toggle {
+  box-sizing: border-box;
+  grid-area: listAtionToggle;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
 }
 
-.listItem > span {
-  flex-grow: 1;
+.action {
+  display: flex;
+  /* justify-content: flex-end; */
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: inherit;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  border-bottom: 1px solid var(--theme-bg-1);
 }
 
-.listItem > label {
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 0.7em;
-}
-
-:global(.previewing).listItem {
-  background-color: var(--theme-highlight-1);
-  color: var(--theme-bg-1);
-}
-
-.listItem:focus,
-.listAction:focus {
-  outline: 2px solid var(--theme-highlight-1);
-}
-
-:global(.previewing).listItem .listButton:hover,
-:global(.previewing).listItem .listButton:focus {
-  outline: 2px solid var(--theme-bg-1);
+.action:hover,
+.action:focus {
+  outline: none;
+  color: var(--theme-highlight-1);
   border-radius: 3px;
 }
 
-.listActiveIndicator {
-  margin: 5px;
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background-color: var(--theme-success-1);
-  border: 3px solid var(--theme-bg-1);
+.details {
+  grid-area: details;
+}
+.preview {
+  grid-area: preview;
+}
+.actions {
+  grid-area: actions;
 }
 
-.listActionContainer {
-  display: flex;
-  flex-direction: column;
-  font-size: 1rem;
-  gap: 1px;
-  margin: -2px;
-  padding: 2px;
-  border-radius: 5px;
-  overflow: hidden;
-  animation: accordion-open 0.5s ease-in-out;
-}
-
-.listAction {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  justify-content: center;
-  align-items: center;
-  text-align: left;
-  gap: 20px;
-  font-size: 1rem;
-  background: var(--theme-bg-3);
+.upload {
+  background-color: var(--theme-highlight-1);
+  color: var(--theme-bg-1);
+  padding: 10px;
   border: none;
-  color: var(--theme-color-1);
-  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
-.listAction:first-child {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-
-.listAction:last-child {
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-/* Animate the accordion panel */
-@keyframes accordion-open {
-  from {
-    max-height: 0;
-  }
-  to {
-    max-height: 500px;
-  } /* Adjust this value to the desired max-height */
-}
+/* TOOD: Mobile styles */

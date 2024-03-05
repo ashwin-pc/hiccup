@@ -83,3 +83,29 @@ export function getRandomBg(size = 'normal') {
   let url = `/assets/${combination}${size === 'medium' ? '_medium' : ''}.jpeg`
   return url
 }
+
+export function generateId() {
+  return Array.from(crypto.getRandomValues(new Uint8Array(16)))
+    .map((x) => x.toString(16))
+    .join('')
+}
+
+export function getInitialsFromCamelCase(name: string) {
+  return name
+    .split(/(?=[A-Z])/)
+    .map((x) => x[0])
+    .join('')
+    .toUpperCase()
+}
+
+export function isAbsoluteURL(url: string) {
+  const pat = /^https?:\/\//i
+  return pat.test(url)
+}
+
+export function getBgURL(background: string = getRandomBg('medium')) {
+  const backgroundUrl = isAbsoluteURL(background)
+    ? background
+    : (process.env.PUBLIC_URL || '.') + background
+  return backgroundUrl
+}
