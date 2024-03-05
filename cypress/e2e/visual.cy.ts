@@ -8,7 +8,8 @@ describe('Screenshots', () => {
   }[] = [
     {
       type: 'desktop',
-      viewport: 'macbook-13',
+      viewport: 'macbook-16',
+      orientation: 'landscape',
     },
     {
       type: 'mobile',
@@ -18,18 +19,15 @@ describe('Screenshots', () => {
 
   beforeEach(() => {
     // TODO: get app url dynamically
-    cy.visit('http://localhost:3000')
     cy.intercept('GET', '**/configs/config.json', { fixture: 'default' })
     cy.intercept('GET', '**/assets/*').as('image')
+    cy.visit('http://localhost:3000')
   })
 
   screens.forEach(({ type, viewport, orientation }) => {
     it(`should capture all major ${type} screens`, () => {
+      cy.waitForPageLoad()
       cy.viewport(viewport, orientation ?? 'portrait')
-      // Wait for app to load
-      cy.wait('@image')
-      cy.get('.toast').should('be.visible')
-      cy.get('.toast').should('be.hidden')
 
       // Landing page
       cy.screenshotPreviewImage(`main-${type}`)

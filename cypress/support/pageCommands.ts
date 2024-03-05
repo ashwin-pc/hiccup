@@ -12,6 +12,10 @@ const CONFIG_ACTIONS = {
 
 // export type ConfigAction = keyof typeof CONFIG_ACTIONS
 
+Cypress.Commands.add('waitForPageLoad', () => {
+  cy.get('#root.loading').should('not.exist')
+})
+
 Cypress.Commands.add('clickSettings', () => {
   cy.findByTestId('global-settings').click()
 })

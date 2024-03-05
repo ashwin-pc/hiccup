@@ -1,9 +1,9 @@
-import { JSONSchemaType } from "ajv"
+import { Config } from './config'
 
 export interface SearchProvider {
-  type: string,
-  name?: string,
-  url?: string,
+  type: string
+  name?: string
+  url?: string
 }
 
 export interface LinksEntity {
@@ -26,88 +26,55 @@ export interface NewEntity extends LinksEntity {
 }
 
 export interface Metadata {
-  readonly?: boolean
-  editing?: boolean
   search?: SearchProvider[]
 }
 
+// The datatype of the raw config data, not to be confused with the Config class
+// which is a reference to a specific ConfigEntity which may not contain the config data
 export interface ConfigEntity {
   version: string
-  id: string
-  title: string
+  defaultTitle: string
   url?: string
   featured: FeaturedEntity[]
   categories: CategoriesEntity[]
   metadata?: Metadata
 }
 
-export interface LocalConfigStore {
-  active: string
-  untouched: boolean
-  dragging?: boolean
-  configs: {
-    [id: string]: ConfigEntity
-  }
+export interface RemoteParams {
+  type: string
+  error?: string
+  [key: string]: any
 }
 
-export const schema: JSONSchemaType<ConfigEntity> = {
-  type: "object",
-  properties: {
-    version: { type: 'string' },
-    id: { type: 'string' },
-    title: { type: 'string' },
-    url: { type: 'string', nullable: true },
-    featured: {
-      type: 'array', items: {
-        type: 'object',
-        properties: {
-          name: { type: 'string' },
-          link: { type: 'string' },
-          tags: { type: 'string', nullable: true },
-          background: { type: 'string', nullable: true },
-        },
-        required: ['link', 'name']
-      }
-    },
-    categories: {
-      type: 'array', items: {
-        type: 'object',
-        properties: {
-          title: { type: 'string' },
-          links: {
-            type: 'array', items: {
-              type: 'object',
-              properties: {
-                name: { type: 'string' },
-                link: { type: 'string' },
-                tags: { type: 'string', nullable: true },
-              },
-              required: ['link', 'name']
-            }
-          },
-        },
-        required: ['links', 'title']
-      }
-    },
-    metadata: {
-      type: 'object', properties: {
-        readonly: { type: "boolean", nullable: true },
-        editing: { type: "boolean", nullable: true },
-        search: {
-          type: 'array', items: {
-            type: 'object',
-            properties: {
-              type: { type: 'string' },
-              name: { type: 'string', nullable: true },
-              url: { type: 'string', nullable: true },
-            },
-            required: ['type']
-          }, nullable: true
-        }
-      },
-      nullable: true
-    }
-  },
-  required: ['id', 'title', 'version', 'featured', 'categories'],
-  additionalProperties: false
+export interface ConfigMap {
+  [id: string]: Config
+}
+
+export enum AppState {
+  UNINITIALIZED = 'uninitialized',
+  LOADING = 'loading',
+  READY = 'ready',
+  EDITING = 'editing',
+}
+export interface AppStore {
+  state: AppState
+}
+
+export interface Manifest {
+  version: string
+  configs: ManifestItem[]
+}
+
+export interface ManifestItem {
+  id: string
+  title: string
+  remote: RemoteParams
+  readonly?: boolean
+}
+
+// Serializable config params that can be used to create a Config object
+export interface ConfigParams extends ManifestItem {
+  data?: ConfigEntity
+  edited?: boolean
+  error?: string
 }

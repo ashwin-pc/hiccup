@@ -12,10 +12,12 @@ interface Props
   extends Omit<DropProps<HTMLButtonElement>, 'draggingOverDocument'> {
   onSave: (modalData: EditModalField[]) => void
   hidden: boolean
+  title: string // Category title
 }
 
 const AddCategoryCard: FC<Props> = ({
   hidden,
+  title,
   onSave,
   dragging,
   dropRef,
@@ -33,7 +35,7 @@ const AddCategoryCard: FC<Props> = ({
         triggerEdit({
           fields: transformEntityToFields(DEFAULT_LINK),
           onSave,
-          title: `Add link`,
+          title: `Add link to ${title}`,
         })
       }
       ref={dropRef}

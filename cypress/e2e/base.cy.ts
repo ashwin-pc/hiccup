@@ -1,8 +1,13 @@
 describe('Basic tests', () => {
   beforeEach(() => {
+    cy.intercept('GET', '**/configs/config.json', { fixture: 'default' }).as(
+      'config'
+    )
+    cy.intercept('GET', '**/configs/manifest.json', {
+      fixture: 'default-manifest',
+    })
     // TODO: gett app url dynamically
     cy.visit('http://localhost:3000')
-    cy.intercept('GET', '**/configs/config.json', { fixture: 'default' })
   })
 
   it('displays the Default config state by default', () => {
@@ -12,32 +17,34 @@ describe('Basic tests', () => {
     cy.findAllByTestId('featured-card').first().contains('Featured Link')
 
     cy.clickSettings()
-    cy.findByTestId(`cached-config-default`)
+    cy.findByTestId(`config-default`)
       .should('contain.text', 'Default Config')
       .findByTestId('active-indicator')
       .should('exist')
   })
 
   it('should be able to able to load a remote config', () => {
-    cy.visit('http://localhost:3000?config=http://dummyconfig.com')
     cy.intercept('GET', 'http://dummyconfig.com', { fixture: 'dummy' })
+    cy.visit('http://localhost:3000?config=http://dummyconfig.com')
     cy.findAllByTestId('featured-card')
       .first()
       .contains('This is a dummy config')
 
     cy.clickSettings()
-    cy.findByTestId(`cached-config-dummy`)
+    cy.findByTestId(`config-url`)
       .should('contain.text', 'Dummy Config')
       .findByTestId('active-indicator')
       .should('exist')
   })
 
   it('should be able to use Hotkeys', () => {
+    cy.waitForPageLoad()
     cy.blurSearch().type('{cmd+/}')
     cy.findAllByTestId('hotkey-modal-title').should('exist')
   })
 
-  it('should be able to edit a category', () => {
+  it('should not be able to edit a read-only config', () => {
+    cy.waitForPageLoad()
     cy.blurSearch().type('{cmd+e}')
     cy.findAllByTestId('category').first().find('h1 button').eq(0).click()
 
@@ -48,13 +55,6 @@ describe('Basic tests', () => {
       .first()
       .click()
 
-    cy.get('body').type('{cmd+e}')
-    cy.findAllByTestId('category')
-      .first()
-      .should('contain', 'Category 1 Edited')
-
-    cy.clickSettings()
-
-    cy.getManagedConfig().should('contain', ' - Editing')
+    cy.get('.toast').should('contain.text', 'Config is readonly')
   })
 })

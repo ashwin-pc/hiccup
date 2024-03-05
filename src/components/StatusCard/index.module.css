@@ -1,0 +1,57 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+  border-radius: 5px;
+  color: var(--theme-color-1);
+  margin-top: 10px;
+  border: 1px solid var(--theme-bg-1);
+}
+
+.container.error {
+  border-color: var(--theme-warning-1);
+  color: var(--theme-warning-1);
+  background-color: rgba(var(--theme-warning-1-rgb), 0.2);
+}
+
+.container.warning {
+  border-color: var(--theme-highlight-1);
+  color: var(--theme-highlight-1);
+  background-color: rgba(var(--theme-highlight-1-rgb), 0.2);
+}
+
+.container.info pre {
+  border-color: var(--theme-highlight-1);
+  color: var(--theme-highlight-1);
+  background-color: rgba(var(--theme-highlight-1-rgb), 0.2);
+}
+
+.container p {
+  margin: 0;
+  padding: 0;
+}
+
+.container pre {
+  font-family: monospace;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  text-overflow: ellipsis;
+  background-color: var(--theme-bg-1);
+  padding: 10px 20px;
+  color: var(--theme-color-1);
+  max-height: 200px;
+}
+
+/* Add scrollbar styles */
+.container pre::-webkit-scrollbar {
+  background-color: var(--theme-bg-2);
+  width: 3px;
+}
+
+.container pre::-webkit-scrollbar-thumb {
+  background-color: var(--theme-highlight-1);
+  border-radius: 10px;
+  outline: none;
+}
