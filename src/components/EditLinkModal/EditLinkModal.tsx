@@ -6,7 +6,6 @@ import {
   LinksEntity,
   CategoriesEntity,
   NewEntity,
-  ConfigEntity,
 } from 'modules/config/types'
 import Select, { SelectOption } from 'components/common/Select/Select'
 
@@ -15,7 +14,6 @@ export type Entities =
   | LinksEntity
   | Omit<CategoriesEntity, 'links'>
   | NewEntity
-  | Pick<ConfigEntity, 'id' | 'title' | 'url'>
 
 export type EditModalField = {
   type: 'input' | 'select'

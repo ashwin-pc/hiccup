@@ -3,7 +3,7 @@ import { ConfigEntity } from 'modules/config/types'
 import { useEffect, useMemo } from 'react'
 import { MIN_SEARCH_LENGTH } from './constants'
 
-const useSearch = (searchTerm: string, config: ConfigEntity) => {
+const useSearch = (searchTerm: string, config?: ConfigEntity) => {
   const { results, setResults } = useSearchContext()
   const searchList = useMemo(() => {
     const list = []
@@ -25,7 +25,7 @@ const useSearch = (searchTerm: string, config: ConfigEntity) => {
     }
 
     // Find the links in categories
-    if (config.categories) {
+    if (config?.categories) {
       config.categories.forEach((category, categoryIndex) => {
         category.links.forEach((link, linkIndex) => {
           const { name, link: url, tags } = link

@@ -1,27 +1,36 @@
 import { useState, useRef, useMemo, useCallback, useEffect } from 'react'
 import { useConfigContext } from 'components/ConfigContext'
 import { Icon } from 'components/common/Icon'
-import { useWindowSize } from 'modules/useWindowSize'
+import { useWindowSize } from 'modules/hooks'
 import styles from './index.module.css'
 import { HydratedProvider } from './constants'
 import useSearch from './useSearch'
 import { getHydratedProviders } from './utils'
 import { EditModal } from './EditModal'
+import { AppState } from 'modules/config'
 
 const SearchBar = () => {
-  const { config, editing } = useConfigContext()
+  const { config, storeState } = useConfigContext((state) => ({
+    config: state.config,
+    storeState: state.store.state,
+  }))
+  const editing = storeState === AppState.EDITING
+  const loading = storeState === AppState.LOADING
   const [searchTerm, setSearchTerm] = useState('')
   const [showEditModal, setShowEditModal] = useState(false)
   const [currentHighlight, setCurrentHighlight] = useState(0)
-  const { results } = useSearch(searchTerm, config)
+  const { results } = useSearch(searchTerm, config?.data)
   const [placeholder, setPlaceholder] = useState('')
   const { innerWidth } = useWindowSize()
   const resultsRef = useRef<HTMLElement[]>([])
   const searching = searchTerm.length > 0
 
   const providers: HydratedProvider[] = useMemo(
-    () => getHydratedProviders(config.metadata?.search ?? [{ type: 'google' }]),
-    [config.metadata?.search]
+    () =>
+      getHydratedProviders(
+        config?.data?.metadata?.search ?? [{ type: 'google' }]
+      ),
+    [config?.data?.metadata?.search]
   )
 
   useEffect(() => {
@@ -68,9 +77,10 @@ const SearchBar = () => {
   )
 
   useEffect(() => {
-    let searchText = innerWidth < 600
-      ? 'Search'
-      : 'Search   ...... or use Shift + Tab for URL bar'
+    let searchText =
+      innerWidth < 600
+        ? 'Search'
+        : 'Search   ...... or use Shift + Tab for URL bar'
 
     if (editing) {
       searchText = 'Edit Search Provider'
@@ -78,9 +88,20 @@ const SearchBar = () => {
     setPlaceholder(searchText)
   }, [editing, innerWidth])
 
-  const searchIcon = editing
-    ? <Icon icon="edit" size={10} as="button" onClick={() => setShowEditModal(true)} />
-    : <Icon icon="search" size={10} className={styles['search-icon']} />
+  const searchIcon = editing ? (
+    <Icon
+      icon="edit"
+      size={10}
+      as="button"
+      onClick={() => setShowEditModal(true)}
+    />
+  ) : (
+    <Icon icon="search" size={10} className={styles['search-icon']} />
+  )
+
+  if (loading || config?.error) {
+    return null
+  }
 
   return (
     <div
@@ -103,23 +124,27 @@ const SearchBar = () => {
       />
       {searchIcon}
       <div className={styles.results}>
-        {searching && providers.map(({ name, url }, index) => (
-          <a
-            href={`${url}${searchTerm}`}
-            className={styles.result}
-            ref={(el) => el && (resultsRef.current[index + 1] = el)}
-          >
-            <Icon icon="earth" size={10} className={styles['web-icon']} />
-            <span className={styles.provider}>{name}</span> {searchTerm}
-          </a>
-        ))}
+        {searching &&
+          providers.map(({ name, url }, index) => (
+            <a
+              key={name}
+              href={`${url}${searchTerm}`}
+              className={styles.result}
+              ref={(el) => el && (resultsRef.current[index + 1] = el)}
+            >
+              <Icon icon="earth" size={10} className={styles['web-icon']} />
+              <span className={styles.provider}>{name}</span> {searchTerm}
+            </a>
+          ))}
         {results.map(({ name, url, featured }, index) => (
           <a
             key={index}
             href={url}
             target="__blank"
             className={styles.result}
-            ref={(el) => el && (resultsRef.current[index + providers.length + 1] = el)}
+            ref={(el) =>
+              el && (resultsRef.current[index + providers.length + 1] = el)
+            }
           >
             {featured && (
               <Icon icon="star" size={10} className={styles['featured-icon']} />
@@ -137,4 +162,4 @@ const SearchBar = () => {
   )
 }
 
-export { SearchBar, SearchBar as default }
+export { SearchBar }

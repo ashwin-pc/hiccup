@@ -1,7 +1,7 @@
 /**
  * Source: https://github.com/pelotom/use-methods
  *
- * Did not use the npm package since the version was old and had a hogh risk vulnerability
+ * Did not use the npm package since the version was old and had a high risk vulnerability
  */
 
 import produce, { PatchListener } from 'immer'

@@ -1,7 +1,6 @@
 {
-  "version": "2.0",
-  "id": "default",
-  "title": "Demo Config",
+  "version": "3.0.0",
+  "defaultTitle": "Demo Config",
   "url": "./configs/config.json",
   "featured": [
     {

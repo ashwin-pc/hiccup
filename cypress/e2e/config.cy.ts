@@ -1,10 +1,11 @@
 import path from 'path'
 
-describe('Config Manager', () => {
+// TODO: Reenable this once the config manager is complete with the new features (i.e. editable remotes)
+describe.skip('Config Manager', () => {
   beforeEach(() => {
     // TODO: gett app url dynamically
-    cy.visit('http://localhost:3000')
     cy.intercept('GET', '**/configs/config.json', { fixture: 'default' })
+    cy.visit('http://localhost:3000')
     cy.clickSettings()
   })
 

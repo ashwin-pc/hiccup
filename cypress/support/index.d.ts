@@ -6,6 +6,7 @@ declare namespace Cypress {
      * Custom command to ... add your description here
      * @example cy.clickOnMyJourneyInCandidateCabinet()
      */
+    waitForPageLoad(): Chainable<null>
     clickSettings(): Chainable<null>
     closeModal(): Chainable<null>
     typeInSearchBar(test: string): Chainable<null>
