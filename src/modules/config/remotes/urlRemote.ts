@@ -20,7 +20,13 @@ export const URLRemote: Remote<URLClient> = {
       // Add a 10 second delay to simulate a slow network
       // await new Promise((resolve) => setTimeout(resolve, 1000))
       const remoteParams = remote as URLRemoteParams
-      const response = await fetch(remoteParams.url)
+      const response = await fetch(remoteParams.url, {
+        cache: 'no-store',
+        headers: {
+          'Content-Type': 'application/json',
+          'Cache-Control': 'no-cache',
+        },
+      })
       const data = await response.json()
 
       if (!data) {
