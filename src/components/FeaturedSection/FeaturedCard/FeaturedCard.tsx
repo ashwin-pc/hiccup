@@ -31,6 +31,7 @@ const FeaturedCard: FC<Props> = ({ link, editing, ...editingProps }) => {
 
   const cardProps = {
     background: backgroundUrl,
+    target: link?.target,
     link,
   }
 

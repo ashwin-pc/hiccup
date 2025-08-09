@@ -136,11 +136,11 @@ const SearchBar = () => {
               <span className={styles.provider}>{name}</span> {searchTerm}
             </a>
           ))}
-        {results.map(({ name, url, featured }, index) => (
+        {results.map(({ name, url, featured, link }, index) => (
           <a
             key={index}
             href={url}
-            target="__blank"
+            target={link?.target || '_blank'}
             className={styles.result}
             ref={(el) =>
               el && (resultsRef.current[index + providers.length + 1] = el)

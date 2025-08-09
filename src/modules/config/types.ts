@@ -10,6 +10,11 @@ export interface LinksEntity {
   name: string
   link: string
   tags?: string
+  /**
+   * Where should the link open?
+   * Defaults to `_blank` to preserve existing behaviour.
+   */
+  target?: string
 }
 
 export interface FeaturedEntity extends LinksEntity {

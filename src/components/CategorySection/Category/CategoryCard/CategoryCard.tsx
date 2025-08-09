@@ -28,6 +28,7 @@ const CategoryCard = ({ link, editing, ...editProps }: CategoryCardProps) => {
     <Card
       href={!editing && linkUrl}
       className={styles.container}
+      target={link.target}
       link={link}
       data-testid="category-card"
     >

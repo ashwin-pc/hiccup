@@ -7,6 +7,11 @@ export interface Props extends HTMLAttributes<HTMLElement> {
   background?: string
   highlight: boolean
   className?: string
+  /**
+   * Sets where the link should open.
+   * Defaults to `_blank`.
+   */
+  target?: string
 }
 
 const Card: FC<Props> = ({
@@ -15,6 +20,7 @@ const Card: FC<Props> = ({
   children,
   highlight,
   className = '',
+  target,
   ...props
 }) => {
   const cardContent = (
@@ -37,7 +43,7 @@ const Card: FC<Props> = ({
     <a
       href={href}
       className={styles.link}
-      target="_blank"
+      target={target || '_blank'}
       rel="noopener noreferrer"
     >
       {cardContent}
